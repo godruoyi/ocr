@@ -1,0 +1,24 @@
+{
+    "name": "godruoyi/ocr",
+    "description": "The Laravel Framework.",
+    "keywords": ["ocr", "image"],
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "godruoyi",
+            "email": "godruoyi@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Godruoyi\\OCR\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
