@@ -2,10 +2,19 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Godruoyi\OCR\Client;
+use Godruoyi\OCR\Application;
+use Godruoyi\OCR\Support\Log;
 
-$client = new Client([
+$client = new Application([
+    'log' => [
+        'level' => 'debug',
+        'file' => __DIR__ . DIRECTORY_SEPARATOR .'test.log'
+    ],
 
+    'ocrs' => [
+        'baidu' => ''
+    ]
 ]);
 
-$response = $client->baidu->basice();
+$x = Log::info('hello world!');
+var_dump($x);
