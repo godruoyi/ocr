@@ -63,8 +63,8 @@ class Application extends Container
     {
         self::$instance = $this;
 
-        $this['app']      = $this;
-        $this[Container   ::class] = $this;
-        $this[Application ::class] = $this;
+        $this['app']              = $this;
+        $this[Container::class]   = $this;
+        $this[Application::class] = $this;
     }
 }

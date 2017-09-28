@@ -13,8 +13,10 @@
     "require": {
         "doctrine/cache": "^1.6",
         "monolog/monolog": "^1.23",
+        
         "illuminate/container": "^5.5",
         "illuminate/support": "^5.5",
+        
         "symfony/var-dumper": "^3.3"
     },
     "autoload": {
