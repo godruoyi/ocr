@@ -14,7 +14,7 @@
 
 # Requirement
 
- - PHP > 5.6
+ - PHP > 7.0
  - [composer](https://getcomposer.org/)
 
 # Installation
