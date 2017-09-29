@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) godruoyi <godruoyi@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Godruoyi\OCR\Providers;
 
 use Monolog\Logger;
+use Pimple\Container;
 use Godruoyi\OCR\Support\Log;
 use Monolog\Handler\StreamHandler;
-use Illuminate\Contracts\Container\Container;
-use Godruoyi\OCR\Contracts\ServiceProviderInterface;
+use Pimple\ServiceProviderInterface;
 
 class LogProvider implements ServiceProviderInterface
 {

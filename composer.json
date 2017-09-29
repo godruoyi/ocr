@@ -13,11 +13,9 @@
     "require": {
         "doctrine/cache": "^1.6",
         "monolog/monolog": "^1.23",
-        
-        "illuminate/container": "^5.5",
-        "illuminate/support": "^5.5",
-        
-        "symfony/var-dumper": "^3.3"
+        "symfony/var-dumper": "^3.3",
+        "pimple/pimple": "~3.0",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
         "psr-4": {
