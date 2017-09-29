@@ -78,10 +78,10 @@ $app->platform->$method($file, $options = [])
 ```php
 
 $app->baidu->generalBasic($file, [
-    'language_type'    => 'CHN_ENG',   //支持的语言，默认为CHN_ENG（中英文混合）
-    'detect_direction' => false,       //是否检测图像朝向
-    'detect_language'  => false,       //是否检测语言，默认不检测
-    'probability'      => false,       //是否返回识别结果中每一行的置信度
+    'language_type'         => 'CHN_ENG',  //支持的语言，默认为CHN_ENG（中英文混合）
+    'detect_direction'      => false,      //是否检测图像朝向
+    'detect_language'       => false,      //是否检测语言，默认不检测
+    'probability'           => false,      //是否返回识别结果中每一行的置信度
 ]);
 
 ```
@@ -91,8 +91,8 @@ $app->baidu->generalBasic($file, [
 ```php
 
 $app->baidu->accurateBasic($file, [
-    'detect_direction' => false,  //是否检测图像朝向
-    'probability'      => false,  //是否返回识别结果中每一行的置信度
+    'detect_direction'      => false,      //是否检测图像朝向
+    'probability'           => false,      //是否返回识别结果中每一行的置信度
 ]);
 
 ```
