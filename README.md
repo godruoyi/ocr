@@ -1,12 +1,8 @@
-# The Best Image OCR SDK For BAT
+# The Best Image OCR SDK For BAT 
 
-<p align="center"><a href="https://godruoyi.com" target="_blank"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></a></p>
-
-<p align="center">
-<a href="https://packagist.org/packages/godruoyi/ocr"><img src="https://poser.pugx.org/godruoyi/ocr/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/godruoyi/ocr"><img src="https://poser.pugx.org/godruoyi/ocr/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/godruoyi/ocr"><img src="https://poser.pugx.org/godruoyi/ocr/license.svg" alt="License"></a>
-</p>
+[![Latest Stable Version](https://poser.pugx.org/godruoyi/ocr/v/stable)](https://packagist.org/packages/godruoyi/ocr)
+[![Total Downloads](https://poser.pugx.org/godruoyi/ocr/downloads)](https://packagist.org/packages/godruoyi/ocr)
+[![License](https://poser.pugx.org/godruoyi/ocr/license)](https://packagist.org/packages/godruoyi/ocr)
 
 # Feature
 
