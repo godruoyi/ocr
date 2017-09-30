@@ -1,4 +1,4 @@
-# The Best Image OCR SDK For BAT 
+# The Best Image OCR SDK For BAT.
 
 [![Latest Stable Version](https://poser.pugx.org/godruoyi/ocr/v/stable)](https://packagist.org/packages/godruoyi/ocr)
 [![Total Downloads](https://poser.pugx.org/godruoyi/ocr/downloads)](https://packagist.org/packages/godruoyi/ocr)
@@ -8,14 +8,14 @@
 
  - 自定义缓存支持；
  - 详细的 Debug 日志，一切交互一目了然；
- - 符合 PSR 标准，可以很方便的与你的框架结合，（[laravel-ocr](https://github.com/godruoyi/laravel-ocr)）；
+ - 符合 PSR 标准，可以很方便的与你的框架结合；
  - 命名不那么乱七八糟；
  - 支持目前市面多家服务商
 
 # Support
 
  - [百度 OCR](http://ai.baidu.com/tech/ocr)
- - [腾讯 OCR](https://cloud.tencent.com/product/ocr)
+ - [腾讯 万象优图](https://cloud.tencent.com/product/ocr)
  - [阿里 OCR](https://data.aliyun.com/product/ocr)
 
 # Requirement
@@ -64,20 +64,21 @@ $result = $app->baidu->idcard($filePath);
 
 ```php
 
-$app->platform->$method($file, $options = [])
+$app->platform->$method($files, $options = [])
 
 ```
 
-`$file` 的值可以为
+`$files` 的值可以为
 
  1. 文件路径（完整）
  2. `SplFileInfo` 对象
  3. `Resource`
  4. 在线图片地址（部分服务商不支持）
+ 5. Array （部分服务商不支持批量操作）
 
 ### [百度OCR](http://ai.baidu.com/tech/ocr)
 
-> 所有 `options` 的值都是可选的
+> 注：`options` 的值都是可选的
 
  1、通用文字识别
 

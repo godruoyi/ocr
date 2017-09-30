@@ -11,11 +11,11 @@
 
 namespace Godruoyi\OCR\Support;
 
+use Exception;
 use GuzzleHttp\HandlerStack;
 use Godruoyi\OCR\Support\Log;
 use GuzzleHttp\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
-use Godruoyi\OCR\Exceptions\HttpException;
 
 class Http
 {
@@ -27,6 +27,13 @@ class Http
     protected $client;
 
     /**
+     * GuzzleHttp\Client Heades
+     *
+     * @var array
+     */
+    protected $headers;
+
+    /**
      * Guzzle client default settings.
      *
      * @var array
@@ -36,6 +43,19 @@ class Http
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         ],
     ];
+
+    /**
+     * Set Http Client Headers
+     *
+     * @param array $headers
+     */
+    public function setHeaders(array $headers = [])
+    {
+        $originHeaders = empty($this->headers) ? [] : $this->headers;
+        $this->headers = array_merge($originHeaders, $headers);
+
+        return $this;
+    }
 
     /**
      * Send A Http Get Request
@@ -66,17 +86,32 @@ class Http
     }
 
     /**
-     * Set Request Header
+     * Update
      *
-     * @param array $headers
+     * @param  string $url
+     * @param  array  $params
      *
-     * @return  this
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function setHeaders(array $headers = [])
+    public function upload($url, array $files = [], array $params = [], array $queries = [])
     {
-        self::$defaults = array_merge(self::$defaults, ['headers' => $headers]);
+        $multipart = [];
 
-        return $this;
+        foreach ($files as $name => $path) {
+            $path = is_array($path) ? $path : [$path];
+            foreach ($path as $p) {
+                $multipart[] = [
+                    'name' => $name,
+                    'contents' => FileConverter::getContent($p)
+                ];
+            }
+        }
+
+        foreach ($params as $name => $contents) {
+            $multipart[] = compact('name', 'contents');
+        }
+
+        return $this->request('POST', $url, ['multipart' => $multipart, 'query' => $queries]);
     }
 
     /**
@@ -92,9 +127,7 @@ class Http
     {
         $method = strtoupper($method);
 
-        $options = array_merge(self::$defaults, $options);
-
-        Log::debug('Http Request Origin:', compact('url', 'method', 'options'));
+        $options = array_merge(self::$defaults, ['headers' => $this->headers], $options);
 
         $response = $this->getClient()->request($method, $url, $options);
 
@@ -106,6 +139,28 @@ class Http
         ]);
 
         return $response;
+    }
+
+    /**
+     * JSON request.
+     *
+     * @param string       $url
+     * @param string|array $options
+     * @param array $queries
+     * @param int          $encodeOption
+     *
+     * @return ResponseInterface
+     *
+     * @throws HttpException
+     */
+    public function json($url, $options = [], $encodeOption = JSON_UNESCAPED_UNICODE, $queries = [])
+    {
+        is_array($options) && $options = json_encode($options, $encodeOption);
+
+        return $this->setHeaders(['content-type' => 'application/json'])->request('POST', $url, [
+            'query' => $queries,
+            'body'  => $options
+        ]);
     }
 
     /**
@@ -127,7 +182,7 @@ class Http
      *
      * @return array
      *
-     * @throws \Godruoyi\OCR\Exceptions\HttpException
+     * @throws \Exception
      */
     public function parseJson($body)
     {
@@ -144,7 +199,9 @@ class Http
         Log::debug('API response decoded:', compact('contents'));
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new HttpException('Failed to parse JSON: '.json_last_error_msg());
+            Log::error($msg = 'Failed to parse JSON: '.json_last_error_msg());
+
+            throw new Exception($msg);
         }
 
         return $contents;

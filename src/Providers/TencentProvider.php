@@ -13,6 +13,8 @@ namespace Godruoyi\OCR\Providers;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Godruoyi\OCR\Tencent\OCRManager;
+use Godruoyi\OCR\Tencent\Authorization;
 
 class TencentProvider implements ServiceProviderInterface
 {
@@ -21,5 +23,17 @@ class TencentProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
+        $pimple['tencent.auth'] = function ($app) {
+            return new Authorization(
+                $app['config']->get('ocrs.tencent.app_id'),
+                $app['config']->get('ocrs.tencent.secret_id'),
+                $app['config']->get('ocrs.tencent.secret_key'),
+                $app['config']->get('ocrs.tencent.bucket')
+            );
+        };
+
+        $pimple['tencent'] = function ($app) {
+            return new OCRManager($app['tencent.auth']);
+        };
     }
 }

@@ -13,8 +13,8 @@ namespace Godruoyi\OCR\Providers;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Godruoyi\OCR\Services\Baidu\AccessToken;
-use Godruoyi\OCR\Services\Baidu\BaiduOcrManager;
+use Godruoyi\OCR\Baidu\AccessToken;
+use Godruoyi\OCR\Baidu\OCRManager;
 
 class BaiduProvider implements ServiceProviderInterface
 {
@@ -32,7 +32,7 @@ class BaiduProvider implements ServiceProviderInterface
         };
 
         $pimple['baidu'] = function ($app) {
-            return new BaiduOcrManager($app['baidu.auth']);
+            return new OCRManager($app['baidu.auth']);
         };
     }
 }

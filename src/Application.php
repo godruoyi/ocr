@@ -52,7 +52,12 @@ class Application extends Container
      */
     protected $providers = [
         Providers\LogProvider::class,
-        Providers\CacheProvider::class
+        Providers\CacheProvider::class,
+
+        //default support ocr provider
+        Providers\BaiduProvider::class,
+        Providers\TencentProvider::class,
+        Providers\AliyunProvider::class,
     ];
 
     /**
@@ -65,7 +70,6 @@ class Application extends Container
         $this['config'] = new Config($configs);
 
         $this->registerProviders();
-        $this->registerBase();
     }
 
     /**
@@ -78,15 +82,6 @@ class Application extends Container
         foreach (array_merge($this->providers, $this['config']->get('providers', [])) as $provider) {
             $this->register(new $provider);
         }
-    }
-
-    /**
-     * Register Base Binds
-     *
-     * @return void
-     */
-    protected function registerBase()
-    {
     }
 
     public function __get($property)
