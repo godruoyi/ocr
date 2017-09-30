@@ -1,3 +1,14 @@
+# The Best Image OCR SDK For BAT
+
+<p align="center"><a href="https://godruoyi.com" target="_blank"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></a></p>
+
+<p align="center">
+<a href="https://travis-ci.org/godruoyi/ocr"><img src="https://travis-ci.org/godruoyi/ocr.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/godruoyi/ocr"><img src="https://poser.pugx.org/godruoyi/ocr/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/godruoyi/ocr"><img src="https://poser.pugx.org/godruoyi/ocr/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/godruoyi/ocr"><img src="https://poser.pugx.org/laravel/ocr/license.svg" alt="License"></a>
+</p>
+
 # Feature
 
  - 自定义缓存支持；

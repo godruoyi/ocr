@@ -1,3 +1,4 @@
 vendor
 .editorconfig
 tests\test.log
+composer.lock

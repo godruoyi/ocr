@@ -1,8 +1,9 @@
 {
     "name": "godruoyi/ocr",
-    "description": "The Laravel Framework.",
-    "keywords": ["ocr", "image"],
-    "type": "project",
+    "description": "The Best Image Ocr SDK For BAT.",
+    "keywords": ["ocr", "image", "百度OCR", "腾讯OCR", "阿里云OCR"],
+    "homepage": "http://github.com/godruoyi/ocr",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -13,9 +14,11 @@
     "require": {
         "doctrine/cache": "^1.6",
         "monolog/monolog": "^1.23",
-        "symfony/var-dumper": "^3.3",
         "pimple/pimple": "~3.0",
         "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^3.3",
     },
     "autoload": {
         "psr-4": {
