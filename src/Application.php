@@ -24,20 +24,20 @@ use Godruoyi\OCR\Support\Config;
  *
  * @property string $baidu 百度OCR识别
  *
- *     method generalBasic($imageOrUrl, $options = []) 通用文字识别
- *     method accurateBasic($imageOrUrl, $options = []) 通用文字识别（高精度版）
- *     method general($imageOrUrl, $options = []) 通用文字识别（含位置信息版）
- *     method accurate($imageOrUrl, $options = []) 通用文字识别（含位置高精度版）
- *     method generalEnhanced($imageOrUrl, $options = []) 通用文字识别（含生僻字版）
- *     method webimage($imageOrUrl, $options = []) 网络图片文字识别
- *     method idcard($imageOrUrl, $options = []) 身份证识别
- *     method bankcard($imageOrUrl, $options = []) 银行卡识别
- *     method drivingLicense($imageOrUrl, $options = []) 驾驶证识别
- *     method vehicleLicense($imageOrUrl, $options = []) 行驶证识别
- *     method licensePlate($imageOrUrl, $options = []) 车牌识别
- *     method businessLicense($imageOrUrl, $options = []) 营业执照识别
- *     method tableWorld($imageOrUrl, $options = []) 表格文字识别
- *     method receipt($imageOrUrl, $options = []) 通用票据识别
+ *     method generalBasic($files, $options = []) 通用文字识别
+ *     method accurateBasic($files, $options = []) 通用文字识别（高精度版）
+ *     method general($files, $options = []) 通用文字识别（含位置信息版）
+ *     method accurate($files, $options = []) 通用文字识别（含位置高精度版）
+ *     method generalEnhanced($files, $options = []) 通用文字识别（含生僻字版）
+ *     method webimage($files, $options = []) 网络图片文字识别
+ *     method idcard($files, $options = []) 身份证识别
+ *     method bankcard($files, $options = []) 银行卡识别
+ *     method drivingLicense($files, $options = []) 驾驶证识别
+ *     method vehicleLicense($files, $options = []) 行驶证识别
+ *     method licensePlate($files, $options = []) 车牌识别
+ *     method businessLicense($files, $options = []) 营业执照识别
+ *     method tableWorld($files, $options = []) 表格文字识别
+ *     method receipt($files, $options = []) 通用票据识别
  *
  * @property string $aliyun 阿里OCR识别
  * @property string $tencent 腾讯OCR识别
