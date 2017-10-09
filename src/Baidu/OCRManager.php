@@ -11,9 +11,8 @@
 
 namespace Godruoyi\OCR\Baidu;
 
-use Exception;
+use RuntimeException;
 use Doctrine\Common\Cache\Cache;
-use Godruoyi\OCR\AbstractAPI;
 use Godruoyi\OCR\Support\FileConverter;
 use Godruoyi\OCR\Support\Http;
 
@@ -100,6 +99,9 @@ class OCRManager
      *         detect_language    N       boolean      true/false 是否检测语言，默认不检测,支持（中文、英语、日语、韩语）
      *         probability        N       string       是否返回识别结果中每一行的置信度
      *
+     * @throws \RuntimeException
+     *
+     *
      * @return array
      */
     public function generalBasic($images, array $options = [])
@@ -119,6 +121,8 @@ class OCRManager
      *
      *         detect_direction   N       boolean      true/false 是否检测图像朝向，默认不检测
      *         probability        N       string       是否返回识别结果中每一行的置信度
+     *
+     * @throws \RuntimeException
      *
      * @return array
      */
@@ -154,6 +158,8 @@ class OCRManager
      *         vertexes_location         N       boolean      true/false 是否返回文字外接多边形顶点位置，不支持单字位置。默认为false
      *         probability               N       boolean      是否返回识别结果中每一行的置信度
      *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function general($images, array $options = [])
@@ -176,6 +182,8 @@ class OCRManager
      *         detect_direction          N       boolean      true/false 是否检测图像朝向，默认不检测
      *         vertexes_location         N       boolean      true/false 是否返回文字外接多边形顶点位置，不支持单字位置。默认为false
      *         probability               N       boolean      是否返回识别结果中每一行的置信度
+     *
+     * @throws \RuntimeException
      *
      * @return array
      */
@@ -207,6 +215,8 @@ class OCRManager
      *         vertexes_location         N       boolean      true/false 是否返回文字外接多边形顶点位置，不支持单字位置。默认为false
      *         probability               N       boolean      是否返回识别结果中每一行的置信度
      *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function generalEnhanced($images, array $options = [])
@@ -225,6 +235,8 @@ class OCRManager
      *         参数                     是否可选     类型        可选范围/说明
      *         detect_direction          N       boolean      true/false 是否检测图像朝向，默认不检测
      *         detect_language           N       boolean      true/false 是否检测语言，默认不检测，支持（中文、英语、日语、韩语）
+     *
+     * @throws \RuntimeException
      *
      * @return array
      */
@@ -246,6 +258,8 @@ class OCRManager
      *         id_card_side              Y       string       front、back，front：身份证正面；back：身份证背面
      *         detect_risk               N       boolan       true/false 是否开启身份证风险类型功能，默认false
      *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function idcard($images, array $options = [])
@@ -261,6 +275,8 @@ class OCRManager
      * @param  string|\SplFileInfo $images
      * @param  array $options
      *         null
+     *
+     * @throws \RuntimeException
      *
      * @return array
      */
@@ -279,6 +295,8 @@ class OCRManager
      *
      *         参数                     是否可选     类型        可选范围/说明
      *         detect_direction          N       boolean      true/false 是否检测图像朝向，默认不检测
+     *
+     * @throws \RuntimeException
      *
      * @return array
      */
@@ -300,6 +318,8 @@ class OCRManager
      *         accuracy                  N       string       normal，缺省,  normal 使用快速服务，1200ms左右时延；
      *                                                        缺省或其它值使用高精度服务，1600ms左右时延
      *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function vehicleLicense($images, array $options = [])
@@ -318,6 +338,8 @@ class OCRManager
      *         参数                     是否可选     类型        可选范围/说明
      *         multi_detect              N            boolean      是否检测多张车牌，默认为false，
      *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function licensePlate($images, array $options = [])
@@ -334,6 +356,8 @@ class OCRManager
      * @param  array $options
      *         null
      *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function businessLicense($images, array $options = [])
@@ -349,6 +373,8 @@ class OCRManager
      * @param  string|\SplFileInfo $images
      * @param  array $options
      *         null
+     *
+     * @throws \RuntimeException
      *
      * @return array
      */
@@ -370,6 +396,9 @@ class OCRManager
      *         probability               N       boolean      是否返回识别结果中每一行的置信度
      *         accuracy                  N       string       normal,缺省   normal 使用快速服务;缺省或其它值使用高精度服务
      *         detect_direction          N       boolean      true/false 是否检测图像朝向，默认不检测
+     *
+     * @throws \RuntimeException
+     *
      * @return array
      */
     public function receipt($images, array $options = [])
@@ -390,10 +419,21 @@ class OCRManager
     {
         $httpClient = new Http;
 
-        return $httpClient->parseJson($httpClient->request('POST', $url, [
-            'form_params' => $options,
-            'query' => [$this->accessToken->getQueryName() => $this->accessToken->getAccessToken()]
-        ]));
+        try {
+            $response = $httpClient->request('POST', $url, [
+                'form_params' => $options,
+                'query' => [$this->accessToken->getQueryName() => $this->accessToken->getAccessToken(true)]
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+            } else {
+                throw $e;
+            }
+        }
+
+
+        return $httpClient->parseJson($response);
     }
 
     /**
@@ -412,7 +452,7 @@ class OCRManager
         }
 
         if (! $this->supportUrl && FileConverter::isUrl($images)) {
-            throw new Exception('current method nosupport online image.');
+            throw new RuntimeException('current method not support online picture.');
         }
 
         if ($this->supportUrl && FileConverter::isUrl($images)) {

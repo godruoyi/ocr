@@ -44,6 +44,7 @@ class Http
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         ],
 
+        //test
         'verify' => false
     ];
 
@@ -100,12 +101,13 @@ class Http
     {
         $multipart = [];
 
-        foreach ($files as $name => $path) {
-            $path = is_array($path) ? $path : [$path];
-            foreach ($path as $p) {
+        foreach ($files as $name => $file) {
+            $paths = is_array($file) ? $file : [$file];
+
+            foreach ($paths as $path) {
                 $multipart[] = [
                     'name' => $name,
-                    'contents' => FileConverter::getContent($p)
+                    'contents' => FileConverter::getContent($path)
                 ];
             }
         }
@@ -132,17 +134,7 @@ class Http
 
         $options = array_merge(self::$defaults, ['headers' => $this->headers], $options);
 
-        try {
-            $response = $this->getClient()->request($method, $url, $options);
-        } catch (ClientException $e) {
-            if ($e->hasResponse()) {
-                $response = $e->getResponse();
-            } else {
-                throw $e;
-            }
-        }
-
-        return $response;
+        return $this->getClient()->request($method, $url, $options);
     }
 
     /**
@@ -174,7 +166,7 @@ class Http
      */
     public function getClient()
     {
-        if (!($this->client instanceof HttpClient)) {
+        if (empty($this->client) || !($this->client instanceof HttpClient)) {
             $this->client = new HttpClient();
         }
 

@@ -1,13 +1,32 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) godruoyi <godruoyi@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Godruoyi\OCR\Tencent;
 
-use Exception;
-use Godruoyi\OCR\AbstractAPI;
+use RuntimeException;
 use Godruoyi\OCR\Support\Http;
 use Godruoyi\OCR\Support\FileConverter;
 
-class OCRManager extends AbstractAPI
+/**
+ * @author    godruoyi godruoyi@gmail.com>
+ * @copyright 2017
+ *
+ * @see  https://github.com/godruoyi/ocr
+ *
+ * @method array namecard($images, $options = []) 名片识别
+ * @method array idcard($images, $options = []) 身份证识别
+ * @method array drivingLicence($images, $options = []) 行驶证驾驶证识别
+ * @method array general($images, $options = []) 通用文字识别
+ */
+class OCRManager
 {
     /**
      * Authorization instance
@@ -29,10 +48,6 @@ class OCRManager extends AbstractAPI
     public function __construct(Authorization $authorization)
     {
         $this->authorization = $authorization;
-
-        $this->setHttpClient($this->getHttpClient()->setHeaders([
-            'Authorization' => $this->authorization->getAuthorization()
-        ]));
     }
 
     /**
@@ -53,9 +68,7 @@ class OCRManager extends AbstractAPI
      */
     public function namecard($images, array $options = [])
     {
-        $options = $this->appendAppIdAndBucket($options);
-
-        return $this->toArray($this->request(self::OCR_NAMECARD, $images, $options));
+        return $this->request(self::OCR_NAMECARD, $images, $options);
     }
 
     /**
@@ -76,9 +89,7 @@ class OCRManager extends AbstractAPI
      */
     public function idcard($images, array $options = [])
     {
-        $options = $this->appendAppIdAndBucket($options);
-
-        return $this->toArray($this->request(self::OCR_IDCARD, $images, $options));
+        return $this->request(self::OCR_IDCARD, $images, $options);
     }
 
     /**
@@ -97,11 +108,9 @@ class OCRManager extends AbstractAPI
      *
      * @return array
      */
-    public function drivinglicence($images, array $options = [])
+    public function drivingLicence($images, array $options = [])
     {
-        $options = $this->appendAppIdAndBucket($options);
-
-        return $this->toArray($this->request(self::OCR_DRIVINGLICENCE, $images, $options));
+        return $this->request(self::OCR_DRIVINGLICENCE, $images, $options);
     }
 
     /**
@@ -120,9 +129,7 @@ class OCRManager extends AbstractAPI
      */
     public function general($images, array $options = [])
     {
-        $options = $this->appendAppIdAndBucket($options);
-
-        return $this->toArray($this->request(self::OCR_DRIVINGLICENCE, $images, $options));
+        return $this->request(self::OCR_DRIVINGLICENCE, $images, $options);
     }
 
     /**
@@ -132,7 +139,7 @@ class OCRManager extends AbstractAPI
      *
      * @return array
      */
-    public function appendAppIdAndBucket(array $options = [])
+    protected function appendAppIdAndBucketIfEmpty(array $options = [])
     {
         $options['appid'] = empty($options['appid']) ? $this->authorization->getAppId() : $options['appid'];
         $options['bucket'] = empty($options['bucket']) ? $this->authorization->getBucket() : $options['bucket'];
@@ -151,6 +158,10 @@ class OCRManager extends AbstractAPI
      */
     protected function request($url, $images, array $options = [])
     {
+        $http = (new Http)->setHeaders([
+            'Authorization' => $this->authorization->getAuthorization()
+        ]);
+
         $images = is_array($images) ? $images : [$images];
 
         $isurl = false;
@@ -167,13 +178,23 @@ class OCRManager extends AbstractAPI
         }
 
         if ($isurl && $ismultipart) {
-            throw new Exception('Can not exist at the same time for online url and local file.');
+            throw new RuntimeException('Can not exist at the same time for online url and local file.');
         }
 
-        if ($isurl) {
-            return $this->getHttpClient()->json($url, array_merge($options, ['url_list' => $images]));
+        $options = $this->appendAppIdAndBucketIfEmpty($options);
+
+        try {
+            if ($isurl) {
+                $response = $http->json($url, array_merge($options, ['url_list' => $images]));
+            } else {
+                $response = $http->upload($url, $multiparts, $options);
+            }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+            }
         }
 
-        return $this->getHttpClient()->upload($url, $multiparts, $options);
+        return $http->parseJson($response);
     }
 }

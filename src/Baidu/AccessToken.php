@@ -11,7 +11,7 @@
 
 namespace Godruoyi\OCR\Baidu;
 
-use Exception;
+use RuntimeException;
 use Godruoyi\OCR\Support\Http;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
@@ -133,7 +133,7 @@ class AccessToken
         ]));
 
         if (empty($token[$this->tokenSucessKey])) {
-            throw new Exception('Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
+            throw new RuntimeException('Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
         }
 
         return $token;

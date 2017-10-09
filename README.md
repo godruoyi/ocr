@@ -70,9 +70,9 @@ $app->platform->$method($files, $options = [])
  4. 在线图片地址（部分服务商不支持）
  5. Array
 
-### [百度OCR](http://ai.baidu.com/tech/ocr)
+ > 注：`options` 的值都是可选的
 
-> 注：`options` 的值都是可选的
+### [百度OCR](http://ai.baidu.com/tech/ocr)
 
  1、通用文字识别
 
@@ -226,18 +226,153 @@ $app->baidu->receipt($file, [
 
 ### [Aliyun OCR](https://data.aliyun.com/product/ocr)
 
+> not support online picture
 
-[Product Address](https://data.aliyun.com/product/ocr)
 
  1、身份证识别
 
 ```php
 
-$app->aliyun->receipt($file, [
-    'recognize_granularity' => 'big',      //是否定位单字符位置
-    'probability'           => false,      //是否返回识别结果中每一行的置信度
-    'accuracy'              => 'normal'    // normal 使用快速服务，1200ms左右时延,缺省或其它值使用高精度服务，1600ms左右时延
-    'detect_direction'      => false,      //是否检测图像朝向
+$app->aliyun->idcard($file, [
+    'side'                  => 'face',     //身份证正反面类型:face/back
+]);
+
+```
+
+ 2、行驶证识别
+
+```php
+
+$app->aliyun->vehicle($file, [
+]);
+
+```
+
+ 3、驾驶证识别
+
+```php
+
+$app->aliyun->driverLicense($file, [
+    'side'                  => 'face',     //驾驶证首页/副页:face/back
+]);
+
+```
+
+ 4、门店识别
+
+```php
+
+$app->aliyun->shopSign($file, [
+]);
+
+```
+
+ 5、英文识别
+
+```php
+
+$app->aliyun->english($file, [
+]);
+
+```
+
+ 6、营业执照识别
+
+```php
+
+$app->aliyun->businessLicense($file, [
+]);
+
+```
+
+ 7、银行卡识别
+
+```php
+
+$app->aliyun->bankCard($file, [
+]);
+
+```
+
+ 8、名片识别
+
+```php
+
+$app->aliyun->businessCard($file, [
+]);
+
+```
+ 
+ 9、火车票识别
+
+```php
+
+$app->aliyun->trainTicket($file, [
+]);
+
+```
+
+ 10、车牌识别
+
+```php
+
+$app->aliyun->vehiclePlate($file, [
+    'multi_crop'            => false,     //当设成true时,会做多crop预测，只有当多crop返回的结果一致，
+                                          //并且置信度>0.9时，才返回结果
+]);
+
+```
+
+ 11、通用文字识别
+
+```php
+
+$app->aliyun->general($file, [
+    'min_size'            => 16,     //图片中文字的最小高度，
+    'output_prob'            => false,     //是否输出文字框的概率，
+]);
+
+```
+
+### [Tencent OCR](https://cloud.tencent.com/product/ocr)
+
+> Tencent ocr support online picture
+
+ 1、名片识别
+
+```php
+
+$app->tencent->namecard($file, [
+    'ret_image'            => 0,     //0 不返回图片，1 返回图片，
+]);
+
+```
+
+ 2、身份证识别
+
+```php
+
+$app->tencent->idcard($file, [
+    'card_type'            => 0,     //0 为身份证有照片的一面，1为身份证有国徽的一面
+]);
+
+```
+
+ 3、行驶证驾驶证识别
+
+```php
+
+$app->tencent->idcard($file, [
+    'type'            => 0,     //识别类型，0表示行驶证，1表示驾驶证，
+]);
+
+```
+
+ 4、通用印刷体识别
+
+```php
+
+$app->tencent->general($file, [
 ]);
 
 ```

@@ -2,7 +2,7 @@
 
 namespace Godruoyi\OCR\Support;
 
-use Exception;
+use RuntimeException;
 use SplFileInfo;
 use Psr\Http\Message\StreamInterface;
 
@@ -41,9 +41,15 @@ class FileConverter
             case self::isSplFileInfo($image):
                 return file_get_contents($image->getRealPath());
             case self::isString($image):
+                // When the image contains the system separator, 
+                // we assume that he is a file address
+                if (stripos($image, DIRECTORY_SEPARATOR) !== false) {
+                    throw new RuntimeException("file {$image} has not exist.");
+                }
+                
                 return $image;
             default:
-                throw new Exception('unsupport image type.');
+                throw new RuntimeException('not support image type.');
         }
     }
 
