@@ -13,7 +13,6 @@
     ],
     "require": {
         "doctrine/cache": "^1.6",
-        "monolog/monolog": "^1.23",
         "pimple/pimple": "~3.0",
         "guzzlehttp/guzzle": "^6.3"
     },

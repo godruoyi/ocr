@@ -51,10 +51,9 @@ class Application extends Container
      * @var array
      */
     protected $providers = [
-        Providers\LogProvider::class,
+        //default support ocr provider
         Providers\CacheProvider::class,
 
-        //default support ocr provider
         Providers\BaiduProvider::class,
         Providers\TencentProvider::class,
         Providers\AliyunProvider::class,
@@ -84,6 +83,13 @@ class Application extends Container
         }
     }
 
+    /**
+     * __get
+     *
+     * @param  string $property
+     *
+     * @return mixed
+     */
     public function __get($property)
     {
         if (isset($this[$property])) {

@@ -2,6 +2,7 @@
 
 namespace Godruoyi\OCR\Support;
 
+use Exception;
 use SplFileInfo;
 use Psr\Http\Message\StreamInterface;
 

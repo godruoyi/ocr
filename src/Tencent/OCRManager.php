@@ -9,6 +9,11 @@ use Godruoyi\OCR\Support\FileConverter;
 
 class OCRManager extends AbstractAPI
 {
+    /**
+     * Authorization instance
+     *
+     * @var Authorization
+     */
     protected $authorization;
 
     const OCR_NAMECARD       = 'http://service.image.myqcloud.com/ocr/namecard';

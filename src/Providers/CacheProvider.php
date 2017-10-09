@@ -26,7 +26,5 @@ class CacheProvider implements ServiceProviderInterface
         $pimple['cache'] = function () {
             return new FilesystemCache(sys_get_temp_dir());
         };
-
-        $pimple[Cache::class] = $pimple['cache'];
     }
 }

@@ -6,11 +6,6 @@ use Godruoyi\OCR\Application;
 use Godruoyi\OCR\Support\Log;
 
 $client = new Application([
-    'log' => [
-        'level' => 'debug',
-        'file' => __DIR__ . DIRECTORY_SEPARATOR .'test.log'
-    ],
-
     'ocrs' => [
         'baidu' => [
             'app_key' => 'n84lW0qogPq6qGsuMU6kx0P0',
@@ -23,13 +18,9 @@ $client = new Application([
             'secret_key' => '6aHHkz236LOYu0nRuBwn5PwT0x3km7EL',
             'bucket' => 'test1'
         ],
-        
+
         'aliyun' => [
-            'auth_type' => 'appcode',
-            'xxx' => '',
-            'xxx' => '',
-            'xxx' => '',
-            'xxx' => '',
+            'appcode' => 'appcode',
         ]
     ]
 ]);
@@ -37,6 +28,7 @@ $client = new Application([
 
 // $a = $client->tencent->namecard([__DIR__ . DIRECTORY_SEPARATOR .'3.jpg',__DIR__ . DIRECTORY_SEPARATOR .'3.jpg'], ['a' => 2]);
 // $a = $client->tencent->idcard([__DIR__ . DIRECTORY_SEPARATOR .'5.jpg'], ['card_type' => 1]);
-$a = $client->tencent->drivinglicence('https://mc.qcloudimg.com/static/img/8a18f39819e718369782342e89a0f88c/image.png', ['card_type' => 1]);
-// $a = $client->baidu->generalBasic([__DIR__ . DIRECTORY_SEPARATOR .'2.jpg'], ['a' => 2]);
+// $a = $client->tencent->drivinglicence('https://mc.qcloudimg.com/static/img/8a18f39819e718369782342e89a0f88c/image.png', ['card_type' => 1]);
+$a = $client->baidu->generalEnhanced(['https://mc.qcloudimg.com/static/img/8a18f39819e718369782342e89a0f88c/image.png'], ['id_card_side' => 'front']);
+// $a = $client->aliyun->idcard([__DIR__ . DIRECTORY_SEPARATOR .'2.jpg'], ['a' => 2]);
 dump($a);

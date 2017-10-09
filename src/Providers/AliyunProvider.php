@@ -12,6 +12,8 @@
 namespace Godruoyi\OCR\Providers;
 
 use Pimple\Container;
+use Godruoyi\OCR\Aliyun\AppCode;
+use Godruoyi\OCR\Aliyun\OCRManager;
 use Pimple\ServiceProviderInterface;
 
 class AliyunProvider implements ServiceProviderInterface
@@ -21,5 +23,12 @@ class AliyunProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
+        $pimple['aliyun.auth'] = function ($app) {
+            return new AppCode($app['config']->get('ocrs.aliyun.appcode'));
+        };
+
+        $pimple['aliyun'] = function ($app) {
+            return new OCRManager($app['aliyun.auth']);
+        };
     }
 }

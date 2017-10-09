@@ -12,7 +12,6 @@
 namespace Godruoyi\OCR\Baidu;
 
 use Exception;
-use Godruoyi\OCR\Support\Log;
 use Godruoyi\OCR\Support\Http;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
@@ -127,8 +126,6 @@ class AccessToken
     {
         $http = $this->getHttp();
 
-        Log::debug('Get new token by baidu.');
-
         $token = $http->parseJson($http->post(self::API_TOKEN_URI, [
             'grant_type' => 'client_credentials',
             'client_id'  => $this->getAppKey(),
@@ -136,9 +133,7 @@ class AccessToken
         ]));
 
         if (empty($token[$this->tokenSucessKey])) {
-            Log::error($msg = 'Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
-
-            throw new Exception($msg);
+            throw new Exception('Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
         }
 
         return $token;

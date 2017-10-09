@@ -11,9 +11,11 @@
 
 namespace Godruoyi\OCR\Baidu;
 
+use Exception;
 use Doctrine\Common\Cache\Cache;
 use Godruoyi\OCR\AbstractAPI;
 use Godruoyi\OCR\Support\FileConverter;
+use Godruoyi\OCR\Support\Http;
 
 /**
  * @author    godruoyi godruoyi@gmail.com>
@@ -37,7 +39,7 @@ use Godruoyi\OCR\Support\FileConverter;
  * @method array tableWorld($images, $options = []) 表格文字识别
  * @method array receipt($images, $options = []) 通用票据识别
  */
-class OCRManager extends AbstractAPI
+class OCRManager
 {
     /**
      * AccessToken Instance
@@ -104,9 +106,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = true;
 
-        $url = $this->appendAccessToken(self::GENERAL_BASIC);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::GENERAL_BASIC, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -126,9 +126,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::ACCURATE_BASIC);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::ACCURATE_BASIC, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -162,9 +160,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = true;
 
-        $url = $this->appendAccessToken(self::ACCURATE_BASIC);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::GENERAL, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -187,9 +183,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::ACCURATE);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::ACCURATE, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -219,9 +213,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = true;
 
-        $url = $this->appendAccessToken(self::GENERAL_ENHANCED);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::GENERAL_ENHANCED, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -240,9 +232,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = true;
 
-        $url = $this->appendAccessToken(self::WEBIMAGE);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::WEBIMAGE, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -262,9 +252,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::IDCARD);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::IDCARD, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -280,9 +268,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::BANKCARD);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::BANKCARD, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -300,9 +286,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::DRIVING_LICENSE);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::DRIVING_LICENSE, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -322,9 +306,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::VEHICLE_LICENSE);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::VEHICLE_LICENSE, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -342,9 +324,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::LICENSE_PLATE);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::LICENSE_PLATE, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -360,9 +340,7 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::BUSINESS_LICENSE);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::BUSINESS_LICENSE, $this->buildRequestParam($images, $options));
     }
 
     /**
@@ -398,14 +376,8 @@ class OCRManager extends AbstractAPI
     {
         $this->supportUrl = false;
 
-        $url = $this->appendAccessToken(self::RECEIPT);
-
-        return $this->toArray($this->getHttpClient()->post($url, $this->buildRequestParam($images, $options)));
+        return $this->request(self::RECEIPT, $this->buildRequestParam($images, $options));
     }
-
-    /**
-     | -----------------------------------------------------------------
-     */
 
     /**
      * Append access_token to this url
@@ -414,13 +386,14 @@ class OCRManager extends AbstractAPI
      *
      * @return string
      */
-    protected function appendAccessToken($url)
+    protected function request($url, array $options = [])
     {
-        $andChat = (stripos($url, '?') !== false) ? '&' : '?';
+        $httpClient = new Http;
 
-        $url .= $andChat . $this->accessToken->getQueryName() . '=' . $this->accessToken->getAccessToken();
-
-        return $url;
+        return $httpClient->parseJson($httpClient->request('POST', $url, [
+            'form_params' => $options,
+            'query' => [$this->accessToken->getQueryName() => $this->accessToken->getAccessToken()]
+        ]));
     }
 
     /**
@@ -436,6 +409,10 @@ class OCRManager extends AbstractAPI
         //Baidu OCR不支持多个url或图片，只支持一次识别一张
         if (is_array($images) && ! empty($images[0])) {
             $images = $images[0];
+        }
+
+        if (! $this->supportUrl && FileConverter::isUrl($images)) {
+            throw new Exception('current method nosupport online image.');
         }
 
         if ($this->supportUrl && FileConverter::isUrl($images)) {

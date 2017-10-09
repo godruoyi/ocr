@@ -1,4 +1,4 @@
-# The Best Image OCR SDK For BAT.
+# The Best Image Ocr SDK For BAT.
 
 [![Latest Stable Version](https://poser.pugx.org/godruoyi/ocr/v/stable)](https://packagist.org/packages/godruoyi/ocr)
 [![Total Downloads](https://poser.pugx.org/godruoyi/ocr/downloads)](https://packagist.org/packages/godruoyi/ocr)
@@ -7,7 +7,6 @@
 # Feature
 
  - 自定义缓存支持；
- - 详细的 Debug 日志，一切交互一目了然；
  - 符合 PSR 标准，可以很方便的与你的框架结合；
  - 命名不那么乱七八糟；
  - 支持目前市面多家服务商
@@ -38,11 +37,6 @@ composer require "godruoyi/ocr:~1.0"
 use Godruoyi\OCR\Application;
 
 $app = new Application([
-    'log' => [
-        'level' => 'debug',
-        'file' => __DIR__ . DIRECTORY_SEPARATOR .'test.log'
-    ],
-
     'ocrs' => [
         'baidu' => [
             'app_key' => 'app_key',

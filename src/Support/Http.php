@@ -13,9 +13,10 @@ namespace Godruoyi\OCR\Support;
 
 use Exception;
 use GuzzleHttp\HandlerStack;
-use Godruoyi\OCR\Support\Log;
 use GuzzleHttp\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+use GuzzleHttp\Exception\ClientException;
 
 class Http
 {
@@ -42,6 +43,8 @@ class Http
         'curl' => [
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         ],
+
+        'verify' => false
     ];
 
     /**
@@ -129,14 +132,15 @@ class Http
 
         $options = array_merge(self::$defaults, ['headers' => $this->headers], $options);
 
-        $response = $this->getClient()->request($method, $url, $options);
-
-        Log::debug('API response:', [
-            'Status' => $response->getStatusCode(),
-            'Reason' => $response->getReasonPhrase(),
-            'Headers' => $response->getHeaders(),
-            'Body' => strval($response->getBody()),
-        ]);
+        try {
+            $response = $this->getClient()->request($method, $url, $options);
+        } catch (ClientException $e) {
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+            } else {
+                throw $e;
+            }
+        }
 
         return $response;
     }
@@ -190,18 +194,18 @@ class Http
             $body = $body->getBody();
         }
 
+        if ($body instanceof StreamInterface) {
+            $body = $body->getContents();
+        }
+
         if (empty($body)) {
             return false;
         }
 
         $contents = json_decode($body, true);
 
-        Log::debug('API response decoded:', compact('contents'));
-
         if (JSON_ERROR_NONE !== json_last_error()) {
-            Log::error($msg = 'Failed to parse JSON: '.json_last_error_msg());
-
-            throw new Exception($msg);
+            throw new Exception('Failed to parse JSON: '.json_last_error_msg());
         }
 
         return $contents;
