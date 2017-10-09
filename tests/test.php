@@ -22,6 +22,14 @@ $client = new Application([
             'secret_id' => 'AKIDzODdB1nOELz0T8CEjTEkgKJOob3t2Tso',
             'secret_key' => '6aHHkz236LOYu0nRuBwn5PwT0x3km7EL',
             'bucket' => 'test1'
+        ],
+        
+        'aliyun' => [
+            'auth_type' => 'appcode',
+            'xxx' => '',
+            'xxx' => '',
+            'xxx' => '',
+            'xxx' => '',
         ]
     ]
 ]);

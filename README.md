@@ -20,7 +20,7 @@
 
 # Requirement
 
- - PHP > 7.0
+ - PHP > 5.6
  - [composer](https://getcomposer.org/)
 
 # Installation
@@ -74,7 +74,7 @@ $app->platform->$method($files, $options = [])
  2. `SplFileInfo` 对象
  3. `Resource`
  4. 在线图片地址（部分服务商不支持）
- 5. Array （部分服务商不支持批量操作）
+ 5. Array
 
 ### [百度OCR](http://ai.baidu.com/tech/ocr)
 
@@ -222,6 +222,24 @@ $app->baidu->businessLicense($file, [
 ```php
 
 $app->baidu->receipt($file, [
+    'recognize_granularity' => 'big',      //是否定位单字符位置
+    'probability'           => false,      //是否返回识别结果中每一行的置信度
+    'accuracy'              => 'normal'    // normal 使用快速服务，1200ms左右时延,缺省或其它值使用高精度服务，1600ms左右时延
+    'detect_direction'      => false,      //是否检测图像朝向
+]);
+
+```
+
+### [Aliyun OCR](https://data.aliyun.com/product/ocr)
+
+
+[Product Address](https://data.aliyun.com/product/ocr)
+
+ 1、身份证识别
+
+```php
+
+$app->aliyun->receipt($file, [
     'recognize_granularity' => 'big',      //是否定位单字符位置
     'probability'           => false,      //是否返回识别结果中每一行的置信度
     'accuracy'              => 'normal'    // normal 使用快速服务，1200ms左右时延,缺省或其它值使用高精度服务，1600ms左右时延
