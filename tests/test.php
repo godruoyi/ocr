@@ -7,6 +7,7 @@ use Godruoyi\OCR\Support\Log;
 
 $client = new Application([
     'ocrs' => [
+
         'baidu' => [
             'app_key' => 'n84lW0qogPq6qGsuMU6kx0P0',
             'secret_key' => '2XhW1XBpSngY8nxkdGm5gl1tmko28EUR'
