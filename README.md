@@ -60,6 +60,8 @@
 composer require godruoyi/ocr
 ```
 
+[Laravel 5 拓展包](https://github.com/godruoyi/laravel-ocr)
+
 # Usage
 
 基本使用（以百度OCR为例）
