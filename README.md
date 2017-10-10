@@ -4,6 +4,38 @@
 [![Total Downloads](https://poser.pugx.org/godruoyi/ocr/downloads)](https://packagist.org/packages/godruoyi/ocr)
 [![License](https://poser.pugx.org/godruoyi/ocr/license)](https://packagist.org/packages/godruoyi/ocr)
 
+- [百度 OCR](#baidu-ocr)
+    - [通用文字识别](#baidu-generalBasic)
+    - [通用文字识别（高精度版）](#baidu-accurateBasic)
+    - [通用文字识别（含位置信息版）](#baidu-general)
+    - [通用文字识别（含位置高精度版）](#baidu-accurate)
+    - [通用文字识别（含生僻字版）](#baidu-generalEnhanced)
+    - [网络图片文字识别](#baidu-webimage)
+    - [银行卡识别](#baidu-bankcard)
+    - [身份证识别](#baidu-idcard)
+    - [驾驶证识别](#baidu-drivingLicense)
+    - [行驶证识别](#baidu-vehicleLicense)
+    - [车牌识别](#baidu-licensePlate)
+    - [营业执照识别](#baidu-businessLicense)
+    - [通用票据识别](#baidu-receipt)
+- [Aliyun OCR](#aliyun-ocr)
+    - [身份证识别](#aliyun-idcard)
+    - [行驶证识别](#aliyun-vehicle)
+    - [驾驶证识别](#aliyun-driverLicense)
+    - [门店识别](#aliyun-shopSign)
+    - [英文识别](#aliyun-english)
+    - [营业执照识别](#aliyun-businessLicense)
+    - [银行卡识别](#aliyun-bankCard)
+    - [名片识别](#aliyun-businessCard)
+    - [火车票识别](#aliyun-trainTicket)
+    - [车牌识别](#aliyun-vehiclePlate)
+    - [通用文字识别](#aliyun-general)
+- [Tencent OCR](#tencent-ocr)
+    - [名片识别](#tencent-namecard)
+    - [身份证识别](#tencent-idcard)
+    - [行驶证驾驶证识别](#tencent-drivingLicence)
+    - [通用印刷体识别](#tencent-general)
+
 # Feature
 
  - 自定义缓存支持；
@@ -33,7 +65,6 @@ composer require "godruoyi/ocr:~1.0"
 基本使用（以百度OCR为例）
 
 ```php
-
 use Godruoyi\OCR\Application;
 
 $app = new Application([
@@ -50,6 +81,36 @@ $result = $app->baidu->idcard($filePath);
 
 ```
 
+**返回结果**
+
+```json
+{
+    "log_id": 530427582,
+    "image_status": "normal",
+    "words_result_num": 6,
+    "words_result": {
+        "住址": {
+            "words": "上海市闵行区华漕镇红卫村宗家巷1号"
+        },
+        "出生": {
+            "words": "19870723"
+        },
+        "姓名": {
+            "words": "鹿晗"
+        },
+        "公民身份号码": {
+            "words": "123456789123456132X"
+        },
+        "性别": {
+            "words": "男"
+        },
+        "民族": {
+            "words": "汉"
+        }
+    }
+}
+```
+
 # 各平台支持的方法
 
 > 详情请参考官方文档
@@ -57,9 +118,7 @@ $result = $app->baidu->idcard($filePath);
 所有平台支持的方法中，都满足以下结构：
 
 ```php
-
 $app->platform->$method($files, $options = [])
-
 ```
 
 `$files` 的值可以为
@@ -72,36 +131,35 @@ $app->platform->$method($files, $options = [])
 
  > 注：`options` 的值都是可选的
 
-### [百度OCR](http://ai.baidu.com/tech/ocr)
+<a name="baidu-ocr"></a>
+## [百度OCR](http://ai.baidu.com/tech/ocr)
 
- 1、通用文字识别
+目前采用 `AccessToken` 作为 `API` 认证方式，查看[鉴权认证机制](http://ai.baidu.com/docs#/Auth/top)
+
+<a name="baidu-generalBasic"></a>
+#### 通用文字识别
 
 ```php
-
 $app->baidu->generalBasic($file, [
     'language_type'         => 'CHN_ENG',  //支持的语言，默认为CHN_ENG（中英文混合）
     'detect_direction'      => false,      //是否检测图像朝向
     'detect_language'       => false,      //是否检测语言，默认不检测
     'probability'           => false,      //是否返回识别结果中每一行的置信度
 ]);
-
 ```
-
- 2、通用文字识别（高精度版）
+<a name="baidu-accurateBasic"></a>
+#### 通用文字识别（高精度版）
 
 ```php
-
 $app->baidu->accurateBasic($file, [
     'detect_direction'      => false,      //是否检测图像朝向
     'probability'           => false,      //是否返回识别结果中每一行的置信度
 ]);
-
 ```
-
- 3、通用文字识别（含位置信息版）
+<a name="baidu-general"></a>
+#### 通用文字识别（含位置信息版）
 
 ```php
-
 $app->baidu->general($file, [
     'recognize_granularity' => 'big',      //是否定位单字符位置
     'language_type'         => 'CHN_ENG',  //CHN_ENG：中英文混合；默认为CHN_ENG
@@ -110,26 +168,22 @@ $app->baidu->general($file, [
     'vertexes_location'     => false,      //是否返回文字外接多边形顶点位置，不支持单字位置。默认为false
     'probability'           => false,      //是否返回识别结果中每一行的置信度
 ]);
-
  ```
-
- 4、通用文字识别（含位置高精度版）
+ <a name="baidu-accurate"></a>
+#### 通用文字识别（含位置高精度版）
 
 ```php
-
 $app->baidu->accurate($file, [
     'recognize_granularity' => 'big',      //是否定位单字符位置
     'detect_direction'      => false,      //是否检测图像朝向
     'vertexes_location'     => false,      //是否返回文字外接多边形顶点位置，不支持单字位置。默认为false
     'probability'           => false,      //是否返回识别结果中每一行的置信度
 ]);
-
 ```
-
- 5、通用文字识别（含生僻字版）
+<a name="baidu-generalEnhanced"></a>
+#### 通用文字识别（含生僻字版）
 
 ```php
-
 $app->baidu->generalEnhanced($file, [
     'language_type'         => 'CHN_ENG',  //CHN_ENG：中英文混合；默认为CHN_ENG
     'detect_direction'      => false,      //是否检测图像朝向
@@ -138,241 +192,243 @@ $app->baidu->generalEnhanced($file, [
 ]);
 
 ```
-
- 6、网络图片文字识别
+<a name="baidu-webimage"></a>
+#### 网络图片文字识别
 
 ```php
-
 $app->baidu->webimage($file, [
     'detect_direction'      => false,      //是否检测图像朝向
     'detect_language'       => false,      //是否检测语言，默认不检测
 ]);
-
 ```
-
- 7、身份证识别
+<a name="baidu-idcard"></a>
+#### 身份证识别
 
 ```php
-
 $app->baidu->idcard($file, [
     'detect_direction'      => false,      //是否检测图像朝向
     'id_card_side'          => 'front',    //front：身份证正面；back：身份证背面 （注意，该参数必选）
     'detect_risk'           => false,      //是否开启身份证风险类型功能，默认false
 ]);
-
 ```
-
- 8、银行卡识别
+<a name="baidu-bankcard"></a>
+#### 银行卡识别
 
 ```php
-
 $app->baidu->bankcard($file, [
 ]);
-
 ```
-
- 9、驾驶证识别
+<a name="baidu-drivingLicense"></a>
+#### 驾驶证识别
 
 ```php
-
 $app->baidu->drivingLicense($file, [
     'detect_direction'      => false,      //是否检测图像朝向
 ]);
-
 ```
 
- 10、行驶证识别
+<a name="baidu-vehicleLicense"></a>
+#### 行驶证识别
 
 ```php
-
 $app->baidu->vehicleLicense($file, [
     'detect_direction'      => false,      //是否检测图像朝向
     'accuracy'              => 'normal'    // normal 使用快速服务，1200ms左右时延,缺省或其它值使用高精度服务，1600ms左右时延
 ]);
-
 ```
 
- 11、车牌识别
+<a name="baidu-licensePlate"></a>
+#### 车牌识别
 
 ```php
-
 $app->baidu->licensePlate($file, [
     'multi_detect'          => false,      //是否检测多张车牌，默认为false
 ]);
-
 ```
 
- 12、营业执照识别
+<a name="baidu-businessLicense"></a>
+#### 营业执照识别
 
 ```php
-
 $app->baidu->businessLicense($file, [
 ]);
-
 ```
 
- 13、通用票据识别
+<a name="baidu-receipt"></a>
+#### 通用票据识别
 
 ```php
-
 $app->baidu->receipt($file, [
     'recognize_granularity' => 'big',      //是否定位单字符位置
     'probability'           => false,      //是否返回识别结果中每一行的置信度
     'accuracy'              => 'normal'    // normal 使用快速服务，1200ms左右时延,缺省或其它值使用高精度服务，1600ms左右时延
     'detect_direction'      => false,      //是否检测图像朝向
 ]);
-
 ```
 
-### [Aliyun OCR](https://data.aliyun.com/product/ocr)
+<a name="aliyun-ocr"></a>
+## [Aliyun OCR](https://data.aliyun.com/product/ocr)
 
-> not support online picture
-
-
- 1、身份证识别
+目前采用 `APPCODE` 作为 `API` 认证方式，[查看我的APPCODE](https://market.console.aliyun.com/imageconsole/index.htm)
 
 ```php
+use Godruoyi\OCR\Application;
 
+$app = new Application([
+    'ocrs' => [
+        'aliyun' => [
+            'appcode' => '40bc103c7fe6417b87152f6f68bead2f',
+        ]
+    ]
+]);
+```
+
+> 阿里云OCR不支持在线图片地址
+
+<a name="aliyun-idcard"></a>
+#### 身份证识别
+
+```php
 $app->aliyun->idcard($file, [
     'side'                  => 'face',     //身份证正反面类型:face/back
 ]);
-
 ```
 
- 2、行驶证识别
+<a name="aliyun-vehicle"></a>
+#### 行驶证识别
 
 ```php
-
 $app->aliyun->vehicle($file, [
 ]);
-
 ```
 
- 3、驾驶证识别
+<a name="aliyun-driverLicense"></a>
+#### 驾驶证识别
 
 ```php
-
 $app->aliyun->driverLicense($file, [
     'side'                  => 'face',     //驾驶证首页/副页:face/back
 ]);
 
 ```
-
- 4、门店识别
+<a name="aliyun-shopSign"></a>
+#### 门店识别
 
 ```php
-
 $app->aliyun->shopSign($file, [
 ]);
-
 ```
 
- 5、英文识别
+<a name="aliyun-english"></a>
+#### 英文识别
 
 ```php
-
 $app->aliyun->english($file, [
 ]);
-
 ```
 
- 6、营业执照识别
+<a name="aliyun-businessLicense"></a>
+#### 营业执照识别
 
 ```php
-
 $app->aliyun->businessLicense($file, [
 ]);
-
 ```
 
- 7、银行卡识别
+<a name="aliyun-bankCard"></a>
+#### 银行卡识别
 
 ```php
-
 $app->aliyun->bankCard($file, [
 ]);
-
 ```
 
- 8、名片识别
+<a name="aliyun-businessCard"></a>
+#### 名片识别
 
 ```php
-
 $app->aliyun->businessCard($file, [
 ]);
-
 ```
- 
- 9、火车票识别
+
+<a name="aliyun-trainTicket"></a>
+#### 火车票识别
 
 ```php
-
 $app->aliyun->trainTicket($file, [
 ]);
-
 ```
 
- 10、车牌识别
+<a name="aliyun-vehiclePlate"></a>
+#### 车牌识别
 
 ```php
-
 $app->aliyun->vehiclePlate($file, [
-    'multi_crop'            => false,     //当设成true时,会做多crop预测，只有当多crop返回的结果一致，
-                                          //并且置信度>0.9时，才返回结果
+    'multi_crop'            => false,     //当设成true时,会做多crop预测，只有当多crop返回的结果一致，并且置信度>0.9时，才返回结果
 ]);
 
 ```
 
- 11、通用文字识别
+<a name="aliyun-general"></a>
+#### 通用文字识别
 
 ```php
-
 $app->aliyun->general($file, [
-    'min_size'            => 16,     //图片中文字的最小高度，
-    'output_prob'            => false,     //是否输出文字框的概率，
+    'min_size'              => 16,       //图片中文字的最小高度，
+    'output_prob'           => false,    //是否输出文字框的概率，
 ]);
-
 ```
 
-### [Tencent OCR](https://cloud.tencent.com/product/ocr)
+<a name="tencent-ocr"></a>
+## [Tencent OCR](https://cloud.tencent.com/product/ocr)
 
-> Tencent ocr support online picture
-
- 1、名片识别
+> 可登录 [云API密钥控制台](https://console.cloud.tencent.com/capi)查看你的[个人 API 密钥](https://console.cloud.tencent.com/capi)
 
 ```php
+use Godruoyi\OCR\Application;
 
+$app = new Application([
+    'ocrs' => [
+        'tencent' => [
+            'app_id' => '1254032478',
+            'secret_id' => 'AKIDzODdB1nOELz0T8CEjTEkgKJOob3t2Tso',
+            'secret_key' => '6aHHkz236LOYu0nRuBwn5PwT0x3km7EL',
+            'bucket' => 'test1'
+        ],
+    ]
+]);
+```
+
+> Tencent OCR 暂不支持在线图片地址
+
+<a name="tencent-namecard"></a>
+#### 名片识别
+
+```php
 $app->tencent->namecard($file, [
-    'ret_image'            => 0,     //0 不返回图片，1 返回图片，
+    'ret_image'             => 0,        //0 不返回图片，1 返回图片，
 ]);
-
 ```
-
- 2、身份证识别
+<a name="tencent-idcard"></a>
+#### 身份证识别
 
 ```php
-
 $app->tencent->idcard($file, [
-    'card_type'            => 0,     //0 为身份证有照片的一面，1为身份证有国徽的一面
+    'card_type'             => 0,        //0 为身份证有照片的一面，1为身份证有国徽的一面
 ]);
-
 ```
-
- 3、行驶证驾驶证识别
+<a name="tencent-drivingLicence"></a>
+#### 行驶证驾驶证识别
 
 ```php
-
-$app->tencent->idcard($file, [
-    'type'            => 0,     //识别类型，0表示行驶证，1表示驾驶证，
+$app->tencent->drivingLicence($file, [
+    'type'                  => 0,        //识别类型，0表示行驶证，1表示驾驶证，
 ]);
-
 ```
-
- 4、通用印刷体识别
+<a name="tencent-general"></a>
+#### 通用印刷体识别
 
 ```php
-
 $app->tencent->general($file, [
 ]);
-
 ```

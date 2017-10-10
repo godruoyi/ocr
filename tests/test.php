@@ -28,8 +28,9 @@ $client = new Application([
 
 
 // $a = $client->tencent->namecard([__DIR__ . DIRECTORY_SEPARATOR .'3.jpg',__DIR__ . DIRECTORY_SEPARATOR .'3.jpg'], ['a' => 2]);
-// $a = $client->tencent->idcard([__DIR__ . DIRECTORY_SEPARATOR .'5.jpg'], ['card_type' => 1]);
+// $a = $client->baidu->idcard([__DIR__ . DIRECTORY_SEPARATOR .'5.jpg'], ['card_type' => 1]);
 // $a = $client->tencent->drivinglicence('https://mc.qcloudimg.com/static/img/8a18f39819e718369782342e89a0f88c/image.png', ['card_type' => 1]);
 // $a = $client->baidu->generalEnhanced(['https://mc.qcloudimg.com/static/img/8a18f39819e718369782342e89a0f88c/image.png'], ['id_card_side' => 'front']);
-$a = $client->aliyun->vehicle([__DIR__ . DIRECTORY_SEPARATOR .'timg.jpg', __DIR__ . DIRECTORY_SEPARATOR .'timg.jpg'], ['a' => 2]);
+$a = $client->baidu->idcard([__DIR__ . DIRECTORY_SEPARATOR .'timg.jpg'], ['id_card_side' => 'front']);
 dump($a);
+dump(json_encode($a, JSON_UNESCAPED_UNICODE));
