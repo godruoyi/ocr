@@ -57,7 +57,7 @@
 # Installation
 
 ```bash
-composer require "godruoyi/ocr:~1.0"
+composer require godruoyi/ocr
 ```
 
 # Usage
