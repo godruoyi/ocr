@@ -432,3 +432,6 @@ $app->tencent->drivingLicence($file, [
 $app->tencent->general($file, [
 ]);
 ```
+# LICENSE
+
+MIT

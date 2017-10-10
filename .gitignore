@@ -1,5 +1,4 @@
 vendor
 .editorconfig
-tests\test.log
-tests\*.jpg
+tests
 composer.lock
