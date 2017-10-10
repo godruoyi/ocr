@@ -23,7 +23,6 @@ use Godruoyi\OCR\Support\Config;
  * @see  https://github.com/godruoyi/ocr
  *
  * @property string $baidu 百度OCR识别
- *
  *     method generalBasic($files, $options = []) 通用文字识别
  *     method accurateBasic($files, $options = []) 通用文字识别（高精度版）
  *     method general($files, $options = []) 通用文字识别（含位置信息版）
@@ -40,8 +39,23 @@ use Godruoyi\OCR\Support\Config;
  *     method receipt($files, $options = []) 通用票据识别
  *
  * @property string $aliyun 阿里OCR识别
- * @property string $tencent 腾讯OCR识别
+ *     method array idcard($files, $options = []) 身份证识别
+ *     method array vehicle($files, $options = []) 行驶证识别
+ *     method array driverLicense($files, $options = []) 驾驶证识别
+ *     method array shopSign($files, $options = []) 门店识别
+ *     method array english($files, $options = []) 英文识别
+ *     method array businessLicense($files, $options = []) 营业执照识别
+ *     method array bankCard($files, $options = []) 银行卡识别
+ *     method array businessCard($files, $options = []) 名片识别
+ *     method array trainTicket($files, $options = []) 火车票识别
+ *     method array vehiclePlate($files, $options = []) 车牌识别
+ *     method array general($files, $options = []) 通用文字识别
  *
+ * @property string $tencent 腾讯OCR识别
+ *     method array namecard($images, $options = []) 名片识别
+ *     method array idcard($images, $options = []) 身份证识别
+ *     method array drivingLicence($images, $options = []) 行驶证驾驶证识别
+ *     method array general($images, $options = []) 通用文字识别
  */
 class Application extends Container
 {
@@ -97,5 +111,35 @@ class Application extends Container
         }
 
         throw new Exception(sprintf('Property "%s" is not defined.', $property));
+    }
+
+    /**
+     * Compatible Laravel
+     *
+     * @return mixed
+     */
+    public function baidu()
+    {
+        return $this['baidu'];
+    }
+
+    /**
+     * Compatible Laravel
+     *
+     * @return mixed
+     */
+    public function aliyun()
+    {
+        return $this['aliyun'];
+    }
+
+    /**
+     * Compatible Laravel
+     *
+     * @return mixed
+     */
+    public function tencent()
+    {
+        return $this['tencent'];
     }
 }
