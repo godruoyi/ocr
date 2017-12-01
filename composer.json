@@ -14,7 +14,7 @@
     "require": {
         "doctrine/cache": "^1.6",
         "pimple/pimple": "~3.0",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
         "psr-4": {
