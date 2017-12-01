@@ -65,9 +65,6 @@ class Application extends Container
      * @var array
      */
     protected $providers = [
-        //default support ocr provider
-        Providers\CacheProvider::class,
-
         Providers\BaiduProvider::class,
         Providers\TencentProvider::class,
         Providers\AliyunProvider::class,
@@ -82,6 +79,7 @@ class Application extends Container
     {
         $this['config'] = new Config($configs);
 
+        $this->register(new Providers\CacheProvider);
         $this->registerProviders();
     }
 

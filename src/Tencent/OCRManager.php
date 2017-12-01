@@ -16,6 +16,8 @@ use Godruoyi\OCR\Support\Http;
 use Godruoyi\OCR\Support\FileConverter;
 
 /**
+ * 注: 腾讯 OCR 目前只支持单张图片,所以当识别时传入的 $images 为数组时,默认只提前 arr[0]
+ *
  * @author    godruoyi godruoyi@gmail.com>
  * @copyright 2017
  *
@@ -25,6 +27,9 @@ use Godruoyi\OCR\Support\FileConverter;
  * @method array idcard($images, $options = []) 身份证识别
  * @method array drivingLicence($images, $options = []) 行驶证驾驶证识别
  * @method array general($images, $options = []) 通用文字识别
+ * @method array bankcard($images, $options = []) 银行卡识别
+ * @method array plate($images, $options = []) 车牌号识别
+ * @method array bizlicense($images, $options = []) 营业执照识别
  */
 class OCRManager
 {
@@ -39,6 +44,9 @@ class OCRManager
     const OCR_IDCARD         = 'http://service.image.myqcloud.com/ocr/idcard';
     const OCR_DRIVINGLICENCE = 'http://recognition.image.myqcloud.com/ocr/drivinglicence';
     const OCR_GENERAL        = 'http://recognition.image.myqcloud.com/ocr/general';
+    const OCR_BANKCARD       = 'http://recognition.image.myqcloud.com/ocr/bankcard';
+    const OCR_PLATE          = 'http://recognition.image.myqcloud.com/ocr/plate';
+    const OCR_BIZLICENSE     = 'http://recognition.image.myqcloud.com/ocr/bizlicense';
 
     /**
      * Register Authorization Instance
@@ -62,13 +70,13 @@ class OCRManager
      *
      *         ret_image   Y            int         0 不返回图片，1 返回图片
      *
-     * @see https://cloud.tencent.com/document/product/460/6894
+     * @see https://cloud.tencent.com/document/product/641/12423
      *
      * @return array
      */
     public function namecard($images, array $options = [])
     {
-        return $this->request(self::OCR_NAMECARD, $images, $options);
+        return $this->request(self::OCR_NAMECARD, $images, $options, true);
     }
 
     /**
@@ -89,7 +97,7 @@ class OCRManager
      */
     public function idcard($images, array $options = [])
     {
-        return $this->request(self::OCR_IDCARD, $images, $options);
+        return $this->request(self::OCR_IDCARD, $images, $options, true);
     }
 
     /**
@@ -110,7 +118,26 @@ class OCRManager
      */
     public function drivingLicence($images, array $options = [])
     {
+        $options['type'] = isset($options['type']) ? $options['type'] : 0;
+
         return $this->request(self::OCR_DRIVINGLICENCE, $images, $options);
+    }
+
+    /**
+     * OCR-营业执照识别
+     *
+     * @param  string|\SplFileInfo $images
+     * @param  array $options
+     *
+     *         参数        是否可选     类型        描述
+     *
+     * @see https://cloud.tencent.com/document/product/641/12425
+     *
+     * @return array
+     */
+    public function bizlicense($images, array $options = [])
+    {
+        return $this->request(self::OCR_BIZLICENSE, $images, $options);
     }
 
     /**
@@ -123,13 +150,47 @@ class OCRManager
      *         bucket      Y            string      图片空间
      *         appid       Y            string      业务 id
      *
-     * @see https://cloud.tencent.com/document/product/460/6894
+     * @see https://cloud.tencent.com/document/product/641/12428
      *
      * @return array
      */
     public function general($images, array $options = [])
     {
-        return $this->request(self::OCR_DRIVINGLICENCE, $images, $options);
+        return $this->request(self::OCR_GENERAL, $images, $options);
+    }
+
+    /**
+     * OCR-银行卡识别
+     *
+     * @param  string|\SplFileInfo $images
+     * @param  array $options
+     *
+     *         参数        是否可选     类型        描述
+     *
+     * @see https://cloud.tencent.com/document/product/641/12429
+     *
+     * @return array
+     */
+    public function bankcard($images, array $options = [])
+    {
+        return $this->request(self::OCR_BANKCARD, $images, $options);
+    }
+
+    /**
+     * OCR-车牌号识别
+     *
+     * @param  string|\SplFileInfo $images
+     * @param  array $options
+     *
+     *         参数        是否可选     类型        描述
+     *
+     * @see https://cloud.tencent.com/document/product/641/12427
+     *
+     * @return array
+     */
+    public function plate($images, array $options = [])
+    {
+        return $this->request(self::OCR_PLATE, $images, $options);
     }
 
     /**
@@ -156,36 +217,30 @@ class OCRManager
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function request($url, $images, array $options = [])
+    protected function request($url, $images, array $options = [], $requestType = false)
     {
         $http = (new Http)->setHeaders([
             'Authorization' => $this->authorization->getAuthorization()
         ]);
 
-        $images = is_array($images) ? $images : [$images];
+        //腾讯 OCR 识别只支持单个图片
+        $image = is_array($images) ? $images[0] : $images;
 
-        $isurl = false;
-        $ismultipart = false;
-        $multiparts = [];
+        //腾讯 OCR 识别时,部分接口的请求参数为 ret_image/url_list 部分又为 image/url --Fuck
+        $urlName = $requestType ? 'url_list' : 'url';
 
-        foreach ($images as $index => $image) {
-            if (FileConverter::isUrl($image)) {
-                $isurl = true;
-            } else {
-                $ismultipart = true;
-                $multiparts['image'][] = $image;
-            }
-        }
-
-        if ($isurl && $ismultipart) {
-            throw new RuntimeException('Can not exist at the same time for online url and local file.');
+        if (FileConverter::isUrl($image)) {
+            $isurl = true;
+        } else {
+            $isurl = false;
+            $multiparts['image'][] = $image;
         }
 
         $options = $this->appendAppIdAndBucketIfEmpty($options);
 
         try {
             if ($isurl) {
-                $response = $http->json($url, array_merge($options, ['url_list' => $images]));
+                $response = $http->json($url, array_merge($options, [$urlName => $image]));
             } else {
                 $response = $http->upload($url, $multiparts, $options);
             }
