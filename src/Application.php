@@ -56,6 +56,9 @@ use Godruoyi\OCR\Support\Config;
  *     method array idcard($images, $options = []) 身份证识别
  *     method array drivingLicence($images, $options = []) 行驶证驾驶证识别
  *     method array general($images, $options = []) 通用文字识别
+ *     method array bankcard($images, $options = []) 银行卡识别
+ *     method array plate($images, $options = []) 车牌号识别
+ *     method array bizlicense($images, $options = []) 营业执照识别
  */
 class Application extends Container
 {

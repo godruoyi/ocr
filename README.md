@@ -35,6 +35,9 @@
     - [身份证识别](#tencent-idcard)
     - [行驶证驾驶证识别](#tencent-drivingLicence)
     - [通用印刷体识别](#tencent-general)
+    - [银行卡识别](#tencent-bankcard)
+    - [车牌号识别](#tencent-plate)
+    - [营业执照识别](#tencent-bizlicense)
 
 # Feature
 
@@ -434,6 +437,30 @@ $app->tencent->drivingLicence($file, [
 $app->tencent->general($file, [
 ]);
 ```
+<a name="tencent-bankcard"></a>
+#### 银行卡识别
+
+```php
+$app->tencent->bankcard($file, [
+]);
+```
+
+<a name="tencent-plate"></a>
+#### 车牌号识别
+
+```php
+$app->tencent->plate($file, [
+]);
+```
+
+<a name="tencent-bizlicense"></a>
+#### 营业执照识别
+
+```php
+$app->tencent->bizlicense($file, [
+]);
+```
+
 # LICENSE
 
 MIT
