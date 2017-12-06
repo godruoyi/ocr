@@ -12,8 +12,8 @@
 namespace Godruoyi\OCR\Providers;
 
 use Pimple\Container;
-use Godruoyi\OCR\Aliyun\AppCode;
-use Godruoyi\OCR\Aliyun\OCRManager;
+use Godruoyi\OCR\Service\Aliyun\AppCode;
+use Godruoyi\OCR\Service\Aliyun\OCRManager;
 use Pimple\ServiceProviderInterface;
 
 class AliyunProvider implements ServiceProviderInterface

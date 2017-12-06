@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Godruoyi\OCR\Baidu;
+namespace Godruoyi\OCR\Service\Baidu;
 
 use RuntimeException;
 use Doctrine\Common\Cache\Cache;

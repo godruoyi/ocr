@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Godruoyi\OCR\Tencent;
+namespace Godruoyi\OCR\Service\Tencent;
 
 use RuntimeException;
 use Godruoyi\OCR\Support\Http;

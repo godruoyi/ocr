@@ -1,6 +1,6 @@
 <?php
 
-namespace Godruoyi\OCR\TencentAI;
+namespace Godruoyi\OCR\Service\TencentAI;
 
 /**
  * @see https://ai.qq.com/doc/auth.shtml
@@ -53,7 +53,7 @@ class Authorization
             'nonce_str' => $noncestr ? : md5(uniqid())
         ];
 
-        if(isset($params['app_key'])) {
+        if (isset($params['app_key'])) {
             unset($params['app_key']);
         }
 

@@ -13,8 +13,8 @@ namespace Godruoyi\OCR\Providers;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Godruoyi\OCR\Baidu\AccessToken;
-use Godruoyi\OCR\Baidu\OCRManager;
+use Godruoyi\OCR\Service\Baidu\AccessToken;
+use Godruoyi\OCR\Service\Baidu\OCRManager;
 
 class BaiduProvider implements ServiceProviderInterface
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace Godruoyi\OCR\Aliyun;
+namespace Godruoyi\OCR\Service\Aliyun;
 
 class AppCode
 {
     /**
      * Aliyun App Code
-     * 
+     *
      * @var string
      */
     protected $appCode;
 
     /**
      * Register App Code
-     * 
+     *
      * @param string $appCode
      */
     public function __construct($appCode)
@@ -23,7 +23,7 @@ class AppCode
 
     /**
      * Get App code
-     * 
+     *
      * @return string
      */
     public function getAppCode()
@@ -33,7 +33,7 @@ class AppCode
 
     /**
      * Get App Code with Header
-     * 
+     *
      * @return array
      */
     public function getAppCodeHeader()

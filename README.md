@@ -38,6 +38,13 @@
     - [银行卡识别](#tencent-bankcard)
     - [车牌号识别](#tencent-plate)
     - [营业执照识别](#tencent-bizlicense)
+- [Tencent OCR For AI](#tencent-ocr-for-ai)
+    - [身份证识别](#tencent-idcard-for-ai)
+    - [名片识别](#tencent-namecard-for-ai)
+    - [行驶证驾驶证识别](#tencent-driverlicen-for-ai)
+    - [银行卡识别](#tencent-bankcard-for-ai)
+    - [通用印刷体识别](#tencent-general-for-ai)
+    - [营业执照识别](#tencent-bizlicense-for-ai)
 
 # Feature
 
@@ -46,10 +53,13 @@
  - 命名不那么乱七八糟；
  - 支持目前市面多家服务商
 
+ [查看更新日志](https://github.com/godruoyi/ocr/blob/master/CHANGELOG.md)
+
 # Support
 
  - [百度 OCR](http://ai.baidu.com/tech/ocr)
  - [腾讯 万象优图](https://cloud.tencent.com/product/ocr)
+ - [腾讯 AI 开放平台](https://ai.qq.com/)
  - [阿里 OCR](https://data.aliyun.com/product/ocr)
 
 # Requirement
@@ -220,8 +230,7 @@ $app->baidu->idcard($file, [
 #### 银行卡识别
 
 ```php
-$app->baidu->bankcard($file, [
-]);
+$app->baidu->bankcard($file, []);          //无参数
 ```
 <a name="baidu-drivingLicense"></a>
 #### 驾驶证识别
@@ -255,8 +264,7 @@ $app->baidu->licensePlate($file, [
 #### 营业执照识别
 
 ```php
-$app->baidu->businessLicense($file, [
-]);
+$app->baidu->businessLicense($file, []);   //无参数
 ```
 
 <a name="baidu-receipt"></a>
@@ -303,8 +311,7 @@ $app->aliyun->idcard($file, [
 #### 行驶证识别
 
 ```php
-$app->aliyun->vehicle($file, [
-]);
+$app->aliyun->vehicle($file, []);          //无可选参数
 ```
 
 <a name="aliyun-driverLicense"></a>
@@ -320,48 +327,42 @@ $app->aliyun->driverLicense($file, [
 #### 门店识别
 
 ```php
-$app->aliyun->shopSign($file, [
-]);
+$app->aliyun->shopSign($file, []);         //无可选参数
 ```
 
 <a name="aliyun-english"></a>
 #### 英文识别
 
 ```php
-$app->aliyun->english($file, [
-]);
+$app->aliyun->english($file, []);          //无可选参数
 ```
 
 <a name="aliyun-businessLicense"></a>
 #### 营业执照识别
 
 ```php
-$app->aliyun->businessLicense($file, [
-]);
+$app->aliyun->businessLicense($file, []);  //无可选参数
 ```
 
 <a name="aliyun-bankCard"></a>
 #### 银行卡识别
 
 ```php
-$app->aliyun->bankCard($file, [
-]);
+$app->aliyun->bankCard($file, []);         //无可选参数
 ```
 
 <a name="aliyun-businessCard"></a>
 #### 名片识别
 
 ```php
-$app->aliyun->businessCard($file, [
-]);
+$app->aliyun->businessCard($file, []);     //无可选参数
 ```
 
 <a name="aliyun-trainTicket"></a>
 #### 火车票识别
 
 ```php
-$app->aliyun->trainTicket($file, [
-]);
+$app->aliyun->trainTicket($file, []);      //无可选参数
 ```
 
 <a name="aliyun-vehiclePlate"></a>
@@ -379,8 +380,8 @@ $app->aliyun->vehiclePlate($file, [
 
 ```php
 $app->aliyun->general($file, [
-    'min_size'              => 16,       //图片中文字的最小高度，
-    'output_prob'           => false,    //是否输出文字框的概率，
+    'min_size'              => 16,        //图片中文字的最小高度，
+    'output_prob'           => false,     //是否输出文字框的概率，
 ]);
 ```
 
@@ -434,33 +435,90 @@ $app->tencent->drivingLicence($file, [
 #### 通用印刷体识别
 
 ```php
-$app->tencent->general($file, [
-]);
+$app->tencent->general($file, []);       //无可选参数
 ```
 <a name="tencent-bankcard"></a>
 #### 银行卡识别
 
 ```php
-$app->tencent->bankcard($file, [
-]);
+$app->tencent->bankcard($file, []);      //无可选参数
 ```
 
 <a name="tencent-plate"></a>
 #### 车牌号识别
 
 ```php
-$app->tencent->plate($file, [
-]);
+$app->tencent->plate($file, []);         //无可选参数
 ```
 
 <a name="tencent-bizlicense"></a>
 #### 营业执照识别
 
 ```php
-$app->tencent->bizlicense($file, [
+$app->tencent->bizlicense($file, []);    //无可选参数
+```
+<a name="tencent-ocr-for-ai"></a>
+## [Tencent OCR For AI](https://ai.qq.com/product/ocr.shtml#identify)
+
+> 可登录 [腾讯 AI 控制台](https://ai.qq.com/cgi-bin/console_overview)查看你的[个人 APP_ID 及 APP_KEY](https://ai.qq.com/cgi-bin/console_overview)
+
+```php
+use Godruoyi\OCR\Application;
+
+$app = new Application([
+    'ocrs' => [
+        'tencentai' => [
+          'app_id' => '1106584682',
+          'app_key' => 'XGgkqVif73v8wH6W',
+        ],
+    ]
 ]);
 ```
 
-# LICENSE
+<a name="tencent-idcard-for-ai"></a>
+#### 身份证识别
+
+```php
+$app->tencentai->idcard($file, [
+    'card_type'             => 0,          //0 为身份证有照片的一面，1为身份证有国徽的一面 默认0
+]);
+```
+
+<a name="tencent-namecard-for-ai"></a>
+#### 名片识别
+
+```php
+$app->tencentai->namecard($file, []);
+```
+
+<a name="tencent-driverlicen-for-ai"></a>
+#### 行驶证驾驶证识别
+
+```php
+$app->tencentai->driverlicen($file, [
+    'type'                  => 0,          //识别类型，0表示行驶证，1表示驾驶证，默认0
+]);
+```
+
+<a name="tencent-bankcard-for-ai"></a>
+#### 银行卡识别
+
+```php
+$app->tencentai->bankcard($file, []);      //无可选参数
+```
+
+<a name="tencent-general-for-ai"></a>
+#### 通用印刷体识别
+
+```php
+$app->tencentai->general($file, []);       //无可选参数
+```
+
+<a name="tencent-bizlicense-for-ai"></a>
+#### 营业执照识别
+
+```php
+$app->tencentai->bizlicense($file, []);    //无可选参数
+```
 
 MIT

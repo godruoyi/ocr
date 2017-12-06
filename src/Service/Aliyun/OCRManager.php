@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Godruoyi\OCR\Aliyun;
+namespace Godruoyi\OCR\Service\Aliyun;
 
 use RuntimeException;
 use Godruoyi\OCR\Support\Arr;
@@ -276,7 +276,6 @@ class OCRManager
 
         try {
             $response = $httpClient->json($url, $this->getFixedFormat($images, $options));
-
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
@@ -287,7 +286,6 @@ class OCRManager
         $this->simpleRequestBody = false;
 
         if ($response->getStatusCode() != 200) {
-
             $requestID = $response->getHeader('X-Ca-Request-Id');
             $messages  = $response->getHeader('X-Ca-Error-Message');
 

@@ -13,8 +13,8 @@ namespace Godruoyi\OCR\Providers;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Godruoyi\OCR\Tencent\OCRManager;
-use Godruoyi\OCR\Tencent\Authorization;
+use Godruoyi\OCR\Service\Tencent\OCRManager;
+use Godruoyi\OCR\Service\Tencent\Authorization;
 
 class TencentProvider implements ServiceProviderInterface
 {

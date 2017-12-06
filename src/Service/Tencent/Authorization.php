@@ -1,6 +1,6 @@
 <?php
 
-namespace Godruoyi\OCR\Tencent;
+namespace Godruoyi\OCR\Service\Tencent;
 
 /**
  * @see https://cloud.tencent.com/document/product/460/6968
