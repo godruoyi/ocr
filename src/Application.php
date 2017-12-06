@@ -71,6 +71,7 @@ class Application extends Container
         Providers\BaiduProvider::class,
         Providers\TencentProvider::class,
         Providers\AliyunProvider::class,
+        Providers\TencentAIProvider::class
     ];
 
     /**
@@ -142,5 +143,14 @@ class Application extends Container
     public function tencent()
     {
         return $this['tencent'];
+    }
+
+    /**
+     * Compatible Laravel
+     *
+     * @return mixed
+     */
+    public function tencentai() {
+        return $this['tencentai'];
     }
 }
