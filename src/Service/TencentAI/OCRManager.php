@@ -171,8 +171,9 @@ class OCRManager
      * @param $url
      * @param $params
      *
-     * @return array
      * @throws \Exception
+     *
+     * @return array
      */
     protected function request($url, $image, array $options = [])
     {
@@ -185,12 +186,10 @@ class OCRManager
             $response = $http->request('POST', $url, [
                 'form_params' => $params
             ]);
-
-            return $http->parseJson($response);
         } catch (ClientException $ce) {
-            throw $ce;
-        } catch (\Exception $e) {
-            throw new \Exception("invalid response: " . $response->getBody());
+            $response = $response->getBody();
         }
+
+        return $http->parseJson($response);
     }
 }
