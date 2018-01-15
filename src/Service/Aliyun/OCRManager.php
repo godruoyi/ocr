@@ -299,6 +299,10 @@ class OCRManager
 
 
         $arr = $httpClient->parseJson($response);
+  
+        if (isset($arr['success']) && $arr['success'] === true) {
+            return $arr;
+        }
 
         if (! is_array(Arr::get($arr, 'outputs.0.outputValue.dataValue'))) {
             $arr['outputs'][0]['outputValue']['dataValue'] = json_decode($arr['outputs'][0]['outputValue']['dataValue'], true);
