@@ -183,9 +183,11 @@ class OCRManager
             $params = $this->authorization->appendSignature($params);
 
             $http = new HTTP();
-            $response = $http->request('POST', $url, [
-                'form_params' => $params
-            ]);
+            $response = $http
+                ->setHeaders(['Content-Type' => 'application/x-www-form-urlencoded'])
+                ->request('POST', $url, [
+                    'form_params' => $params
+                ]);
         } catch (ClientException $ce) {
             $response = $response->getBody();
         }
