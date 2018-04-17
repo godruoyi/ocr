@@ -451,9 +451,9 @@ class OCRManager
             $images = $images[0];
         }
 
-        if (! $this->supportUrl && FileConverter::isUrl($images)) {
-            throw new RuntimeException('current method not support online picture.');
-        }
+        // if (! $this->supportUrl && FileConverter::isUrl($images)) {
+        //     throw new RuntimeException('current method not support online picture.');
+        // }
 
         if ($this->supportUrl && FileConverter::isUrl($images)) {
             $options['url'] = $images;

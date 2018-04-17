@@ -32,7 +32,7 @@ class Http
      *
      * @var array
      */
-    protected $headers;
+    protected $headers = [];
 
     /**
      * Guzzle client default settings.
