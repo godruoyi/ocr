@@ -1,0 +1,187 @@
+<?php
+
+namespace Godruoyi\OCR\Requests;
+
+use GuzzleHttp\Middleware;
+use InvalidArgumentException;
+use Godruoyi\OCR\Support\Arr;
+use Godruoyi\OCR\Support\Http;
+use Psr\Http\Message\RequestInterface;
+use Godruoyi\OCR\Support\FileConverter;
+use Godruoyi\Container\ContainerInterface;
+use Godruoyi\OCR\Exceptions\RequestException;
+use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
+
+class AliyunRequest extends Request
+{
+    /**
+     * 阿里云请求格式，不同的接口正式请求时格式不一致
+     *
+     * @var string
+     */
+    protected $requestFormats = [
+        'basic',
+        'inputs',
+        'imgorurl'
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function mergeOptions($images, array $options): array
+    {
+        // Aliyun does not support batch operation
+        $images = is_array($images) ? $images[0] : $images;
+        $format = $options['_format'] ?? 'inputs';
+
+        if (!in_array($format, $this->requestFormats, true)) {
+            throw new InvalidArgumentException(sprintf('Unallowed format type, only [%s]', join($this->requestFormats, ',')));
+        }
+
+        $format = 'format'.ucfirst($format);
+
+        return $this->{$format}($images, $options);
+    }
+
+    /**
+     * Basic request format.
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return array
+     */
+    protected function formatBasic($images, array $options): array
+    {
+        // If gieved image is not url, try get image content to base64 encode.
+        // Be careful, some methods do not support online images.
+        if (!FileConverter::isUrl($images)) {
+            $images = FileConverter::toBase64Encode($images);
+        }
+
+        return [
+            'image'     => $images,
+            'configure' => json_encode($options, JSON_UNESCAPED_UNICODE)
+        ];
+    }
+
+    /**
+     * Use inputs warp request data.
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return array
+     */
+    protected function formatInputs($images, array $options): array
+    {
+        // If gieved image is not url, try get image content to base64 encode.
+        // Be careful, some methods do not support online images.
+        if (!FileConverter::isUrl($images)) {
+            $images = FileConverter::toBase64Encode($images);
+        }
+
+        return [
+            'inputs' => [
+                [
+                    'image' => [
+                        'dataType' => 50,
+                        'dataValue' => $images
+                    ],
+                    'configure' => [
+                        'dataType' => 50,
+                        'dataValue' => json_encode($options, JSON_UNESCAPED_UNICODE)
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * support online image.
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return array
+     */
+    protected function formatImgorurl($images, array $options)
+    {
+        $datas = [];
+
+        if (!FileConverter::isUrl($images)) {
+            $datas['img'] = FileConverter::toBase64Encode($images);
+        } else {
+            $datas['url'] = $images;
+        }
+
+        return array_merge($options, $datas);
+    }
+
+    /**
+     * Middlewares.
+     * [
+     *     'aliyun' => callable
+     * ]
+     *
+     * @return array
+     */
+    protected function middlewares(): array
+    {
+        return [
+            'aliyun' => $this->authRequest(),
+        ];
+    }
+
+    /**
+     * Auth request.
+     *
+     * @return mixed
+     */
+    protected function authRequest()
+    {
+        return Middleware::mapRequest(function ($request) {
+            return $this->canUseSignatureWay()
+                ? $this->signatureRequestUseAppSecret($request)
+                : $this->signatureRequestUseAppCode($request);
+        });
+    }
+
+    /**
+     * AppKey And AppSecret signature
+     *
+     * @param  mixed $request
+     *
+     * @return mixed
+     */
+    protected function signatureRequestUseAppSecret($request)
+    {
+        // @todo wait a pr.
+        throw new \Exception('Aliyun AppKey and AppSecret has not be completed');
+    }
+
+    /**
+     * Signature Request Use AppCode
+     *
+     * @param  mixed $request
+     *
+     * @return mixed
+     */
+    public function signatureRequestUseAppCode($request)
+    {
+        $appcode = $this->app['config']->get('drivers.aliyun.appcode');
+
+        return $request->withHeader('Authorization', 'APPCODE ' . $appcode);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function canUseSignatureWay(): bool
+    {
+        $id  = $this->app['config']->get('drivers.aliyun.secret_id');
+        $key = $this->app['config']->get('drivers.aliyun.secret_key');
+
+        return !empty($id) && !empty($key);
+    }
+}

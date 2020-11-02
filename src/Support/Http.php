@@ -35,6 +35,20 @@ class Http
     protected $headers = [];
 
     /**
+     * Http request middlewares.
+     *
+     * @var array
+     */
+    protected $middlewares = [];
+
+    /**
+     * Callback for http handler.
+     *
+     * @var callable
+     */
+    protected $handlerFun;
+
+    /**
      * Guzzle client default settings.
      *
      * @var array
@@ -44,7 +58,6 @@ class Http
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         ],
 
-        //test
         'verify' => false
     ];
 
@@ -55,10 +68,7 @@ class Http
      */
     public function setHeaders(array $headers = [])
     {
-        $originHeaders = empty($this->headers) ? [] : $this->headers;
-        $this->headers = array_merge($originHeaders, $headers);
-
-        return $this;
+        $this->headers = array_merge($this->headers, $headers);
     }
 
     /**
@@ -133,6 +143,17 @@ class Http
         $method = strtoupper($method);
 
         $options = array_merge(self::$defaults, ['headers' => $this->headers], $options);
+        $handler = \GuzzleHttp\HandlerStack::create();
+
+        foreach ($this->middlewares as $m) {
+            $handler->push($m['middleware'], $m['name']);
+        }
+
+        if (($fn = $this->handlerFun) && is_callable($fn)) {
+            $fn($handler);
+        }
+
+        $options['handler'] = $handler;
 
         return $this->getClient()->request($method, $url, $options);
     }
@@ -153,10 +174,34 @@ class Http
     {
         is_array($options) && $options = json_encode($options, $encodeOption);
 
-        return $this->setHeaders(['content-type' => 'application/json'])->request('POST', $url, [
+        $this->setHeaders(['content-type' => 'application/json']);
+
+        return $this->request('POST', $url, [
             'query' => $queries,
             'body'  => $options
         ]);
+    }
+
+    /**
+     * Set http middleware
+     *
+     * @return mixed
+     */
+    public function middlewares(callable $middleware, string $name = null)
+    {
+        $this->middlewares[] = compact('middleware', 'name');
+    }
+
+    /**
+     * custom Http handler.
+     *
+     * @return mixed
+     */
+    public function customHttpHandler(callable $fu)
+    {
+        $this->handlerFun = $fu;
+
+        return $this;
     }
 
     /**
@@ -180,7 +225,7 @@ class Http
      *
      * @throws \Exception
      */
-    public function parseJson($body)
+    public static function parseJson($body)
     {
         if ($body instanceof ResponseInterface) {
             $body = $body->getBody();

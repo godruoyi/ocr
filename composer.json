@@ -1,7 +1,7 @@
 {
     "name": "godruoyi/ocr",
     "description": "The Best Image Ocr SDK For BAT.",
-    "keywords": ["ocr", "文字识别", "百度OCR", "腾讯OCR", "阿里云OCR"],
+    "keywords": ["OCR", "文字识别", "百度 OCR", "腾讯 OCR", "阿里云 OCR"],
     "homepage": "http://github.com/godruoyi/ocr",
     "type": "library",
     "license": "MIT",
@@ -12,15 +12,14 @@
         }
     ],
     "require": {
-        "doctrine/cache": "^1.6",
-        "pimple/pimple": "~3.0",
-        "guzzlehttp/guzzle": "^6.2"
-    },
-    "require": {
-        "php": ">=7.1",
+        "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3",
-        "pimple/pimple": "^1.0",
-        "monolog/monolog": "^1.22"
+        "monolog/monolog": "^1.22",
+        "godruoyi/easy-container": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6",
+        "mockery/mockery": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +28,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Test\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }

@@ -1,156 +1,193 @@
 <?php
 
-/*
- * This file is part of the godruoyi/ocr.
- *
- * (c) godruoyi <godruoyi@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace Godruoyi\OCR;
 
-use Exception;
-use Pimple\Container;
-use Godruoyi\OCR\Support\Config;
+use Closure;
+use InvalidArgumentException;
+use Godruoyi\Container\Container;
+use Godruoyi\OCR\Contracts\Client;
+use Psr\Container\ContainerInterface;
+use Godruoyi\Container\ServiceProviderInterface;
 
-/**
- * @author    godruoyi godruoyi@gmail.com>
- * @copyright 2017
- *
- * @see  http://ai.baidu.com/docs#/OCR-API/top
- * @see  https://github.com/godruoyi/ocr
- *
- * @property string $baidu 百度OCR识别
- *     method generalBasic($files, $options = []) 通用文字识别
- *     method accurateBasic($files, $options = []) 通用文字识别（高精度版）
- *     method general($files, $options = []) 通用文字识别（含位置信息版）
- *     method accurate($files, $options = []) 通用文字识别（含位置高精度版）
- *     method generalEnhanced($files, $options = []) 通用文字识别（含生僻字版）
- *     method webimage($files, $options = []) 网络图片文字识别
- *     method idcard($files, $options = []) 身份证识别
- *     method bankcard($files, $options = []) 银行卡识别
- *     method drivingLicense($files, $options = []) 驾驶证识别
- *     method vehicleLicense($files, $options = []) 行驶证识别
- *     method licensePlate($files, $options = []) 车牌识别
- *     method businessLicense($files, $options = []) 营业执照识别
- *     method tableWorld($files, $options = []) 表格文字识别
- *     method receipt($files, $options = []) 通用票据识别
- *
- * @property string $aliyun 阿里OCR识别
- *     method array idcard($files, $options = []) 身份证识别
- *     method array vehicle($files, $options = []) 行驶证识别
- *     method array driverLicense($files, $options = []) 驾驶证识别
- *     method array shopSign($files, $options = []) 门店识别
- *     method array english($files, $options = []) 英文识别
- *     method array businessLicense($files, $options = []) 营业执照识别
- *     method array bankCard($files, $options = []) 银行卡识别
- *     method array businessCard($files, $options = []) 名片识别
- *     method array trainTicket($files, $options = []) 火车票识别
- *     method array vehiclePlate($files, $options = []) 车牌识别
- *     method array general($files, $options = []) 通用文字识别
- *
- * @property string $tencent 腾讯OCR识别
- *     method array namecard($images, $options = []) 名片识别
- *     method array idcard($images, $options = []) 身份证识别
- *     method array drivingLicence($images, $options = []) 行驶证驾驶证识别
- *     method array general($images, $options = []) 通用文字识别
- *     method array bankcard($images, $options = []) 银行卡识别
- *     method array plate($images, $options = []) 车牌号识别
- *     method array bizlicense($images, $options = []) 营业执照识别
- */
-class Application extends Container
+class Application extends Manager
 {
     /**
-     * Default Providers
+     * The container instance,
+     *
+     * @var \Godruoyi\Container\Container
+     */
+    protected $container;
+
+    /**
+     * OCR configurage
      *
      * @var array
      */
-    protected $providers = [
-        Providers\BaiduProvider::class,
-        Providers\TencentProvider::class,
-        Providers\AliyunProvider::class,
-        Providers\TencentAIProvider::class
+    protected $config;
+
+    /**
+     * The default service providers.
+     *
+     * @var array
+     */
+    protected $defaultProviders = [
+        Providers\HttpServiceProvider::class,
+        Providers\CacheServiceProvider::class,
+        Providers\LogServiceProvider::class,
     ];
 
     /**
-     * Initeral Application Instance
+     * Create application instance.
      *
-     * @param string|array $configs
+     * @param array $config
      */
-    public function __construct($configs = null)
+    public function __construct(array $config = [])
     {
-        $this['config'] = new Config($configs);
+        $this->container = new Container;
+        $this->config = new Config($config);
 
-        $this->register(new Providers\CacheProvider);
-        $this->registerProviders();
+        $this->boot();
+
+        parent::__construct($this->container);
     }
 
     /**
-     * Register Provider
+     * Get ocr container
+     *
+     * @return \Godruoyi\Container\Container
+     */
+    public function getContainer(): Container
+    {
+        return $this->container;
+    }
+
+    /**
+     * Boot application for ocr
      *
      * @return void
      */
-    protected function registerProviders()
+    protected function boot()
     {
-        foreach (array_merge($this->providers, $this['config']->get('providers', [])) as $provider) {
-            $this->register(new $provider);
+        $this->registerCore();
+        $this->registerDefaultProvider();
+    }
+
+    /**
+     * Registe core alias and service
+     *
+     * @return mixed
+     */
+    protected function registerCore()
+    {
+        $this->container->singleton('app', function ($app) {
+            return $app;
+        });
+
+        $this->container->singleton('config', function ($app) {
+            return $this->config;
+        });
+
+        $this->container->alias('app', Container::class);
+        $this->container->alias('app', 'Godruoyi\Container\ContainerInterface');
+
+        $this->container->alias('config', Config::class);
+    }
+
+    /**
+     * Register default service provider.
+     *
+     * @return mixed
+     */
+    protected function registerDefaultProvider()
+    {
+        foreach ($this->defaultProviders as $p) {
+            $this->register($p);
         }
     }
 
     /**
-     * __get
+     * Registe a service to container.
      *
-     * @param  string $property
+     * @param  mixed $service
      *
-     * @return mixed
+     * @return void
      */
-    public function __get($property)
+    public function register($service)
     {
-        if (isset($this[$property])) {
-            return $this[$property];
+        if (is_string($service) && class_exists($service)) {
+            $service = $this->container->make($service);
         }
 
-        throw new Exception(sprintf('Property "%s" is not defined.', $property));
+        if ($service instanceof ServiceProviderInterface) {
+            $service->register($this->container);
+
+            return;
+        }
+
+        if ($service instanceof Closure) {
+            $service($this->container);
+        } else {
+            throw new InvalidArgumentException('Unsupported registration types');
+        }
     }
 
     /**
-     * Compatible Laravel
+     * Recover __get method
+     *
+     * @param  mixed $key
      *
      * @return mixed
      */
-    public function baidu()
+    public function __get($key)
     {
-        return $this['baidu'];
+        return $this->driver($key);
     }
 
     /**
-     * Compatible Laravel
+     * Create Aliyun Driver
      *
-     * @return mixed
+     * @return miced
      */
-    public function aliyun()
+    protected function createAliyunDriver(): Client
     {
-        return $this['aliyun'];
+        return $this->container->make(Clients\AliyunClient::class);
     }
 
     /**
-     * Compatible Laravel
+     * Create Baidu Driver
      *
-     * @return mixed
+     * @returnmiced
      */
-    public function tencent()
+    protected function createBaiduDriver(): Client
     {
-        return $this['tencent'];
+        # code...
     }
 
     /**
-     * Compatible Laravel
+     * Create Tencent Driver
      *
-     * @return mixed
+     * @return [miced
      */
-    public function tencentai() {
-        return $this['tencentai'];
+    protected function createTencentDriver(): Client
+    {
+        # code...
+    }
+
+    /**
+     * Create Ai Driver
+     *
+     * @retmiced
+     */
+    protected function createTencentAiDriver(): Client
+    {
+        # code...
+    }
+
+    /**
+     *  {@inheritdoc}
+     */
+    public function getDefaultDriver()
+    {
+        return $this->container['config']->get('driver') ?: 'aliyun';
     }
 }
