@@ -39,8 +39,13 @@ class Response extends GuzzleHttpResponse
             return [];
         }
 
-        // We ignore error when json_decode failure.
-        return json_decode($body, true);
+        $response = json_decode($body, true);
+
+        if (json_last_error() != JSON_ERROR_NONE) {
+            return [];
+        }
+
+        return $response;
     }
 
     /**

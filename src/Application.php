@@ -160,7 +160,7 @@ class Application extends Manager
      */
     protected function createBaiduDriver(): Client
     {
-        # code...
+        return $this->container->make(Clients\BaiduClient::class);
     }
 
     /**

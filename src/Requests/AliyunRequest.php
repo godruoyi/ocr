@@ -4,13 +4,8 @@ namespace Godruoyi\OCR\Requests;
 
 use GuzzleHttp\Middleware;
 use InvalidArgumentException;
-use Godruoyi\OCR\Support\Arr;
-use Godruoyi\OCR\Support\Http;
-use Psr\Http\Message\RequestInterface;
+use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Support\FileConverter;
-use Godruoyi\Container\ContainerInterface;
-use Godruoyi\OCR\Exceptions\RequestException;
-use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 
 class AliyunRequest extends Request
 {
@@ -19,19 +14,25 @@ class AliyunRequest extends Request
      *
      * @var string
      */
-    protected $requestFormats = [
-        'basic',
-        'inputs',
-        'imgorurl'
-    ];
+    protected $requestFormats = ['basic', 'inputs', 'imgorurl'];
 
     /**
      * {@inheritdoc}
      */
-    public function mergeOptions($images, array $options): array
+    public function request($url, $images, array $options = []) : Response
     {
-        // Aliyun does not support batch operation
-        $images = is_array($images) ? $images[0] : $images;
+        return $this->http->json($url, $this->mergeOptions($images, $options));
+    }
+
+    /**
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return array
+     */
+    protected function mergeOptions($images, array $options): array
+    {
+        $images = $this->filterOneImage($images, 'Aliyun ocr only one image can be identified at a time, default to array[0].');
         $format = $options['_format'] ?? 'inputs';
 
         if (!in_array($format, $this->requestFormats, true)) {
@@ -75,8 +76,6 @@ class AliyunRequest extends Request
      */
     protected function formatInputs($images, array $options): array
     {
-        // If gieved image is not url, try get image content to base64 encode.
-        // Be careful, some methods do not support online images.
         if (!FileConverter::isUrl($images)) {
             $images = FileConverter::toBase64Encode($images);
         }

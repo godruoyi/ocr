@@ -16,5 +16,7 @@ class LogServiceProvider implements ServiceProviderInterface
         $container->singleton('logger', function ($app) {
             return new Logger($app['config']->get('log'));
         });
+
+        $container->alias('logger', 'log');
     }
 }

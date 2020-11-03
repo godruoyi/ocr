@@ -102,4 +102,9 @@ class ALiyunClientTest extends TestCase
     //     $this->assertInstanceOf(Response::class, $response);
     //     $this->assertArrayHasKey('sid', $response->toArray());
     // }
+
+    public function testManyImage()
+    {
+        $response = $this->application->aliyun->general([__DIR__.'/stubs/common.png',__DIR__.'/stubs/common.png',__DIR__.'/stubs/common.png']);
+    }
 }

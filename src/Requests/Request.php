@@ -2,6 +2,7 @@
 
 namespace Godruoyi\OCR\Requests;
 
+use InvalidArgumentException;
 use Godruoyi\OCR\Support\Http;
 use Godruoyi\OCR\Support\Response;
 use Godruoyi\Container\ContainerInterface;
@@ -24,13 +25,6 @@ abstract class Request implements RequestInterface
     protected $app;
 
     /**
-     * The default http request method.
-     *
-     * @var string
-     */
-    protected $method = 'json';
-
-    /**
      * Auto regist http and container instance.
      *
      * @param Http               $http
@@ -43,6 +37,7 @@ abstract class Request implements RequestInterface
         $this->app = $app;
 
         $this->registerMiddlewares();
+        $this->init();
     }
 
     /**
@@ -71,6 +66,15 @@ abstract class Request implements RequestInterface
     }
 
     /**
+     * custon init method.
+     *
+     * @return void
+     */
+    protected function init()
+    {
+    }
+
+    /**
      * Translation $images and $options to guzzle http options
      *
      * @param  mixed $images
@@ -78,13 +82,47 @@ abstract class Request implements RequestInterface
      *
      * @return array
      */
-    abstract public function mergeOptions($images, array $options): array;
+    abstract public function request($url, $images, array $options = []) : Response;
 
     /**
-     * {@inheritdoc}
+     * Get app instance
+     *
+     * @return \Godruoyi\Container\ContainerInterface
      */
-    public function request($url, $images, array $options = []) : Response
+    public function getApp()
     {
-        return $this->http->{$this->method}($url, $this->mergeOptions($images, $options));
+        return $this->app;
+    }
+
+    /**
+     * Get http instance.
+     *
+     * @return \Godruoyi\OCR\Support\Http
+     */
+    public function getHttp()
+    {
+        return $this->http;
+    }
+
+    /**
+     * Filter images to one.
+     *
+     * @param  mixed $images
+     *
+     * @return mixed
+     */
+    protected function filterOneImage($images, $message = 'Only one image can be operated at a time.')
+    {
+        if (is_array($images)) {
+            if (($count = count($images)) >= 1) {
+                $count > 1 && $this->app['log']->warning($message);
+
+                return $images[0];
+            }
+
+            throw new InvalidArgumentException('The recognize image cannot be empty.');
+        }
+
+        return $images;
     }
 }

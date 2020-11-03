@@ -75,13 +75,14 @@ class Http
      * Send A Http Get Request
      *
      * @param  string $url
+     * @param  array  $params
      * @param  array  $options
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function get($url, $params = [])
+    public function get($url, $params = [], array $options = [])
     {
-        return $this->request('GET', $url, ['query' => $params]);
+        return $this->request('GET', $url, array_merge(['query' => $params], $options));
     }
 
     /**
@@ -92,41 +93,11 @@ class Http
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function post($url, $params = [])
+    public function post($url, $params = [], array $options = [])
     {
         $key = is_array($params) ? 'form_params' : 'body';
 
-        return $this->request('POST', $url, [$key => $params]);
-    }
-
-    /**
-     * Update
-     *
-     * @param  string $url
-     * @param  array  $params
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function upload($url, array $files = [], array $params = [], array $queries = [])
-    {
-        $multipart = [];
-
-        foreach ($files as $name => $file) {
-            $paths = is_array($file) ? $file : [$file];
-
-            foreach ($paths as $path) {
-                $multipart[] = [
-                    'name' => $name,
-                    'contents' => FileConverter::getContent($path)
-                ];
-            }
-        }
-
-        foreach ($params as $name => $contents) {
-            $multipart[] = compact('name', 'contents');
-        }
-
-        return $this->request('POST', $url, ['multipart' => $multipart, 'query' => $queries]);
+        return $this->request('POST', $url, array_merge([$key => $params], $options));
     }
 
     /**
@@ -162,7 +133,7 @@ class Http
      * JSON request.
      *
      * @param string       $url
-     * @param string|array $options
+     * @param string|array $data
      * @param array $queries
      * @param int          $encodeOption
      *
@@ -170,16 +141,16 @@ class Http
      *
      * @throws HttpException
      */
-    public function json($url, $options = [], $encodeOption = JSON_UNESCAPED_UNICODE, $queries = [])
+    public function json($url, $data = [], $encodeOption = JSON_UNESCAPED_UNICODE, $queries = [], array $options = [])
     {
-        is_array($options) && $options = json_encode($options, $encodeOption);
+        is_array($data) && $data = json_encode($data, $encodeOption);
 
         $this->setHeaders(['content-type' => 'application/json']);
 
-        return $this->request('POST', $url, [
+        return $this->request('POST', $url, array_merge([
             'query' => $queries,
-            'body'  => $options
-        ]);
+            'body'  => $data
+        ], $options));
     }
 
     /**
@@ -216,35 +187,5 @@ class Http
         }
 
         return $this->client;
-    }
-
-    /**
-     * @param \Psr\Http\Message\ResponseInterface|string $body
-     *
-     * @return array
-     *
-     * @throws \Exception
-     */
-    public static function parseJson($body)
-    {
-        if ($body instanceof ResponseInterface) {
-            $body = $body->getBody();
-        }
-
-        if ($body instanceof StreamInterface) {
-            $body = $body->getContents();
-        }
-
-        if (empty($body)) {
-            return false;
-        }
-
-        $contents = json_decode($body, true);
-
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new Exception('Failed to parse JSON: '.json_last_error_msg());
-        }
-
-        return $contents;
     }
 }
