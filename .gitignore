@@ -3,3 +3,4 @@ composer.lock
 tests/stubs/*.jpg
 tests/stubs/*.png
 tests/stubs/*.jpeg
+tests/stubs/config.php
