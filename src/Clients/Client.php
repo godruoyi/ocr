@@ -56,4 +56,14 @@ class Client
 
         return $fn($this->request, ...$parameters);
     }
+
+    /**
+     * Get request instance.
+     *
+     * @return \Godruoyi\OCR\Contracts\Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
 }

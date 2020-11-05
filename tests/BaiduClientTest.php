@@ -26,12 +26,19 @@ class BaiduClientTest extends TestCase
     //     $this->assertInstanceOf(Response::class, $response);
     // }
 
-    // public function testQrcode()
+    // public function testGeneralBasicOnline()
     // {
-    //     $response = $this->application->baidu->qrcode('https://images.godruoyi.com/images/comments/2020/11/03/cc70a95e26261895aa523cc7a1fb3781.png');
+    //     $response = $this->application->baidu->generalBasic('https://img.alicdn.com/tfs/TB1de9cvHuWBuNjSszgXXb8jVXa-900-2767.jpg');
 
     //     $this->assertInstanceOf(Response::class, $response);
     // }
+
+    public function testQrcode()
+    {
+        $response = $this->application->baidu->qrcode('https://images.godruoyi.com/images/comments/2020/11/03/cc70a95e26261895aa523cc7a1fb3781.png');
+
+        $this->assertInstanceOf(Response::class, $response);
+    }
 
     // public function testVehicleCertificate()
     // {
@@ -40,10 +47,10 @@ class BaiduClientTest extends TestCase
     //     $this->assertInstanceOf(Response::class, $response);
     // }
 
-    public function testLottery()
-    {
-        $response = $this->application->baidu->lottery('http://www.xinhuanet.com/caipiao/2019-04/11/1124352053_15549454512901n.jpg');
+    // public function testLottery()
+    // {
+    //     $response = $this->application->baidu->lottery('http://www.xinhuanet.com/caipiao/2019-04/11/1124352053_15549454512901n.jpg');
 
-        $this->assertInstanceOf(Response::class, $response);
-    }
+    //     $this->assertInstanceOf(Response::class, $response);
+    // }
 }

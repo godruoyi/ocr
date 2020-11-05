@@ -170,7 +170,7 @@ class Application extends Manager
      */
     protected function createTencentDriver(): Client
     {
-        # code...
+        return $this->container->make(Clients\TencentClient::class);
     }
 
     /**

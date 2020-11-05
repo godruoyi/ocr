@@ -113,7 +113,7 @@ class Http
     {
         $method = strtoupper($method);
 
-        $options = array_merge(self::$defaults, ['headers' => $this->headers], $options);
+        $options = array_merge_recursive(self::$defaults, ['headers' => $this->headers], $options);
         $handler = \GuzzleHttp\HandlerStack::create();
 
         foreach ($this->middlewares as $m) {
@@ -141,11 +141,11 @@ class Http
      *
      * @throws HttpException
      */
-    public function json($url, $data = [], $encodeOption = JSON_UNESCAPED_UNICODE, $queries = [], array $options = [])
+    public function json($url, $data = [], $queries = [], array $options = [], $encodeOption = JSON_UNESCAPED_UNICODE)
     {
         is_array($data) && $data = json_encode($data, $encodeOption);
 
-        $this->setHeaders(['content-type' => 'application/json']);
+        $this->setHeaders(['Content-Type' => 'application/json']);
 
         return $this->request('POST', $url, array_merge([
             'query' => $queries,

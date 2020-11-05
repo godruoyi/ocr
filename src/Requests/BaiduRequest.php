@@ -27,7 +27,7 @@ class BaiduRequest extends Request
         ];
     }
 
-     /**
+    /**
      * {@inheritdoc}
      */
     protected function init()

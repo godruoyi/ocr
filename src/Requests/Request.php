@@ -5,6 +5,10 @@ namespace Godruoyi\OCR\Requests;
 use InvalidArgumentException;
 use Godruoyi\OCR\Support\Http;
 use Godruoyi\OCR\Support\Response;
+use Godruoyi\OCR\Support\Arr;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\MessageFormatter;
+use Psr\Log\LogLevel;
 use Godruoyi\Container\ContainerInterface;
 use Godruoyi\OCR\Contracts\Request as RequestInterface;
 
@@ -50,6 +54,32 @@ abstract class Request implements RequestInterface
         foreach ($this->middlewares() as $name => $middleware) {
             $this->http->middlewares($middleware, $name);
         }
+
+        if (!$this->app['config']->get('disable_log')) {
+            $this->http->middlewares($this->logMiddleware(), 'orc.log');
+        }
+    }
+
+    /**
+     * Register global http log middleware.
+     *
+     * @param  ContainerInterface $app
+     *
+     * @return callable
+     */
+    protected function logMiddleware()
+    {
+        $driver = $this->app['config']->get('log.default');
+        $config = $this->app['config']->get('log.channels.'.$driver);
+        $logger = $this->app['logger'];
+
+        // because base64 image is very big, we just record request header if you not set formater in you log configurage.
+        $defaultFormatter = ">>>>>>>>\n{req_headers}\n\n<<<<<<<<\n{response}\n--------\n{error}";
+
+        $formatter = Arr::get($config, 'formatter', $defaultFormatter);
+        $level     = Arr::get($config, 'level', LogLevel::DEBUG);
+
+        return Middleware::log($logger, new MessageFormatter($formatter), $level);
     }
 
     /**

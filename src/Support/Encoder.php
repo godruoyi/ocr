@@ -87,7 +87,7 @@ class Encoder
 
             $v = $v === null ? '' : $v;
 
-            $headerStrings[] = rawurlencode(strtolower(trim($k))) . ':' . rawurlencode(trim($v));
+            $headerStrings[] = strtolower(trim($k)) . ':' . strtolower(trim($v));
         }
 
         sort($headerStrings);
