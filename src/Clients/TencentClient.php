@@ -441,255 +441,552 @@ class TencentClient extends Client implements ClientInterface
     /**
      * 运单识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/34934
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function waybill($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('WaybillOCR', $images, $options);
     }
 
     /**
      * 增值税发票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/36210
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function vatInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('VatInvoiceOCR', $images, $options);
     }
 
     /**
      * 火车票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37071
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function trainTicket($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('TrainTicketOCR', $images, $options);
     }
 
     /**
      * 出租车发票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37072
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function taxiInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('TaxiInvoiceOCR', $images, $options);
     }
 
     /**
      * 定额发票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37073
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function quotaInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('QuotaInvoiceOCR', $images, $options);
     }
 
     /**
      * 机票行程单识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37075
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function flightInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('FlightInvoiceOCR', $images, $options);
     }
 
     /**
      * 购车发票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37076
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function carInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('CarInvoiceOCR', $images, $options);
     }
 
     /**
      * 增值税发票（卷票）识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37832
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function vatRollInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('VatRollInvoiceOCR', $images, $options);
     }
 
     /**
      * 过路过桥费发票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37833
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function tollInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('TollInvoiceOCR', $images, $options);
     }
 
     /**
      * 轮船票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37834
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function shipInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('ShipInvoiceOCR', $images, $options);
     }
 
     /**
      * 混贴票据识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37835
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function mixedInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('MixedInvoiceOCR', $images, $options);
     }
 
     /**
      * 混贴票据分类
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37836
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function mixedInvoiceDetect($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('MixedInvoiceDetect', $images, $options);
     }
 
     /**
      * 通用机打发票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37837
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function invoiceGeneral($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('InvoiceGeneralOCR', $images, $options);
     }
 
     /**
      * 汽车票识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37838
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function busInvoice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('BusInvoiceOCR', $images, $options);
     }
 
     /**
      * 完税证明识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/37839
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function dutyPaidProof($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('DutyPaidProofOCR', $images, $options);
     }
 
     /**
      * 金融票据切片识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/38295
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function finanBillSlice($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('FinanBillSliceOCR', $images, $options);
     }
 
     /**
      * 金融票据整单识别
      *
-     * @see https://cloud.tencent.com/document/product/866/33524
+     * @see https://cloud.tencent.com/document/product/866/38296
      *
-     * @param  [type] $images  [description]
-     * @param  array  $options [description]
+     * @param  mixed $images
+     * @param  array  $options
      *
-     * @return [type]          [description]
+     * @return mixed
      */
-    public function aaa($images, array $options = [])
+    public function finanBill($images, array $options = [])
     {
-        return $this->request->request('aaa', $images, $options);
+        return $this->request->request('FinanBillOCR', $images, $options);
+    }
+
+    //
+
+    /**
+     * 车辆VIN码识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/34935
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function vin($images, array $options = [])
+    {
+        return $this->request->request('VinOCR', $images, $options);
+    }
+
+    /**
+     * 行驶证识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/36209
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function vehicleLicense($images, array $options = [])
+    {
+        return $this->request->request('VehicleLicenseOCR', $images, $options);
+    }
+
+    /**
+     * 车牌识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/36211
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function licensePlate($images, array $options = [])
+    {
+        return $this->request->request('LicensePlateOCR', $images, $options);
+    }
+
+    /**
+     * 驾驶证识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/36213
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function driverLicense($images, array $options = [])
+    {
+        return $this->request->request('DriverLicenseOCR', $images, $options);
+    }
+
+    /**
+     * 机动车登记证书识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/38297
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function vehicleRegCert($images, array $options = [])
+    {
+        return $this->request->request('VehicleRegCertOCR', $images, $options);
+    }
+
+    /**
+     * 网约车驾驶证识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/47165
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function rideHailingDriverLicense($images, array $options = [])
+    {
+        return $this->request->request('RideHailingDriverLicenseOCR', $images, $options);
+    }
+
+    /**
+     * 网约车运输证识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/47325
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function rideHailingTransportLicense($images, array $options = [])
+    {
+        return $this->request->request('RideHailingTransportLicenseOCR', $images, $options);
+    }
+
+    // 行业文档识别相关接口
+
+    /**
+     * 表格识别（V2)
+     *
+     * @see https://cloud.tencent.com/document/product/866/49525
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function recognizeTable($images, array $options = [])
+    {
+        return $this->request->request('RecognizeTableOCR', $images, $options);
+    }
+
+    /**
+     * 表格识别（V1)
+     *
+     * 此接口为表格识别的旧版本服务，不再进行服务升级，建议您使用识别能力更强、服务性能更优的新版表格识别。
+     *
+     * @see https://cloud.tencent.com/document/product/866/34936
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function table($images, array $options = [])
+    {
+        return $this->recognizeTable($images, $options);
+    }
+
+    /**
+     * 算式识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/34939
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function arithmetic($images, array $options = [])
+    {
+        return $this->request->request('ArithmeticOCR', $images, $options);
+    }
+
+    /**
+     * 数学公式识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/38293
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function formula($images, array $options = [])
+    {
+        return $this->request->request('FormulaOCR', $images, $options);
+    }
+
+    /**
+     * 数学试题识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/38294
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function eduPaper($images, array $options = [])
+    {
+        return $this->request->request('EduPaperOCR', $images, $options);
+    }
+
+    /**
+     * 保险单据识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/38848
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function insuranceBill($images, array $options = [])
+    {
+        return $this->request->request('InsuranceBillOCR', $images, $options);
+    }
+
+    /**
+     * 印章识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/45807
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function seal($images, array $options = [])
+    {
+        return $this->request->request('SealOCR', $images, $options);
+    }
+
+    // 智能扫码相关接口
+
+    /**
+     * 条码信息查询
+     *
+     * @see https://cloud.tencent.com/document/product/866/45513
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function queryBarCode($images, array $options = [])
+    {
+        return $this->request->request('QueryBarCode', $images, $options);
+    }
+
+    /**
+     * 二维码和条形码识别
+     *
+     * @see https://cloud.tencent.com/document/product/866/38292
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function qrcode($images, array $options = [])
+    {
+        return $this->request->request('QrcodeOCR', $images, $options);
+    }
+
+    // 营业执照核验相关接口
+
+    /**
+     * 营业执照识别及核验（详细版）
+     *
+     * @see https://cloud.tencent.com/document/product/866/47278
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function verifyBizLicense($images, array $options = [])
+    {
+        return $this->request->request('VerifyBizLicense', $images, $options);
+    }
+
+    /**
+     * 营业执照识别及核验（基础版）
+     *
+     * @see https://cloud.tencent.com/document/product/866/47279
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function verifyBasicBizLicense($images, array $options = [])
+    {
+        return $this->request->request('VerifyBasicBizLicense', $images, $options);
+    }
+
+    // 增值税发票核验相关接口
+
+    /**
+     * 增值税发票核验
+     *
+     * @see https://cloud.tencent.com/document/product/866/47324
+     *
+     * @param  mixed $images
+     * @param  array  $options
+     *
+     * @return mixed
+     */
+    public function vatInvoiceVerify($images, array $options = [])
+    {
+        return $this->request->request('VatInvoiceVerify', $images, $options);
     }
 }
