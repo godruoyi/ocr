@@ -1,16 +1,24 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Requests;
 
+use Godruoyi\OCR\Support\FileConverter;
+use Godruoyi\OCR\Support\Response;
 use GuzzleHttp\Middleware;
 use InvalidArgumentException;
-use Godruoyi\OCR\Support\Response;
-use Godruoyi\OCR\Support\FileConverter;
 
 class AliyunRequest extends Request
 {
     /**
-     * 阿里云请求格式，不同的接口正式请求时格式不一致
+     * 阿里云请求格式，不同的接口正式请求时格式不一致.
      *
      * @var string
      */
@@ -19,14 +27,14 @@ class AliyunRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function request($url, $images, array $options = []) : Response
+    public function request($url, $images, array $options = []): Response
     {
         return $this->http->json($url, $this->mergeOptions($images, $options));
     }
 
     /**
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -47,8 +55,8 @@ class AliyunRequest extends Request
     /**
      * Basic request format.
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -61,16 +69,16 @@ class AliyunRequest extends Request
         }
 
         return [
-            'image'     => $images,
-            'configure' => json_encode($options, JSON_UNESCAPED_UNICODE)
+            'image' => $images,
+            'configure' => json_encode($options, JSON_UNESCAPED_UNICODE),
         ];
     }
 
     /**
      * Use inputs warp request data.
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -85,22 +93,22 @@ class AliyunRequest extends Request
                 [
                     'image' => [
                         'dataType' => 50,
-                        'dataValue' => $images
+                        'dataValue' => $images,
                     ],
                     'configure' => [
                         'dataType' => 50,
-                        'dataValue' => json_encode($options, JSON_UNESCAPED_UNICODE)
-                    ]
-                ]
-            ]
+                        'dataValue' => json_encode($options, JSON_UNESCAPED_UNICODE),
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
      * support online image.
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -121,7 +129,7 @@ class AliyunRequest extends Request
      * Middlewares.
      * [
      *     'aliyun' => callable
-     * ]
+     * ].
      *
      * @return array
      */
@@ -147,9 +155,9 @@ class AliyunRequest extends Request
     }
 
     /**
-     * AppKey And AppSecret signature
+     * AppKey And AppSecret signature.
      *
-     * @param  mixed $request
+     * @param mixed $request
      *
      * @return mixed
      */
@@ -160,9 +168,9 @@ class AliyunRequest extends Request
     }
 
     /**
-     * Signature Request Use AppCode
+     * Signature Request Use AppCode.
      *
-     * @param  mixed $request
+     * @param mixed $request
      *
      * @return mixed
      */
@@ -170,7 +178,7 @@ class AliyunRequest extends Request
     {
         $appcode = $this->app['config']->get('drivers.aliyun.appcode');
 
-        return $request->withHeader('Authorization', 'APPCODE ' . $appcode);
+        return $request->withHeader('Authorization', 'APPCODE '.$appcode);
     }
 
     /**
@@ -178,7 +186,7 @@ class AliyunRequest extends Request
      */
     protected function canUseSignatureWay(): bool
     {
-        $id  = $this->app['config']->get('drivers.aliyun.secret_id');
+        $id = $this->app['config']->get('drivers.aliyun.secret_id');
         $key = $this->app['config']->get('drivers.aliyun.secret_key');
 
         return !empty($id) && !empty($key);

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Support;
 
 class Encoder
@@ -7,38 +15,38 @@ class Encoder
     /**
      * 在 uri 编码中不能对 '/' 编码
      *
-     * @param  string $path
+     * @param string $path
      *
      * @return string
      */
     public static function urlEncodeExceptSlash(string $path)
     {
-        return str_replace("%2F", "/", rawurlencode($path));
+        return str_replace('%2F', '/', rawurlencode($path));
     }
 
     /**
-     * 生成标准化 QueryString
+     * 生成标准化 QueryString.
      *
-     * @param  array  $parameters
+     * @param array $parameters
      *
      * @return string
      */
     public static function getCanonicalQueryString(array $parameters)
     {
-        if (count($parameters) == 0) {
+        if (0 == count($parameters)) {
             return '';
         }
 
         $parameterStrings = [];
 
         foreach ($parameters as $key => $value) {
-            if (strcasecmp('Authorization', $k) == 0 || empty($key)) {
+            if (0 == strcasecmp('Authorization', $k) || empty($key)) {
                 continue;
             }
 
             $parameterStrings[] = isset($value)
-                ? rawurlencode($key) . '=' . rawurlencode($value)
-                : rawurlencode($key) . '=';
+                ? rawurlencode($key).'='.rawurlencode($value)
+                : rawurlencode($key).'=';
         }
 
         sort($parameterStrings);
@@ -47,9 +55,9 @@ class Encoder
     }
 
     /**
-     * 生成标准化 uri，确保开头含有 /
+     * 生成标准化 uri，确保开头含有 /.
      *
-     * @param  string $path
+     * @param string $path
      *
      * @return string
      */
@@ -59,35 +67,35 @@ class Encoder
             return '/';
         }
 
-        return $path[0] === '/'
+        return '/' === $path[0]
             ? self::urlEncodeExceptSlash($path)
-            : '/' . self::urlEncodeExceptSlash($path);
+            : '/'.self::urlEncodeExceptSlash($path);
     }
 
     /**
-     * 生成标准化 http 请求头串
+     * 生成标准化 http 请求头串.
      *
-     * @param  array  $headers
+     * @param array $headers
      *
      * @return mixed
      */
     public static function getCanonicalHeaders(array $headers)
     {
         //如果没有headers，则返回空串
-        if (count($headers) == 0) {
+        if (0 == count($headers)) {
             return '';
         }
 
         $headerStrings = [];
 
         foreach ($headers as $k => $v) {
-            if ($k === null) {
+            if (null === $k) {
                 continue;
             }
 
-            $v = $v === null ? '' : $v;
+            $v = null === $v ? '' : $v;
 
-            $headerStrings[] = strtolower(trim($k)) . ':' . strtolower(trim($v));
+            $headerStrings[] = strtolower(trim($k)).':'.strtolower(trim($v));
         }
 
         sort($headerStrings);

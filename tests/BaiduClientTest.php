@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test;
 
 use Godruoyi\OCR\Application;
-use Godruoyi\OCR\Config;
-use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Clients\BaiduClient;
-use Godruoyi\OCR\Contracts\Request;
+use Godruoyi\OCR\Support\Response;
 
 class BaiduClientTest extends TestCase
 {

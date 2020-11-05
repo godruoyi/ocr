@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR;
 
 class Config
@@ -12,7 +20,7 @@ class Config
     protected $items;
 
     /**
-     * Make config instance
+     * Make config instance.
      *
      * @param array $items
      */
@@ -24,8 +32,8 @@ class Config
     /**
      * Get config item.
      *
-     * @param  mixed $key
-     * @param  mixed $default
+     * @param mixed $key
+     * @param mixed $default
      *
      * @return mixed
      */

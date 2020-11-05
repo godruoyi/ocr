@@ -1,11 +1,19 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Providers;
 
-use Godruoyi\OCR\Support\Http;
-use Godruoyi\OCR\Support\Response;
 use Godruoyi\Container\ContainerInterface;
 use Godruoyi\Container\ServiceProviderInterface;
+use Godruoyi\OCR\Support\Http;
+use Godruoyi\OCR\Support\Response;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 
 class HttpServiceProvider implements ServiceProviderInterface
@@ -16,7 +24,7 @@ class HttpServiceProvider implements ServiceProviderInterface
     public function register(ContainerInterface $container)
     {
         $container->singleton('http', function ($app) {
-            $http = new Http;
+            $http = new Http();
 
             $http->customHttpHandler($this->processHttpError());
 

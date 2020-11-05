@@ -1,12 +1,20 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Requests;
 
+use Godruoyi\OCR\Support\BaiduSampleSigner;
+use Godruoyi\OCR\Support\FileConverter;
+use Godruoyi\OCR\Support\Response;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
-use Godruoyi\OCR\Support\Response;
-use Godruoyi\OCR\Support\FileConverter;
-use Godruoyi\OCR\Support\BaiduSampleSigner;
 
 class BaiduRequest extends Request
 {
@@ -32,7 +40,7 @@ class BaiduRequest extends Request
      */
     protected function init()
     {
-        $accessKeyId     = $this->app['config']->get('drivers.baidu.access_key');
+        $accessKeyId = $this->app['config']->get('drivers.baidu.access_key');
         $secretAccessKey = $this->app['config']->get('drivers.baidu.secret_key');
 
         $this->signer = new BaiduSampleSigner($accessKeyId, $secretAccessKey);
@@ -41,16 +49,16 @@ class BaiduRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function request($url, $images, array $options = []) : Response
+    public function request($url, $images, array $options = []): Response
     {
         return $this->http->post($url, $this->mergeOptions($images, $options), [
-            'base_uri' => self::BASEURI
+            'base_uri' => self::BASEURI,
         ]);
     }
 
     /**
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -73,17 +81,15 @@ class BaiduRequest extends Request
     }
 
     /**
-     * Register request middleware
-     *
-     * @return void
+     * Register request middleware.
      */
     protected function requestMiddleware()
     {
         return function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
-                $httpMethod  = $request->getMethod();
-                $path        = $request->getUri()->getPath();
-                $host        = current($request->getHeader('Host'));
+                $httpMethod = $request->getMethod();
+                $path = $request->getUri()->getPath();
+                $host = current($request->getHeader('Host'));
 
                 $authorization = $this->signer->sign($httpMethod, $path, compact('host'));
                 $request = $request->withHeader('Authorization', $authorization);

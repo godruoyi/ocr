@@ -1,13 +1,19 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test;
 
 use Godruoyi\OCR\Application;
-use Godruoyi\OCR\Config;
-use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Clients\TencentClient;
-use Godruoyi\OCR\Contracts\Request;
 use Godruoyi\OCR\Requests\TencentRequest;
+use Godruoyi\OCR\Support\Response;
 
 class TencentClientTest extends TestCase
 {
@@ -42,7 +48,7 @@ class TencentClientTest extends TestCase
     public function testIdCard()
     {
         $response = $this->application->tencent->idCard(__DIR__.'/stubs/idcard_0.jpeg', [
-            'Region' => 'ap-shanghai'
+            'Region' => 'ap-shanghai',
         ]);
 
         $this->assertInstanceOf(Response::class, $response);

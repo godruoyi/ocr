@@ -4,3 +4,8 @@ tests/stubs/*.jpg
 tests/stubs/*.png
 tests/stubs/*.jpeg
 tests/stubs/config.php
+.DS_Store
+.php_cs.cache
+.idea
+*.DS_Store
+composer.lock

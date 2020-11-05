@@ -1,16 +1,24 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Requests;
 
-use InvalidArgumentException;
-use Godruoyi\OCR\Support\Http;
-use Godruoyi\OCR\Support\Response;
-use Godruoyi\OCR\Support\Arr;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\MessageFormatter;
-use Psr\Log\LogLevel;
 use Godruoyi\Container\ContainerInterface;
 use Godruoyi\OCR\Contracts\Request as RequestInterface;
+use Godruoyi\OCR\Support\Arr;
+use Godruoyi\OCR\Support\Http;
+use Godruoyi\OCR\Support\Response;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
+use InvalidArgumentException;
+use Psr\Log\LogLevel;
 
 abstract class Request implements RequestInterface
 {
@@ -22,7 +30,7 @@ abstract class Request implements RequestInterface
     protected $http;
 
     /**
-     * Container instance
+     * Container instance.
      *
      * @var \Godruoyi\Container\ContainerInterface
      */
@@ -45,9 +53,7 @@ abstract class Request implements RequestInterface
     }
 
     /**
-     * Register middleware to http
-     *
-     * @return void
+     * Register middleware to http.
      */
     public function registerMiddlewares()
     {
@@ -63,7 +69,7 @@ abstract class Request implements RequestInterface
     /**
      * Register global http log middleware.
      *
-     * @param  ContainerInterface $app
+     * @param ContainerInterface $app
      *
      * @return callable
      */
@@ -77,7 +83,7 @@ abstract class Request implements RequestInterface
         $defaultFormatter = ">>>>>>>>\n{req_headers}\n\n<<<<<<<<\n{response}\n--------\n{error}";
 
         $formatter = Arr::get($config, 'formatter', $defaultFormatter);
-        $level     = Arr::get($config, 'level', LogLevel::DEBUG);
+        $level = Arr::get($config, 'level', LogLevel::DEBUG);
 
         return Middleware::log($logger, new MessageFormatter($formatter), $level);
     }
@@ -86,7 +92,7 @@ abstract class Request implements RequestInterface
      * Middlewares.
      * [
      *     'aliyun' => callable
-     * ]
+     * ].
      *
      * @return array
      */
@@ -97,25 +103,23 @@ abstract class Request implements RequestInterface
 
     /**
      * custon init method.
-     *
-     * @return void
      */
     protected function init()
     {
     }
 
     /**
-     * Translation $images and $options to guzzle http options
+     * Translation $images and $options to guzzle http options.
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
-    abstract public function request($url, $images, array $options = []) : Response;
+    abstract public function request($url, $images, array $options = []): Response;
 
     /**
-     * Get app instance
+     * Get app instance.
      *
      * @return \Godruoyi\Container\ContainerInterface
      */
@@ -137,7 +141,7 @@ abstract class Request implements RequestInterface
     /**
      * Filter images to one.
      *
-     * @param  mixed $images
+     * @param mixed $images
      *
      * @return mixed
      */

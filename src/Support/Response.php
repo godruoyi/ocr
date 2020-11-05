@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Support;
 
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response as GuzzleHttpResponse;
 
 class Response extends GuzzleHttpResponse
@@ -10,7 +17,7 @@ class Response extends GuzzleHttpResponse
     /**
      * Create response from psr response.
      *
-     * @param  GuzzleHttpResponse $response
+     * @param GuzzleHttpResponse $response
      *
      * @return self
      */
@@ -26,7 +33,7 @@ class Response extends GuzzleHttpResponse
     }
 
     /**
-     * Response to array
+     * Response to array.
      *
      * @return array
      */
@@ -41,7 +48,7 @@ class Response extends GuzzleHttpResponse
 
         $response = json_decode($body, true);
 
-        if (json_last_error() != JSON_ERROR_NONE) {
+        if (JSON_ERROR_NONE != json_last_error()) {
             return [];
         }
 

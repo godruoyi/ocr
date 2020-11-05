@@ -1,13 +1,20 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Clients;
 
-use Godruoyi\OCR\Support\Arr;
-use Godruoyi\OCR\Requests\BaiduRequest;
 use Godruoyi\OCR\Contracts\Client as ClientInterface;
+use Godruoyi\OCR\Requests\BaiduRequest;
 
 /**
- * Baidu OCR 识别
+ * Baidu OCR 识别.
  *
  * @author    godruoyi godruoyi@gmail.com>
  * @copyright 2019
@@ -17,73 +24,66 @@ use Godruoyi\OCR\Contracts\Client as ClientInterface;
  *
  * 1、通用场景文字识别
  *
- * @method array generalBasic() 通用文字识别（标准版）
- * @method array accurateBasic() 通用文字识别（高精度版）
- * @method array general() 通用文字识别（标准含位置版）
- * @method array accurate() 通用文字识别（高精度含位置版）
- * @method array docAnalysisOffice() 办公文档识别
- * @method array webimage() 网络图片文字识别
- * @method array webimageLoc() 网络图片文字识别（含位置版）
- * @method array numbers() 数字识别
- * @method array handwriting() 手写文字识别
+ * @method array generalBasic()                                   通用文字识别（标准版）
+ * @method array accurateBasic()                                  通用文字识别（高精度版）
+ * @method array general()                                        通用文字识别（标准含位置版）
+ * @method array accurate()                                       通用文字识别（高精度含位置版）
+ * @method array docAnalysisOffice()                              办公文档识别
+ * @method array webimage()                                       网络图片文字识别
+ * @method array webimageLoc()                                    网络图片文字识别（含位置版）
+ * @method array numbers()                                        数字识别
+ * @method array handwriting()                                    手写文字识别
  * @method array syncTable() 表格文字识别(同步接口)
  * @method array asynTable() 表格文字识别(异步接口)
  * @method array asynTableInfo() 表格文字识别(异步接口) - 获取结果接口
- * @method array qrcode() 二维码识别
+ * @method array qrcode()                                         二维码识别
  *
  * 2、卡证文字识别
- *
- * @method array idcard() 身份证识别
- * @method array bankcard() 银行卡识别
- * @method array businessLicense() 营业执照识别
- * @method array passport() 护照识别
- * @method array businessCard() 名片识别
+ * @method array idcard()                 身份证识别
+ * @method array bankcard()               银行卡识别
+ * @method array businessLicense()        营业执照识别
+ * @method array passport()               护照识别
+ * @method array businessCard()           名片识别
  * @method array hkMacauExitentrypermit() 港澳通行证识别
- * @method array taiwanExitentrypermit() 台湾通行证识别
- * @method array householdRegister() 户口本识别
- * @method array birthCertificate() 出生医学证明识别
- * @method array multiCardClassify() 多卡证类别检测
+ * @method array taiwanExitentrypermit()  台湾通行证识别
+ * @method array householdRegister()      户口本识别
+ * @method array birthCertificate()       出生医学证明识别
+ * @method array multiCardClassify()      多卡证类别检测
  *
  * 3、财务票据文字识别
- *
- * @method array vatInvoice() 增值税发票识别
+ * @method array vatInvoice()   增值税发票识别
  * @method array quotaInvoice() 定额发票识别
- * @method array invoice() 通用机打发票识别
- * @method array trainTicket() 火车票识别
- * @method array taxiReceipt() 出租车票识别
- * @method array airTicket() 行程单识别
- * @method array busTicket() 汽车票识别
- * @method array tollInvoice() 通行费发票识别
- * @method array receipt() 通用票据识别
+ * @method array invoice()      通用机打发票识别
+ * @method array trainTicket()  火车票识别
+ * @method array taxiReceipt()  出租车票识别
+ * @method array airTicket()    行程单识别
+ * @method array busTicket()    汽车票识别
+ * @method array tollInvoice()  通行费发票识别
+ * @method array receipt()      通用票据识别
  *
  * 4、医疗票据文字识别
- *
- * @method array medicalInvoice() 医疗发票识别
- * @method array medicalStatement() 医疗费用结算单识别
- * @method array medicalRecord() 病案首页识别
+ * @method array medicalInvoice()     医疗发票识别
+ * @method array medicalStatement()   医疗费用结算单识别
+ * @method array medicalRecord()      病案首页识别
  * @method array insuranceDocuments() 保单识别
  *
  * 5、汽车场景文字识别
- *
- * @method array vehicleLicense() 行驶证识别
- * @method array drivingLicense() 驾驶证识别
- * @method array licensePlate() 车牌识别
- * @method array vin() VIN码识别
- * @method array vehicleInvoice() 机动车销售发票识别
+ * @method array vehicleLicense()     行驶证识别
+ * @method array drivingLicense()     驾驶证识别
+ * @method array licensePlate()       车牌识别
+ * @method array vin()                VIN码识别
+ * @method array vehicleInvoice()     机动车销售发票识别
  * @method array vehicleCertificate() 车辆合格证识别
  *
  * 6、教育场景文字识别
- *
  * @method array docAnalysis() 试卷分析与识别
- * @method array formula() 公式识别
+ * @method array formula()     公式识别
  *
  * 7、其他场景文字识别
- *
- * @method array meter() 仪器仪表盘读数识别
- * @method array seal() 印章检测
+ * @method array meter()   仪器仪表盘读数识别
+ * @method array seal()    印章检测
  * @method array lottery() 彩票识别
- * @method array facade() 门脸文字识别
- *
+ * @method array facade()  门脸文字识别
  */
 class BaiduClient extends Client implements ClientInterface
 {
@@ -98,12 +98,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用文字识别（标准版）
+     * 通用文字识别（标准版）.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/zk3h7xz52 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -113,12 +113,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用文字识别（高精度版）
+     * 通用文字识别（高精度版）.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/1k3h7y3db 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -130,12 +130,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用文字识别（标准含位置版）
+     * 通用文字识别（标准含位置版）.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/vk3h7y58v 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -145,12 +145,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用文字识别（高精度含位置版）
+     * 通用文字识别（高精度含位置版）.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/tk3h7y2aq 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -162,12 +162,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 办公文档识别
+     * 办公文档识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/ykg9c09ji 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -179,12 +179,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 手写文字识别
+     * 手写文字识别.
      *
      * @see  https://ai.baidu.com/ai-doc/OCR/hk3h7y2qq 查看完整请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -196,12 +196,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 身份证识别
+     * 身份证识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/rk3h7xzck
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -213,12 +213,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 银行卡识别
+     * 银行卡识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/ak3h7xxg3
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -228,12 +228,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 营业执照识别
+     * 营业执照识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/sk3h7y3zs
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -245,12 +245,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 护照识别
+     * 护照识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Wk3h7y1gi
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -260,12 +260,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 名片识别
+     * 名片识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/5k3h7xyi2
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -275,12 +275,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 户口本识别
+     * 户口本识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/ak3h7xzk7
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -290,12 +290,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 出生医学证明识别
+     * 出生医学证明识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/mk3h7y1o6
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -305,12 +305,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 多卡证类别检测
+     * 多卡证类别检测.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/nkbq6wxxy
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -320,12 +320,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 港澳通行证识别
+     * 港澳通行证识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/4k3h7y0ly
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -335,12 +335,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 台湾通行证识别
+     * 台湾通行证识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/kk3h7y2yc
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -350,14 +350,14 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 表格文字识别(异步接口)
+     * 表格文字识别(异步接口).
      *
      * 接口为异步接口，分为两个 API：提交请求接口、获取结果接口
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Ik3h7y238
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -369,13 +369,13 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 表格文字识别(异步接口) - 获取结果接口
+     * 表格文字识别(异步接口) - 获取结果接口.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Ik3h7y238
      *
-     * @param  string|\SplFileInfo $requestId
-     * @param  string $requestType  期望获取结果的类型，取值为 “excel” 时返回 xls 文件的地址，
-     *                              取值为 “json” 时返回 json 格式的字符串,默认为 ”excel”
+     * @param string|\SplFileInfo $requestId
+     * @param string              $requestType 期望获取结果的类型，取值为 “excel” 时返回 xls 文件的地址，
+     *                                         取值为 “json” 时返回 json 格式的字符串,默认为 ”excel”
      *
      * @throws \RuntimeException
      *
@@ -387,19 +387,19 @@ class BaiduClient extends Client implements ClientInterface
 
         return $this->request->request($uri, [
             'result_type' => $requestType,
-            'request_id'  => $requestId
+            'request_id' => $requestId,
         ]);
     }
 
     /**
-     * 表格文字识别(同步接口)
+     * 表格文字识别(同步接口).
      *
      * 此接口需要您在 申请页面 中提交合作咨询开通权限，对出生时间、姓名、性别、出生证编号、父亲姓名、母亲姓名字段进行识别
      *
      * @see https://ai.baidu.com/ai-doc/OCR/ik3h7xyxf 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -409,12 +409,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用票据识别
+     * 通用票据识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/6k3h7y11b
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -426,12 +426,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 医疗发票识别
+     * 医疗发票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/yke30j1hq
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -443,12 +443,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 医疗费用结算单识别
+     * 医疗费用结算单识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Jke30ki7d
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -460,12 +460,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 病案首页识别
+     * 病案首页识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/1ke30k2s2
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -477,12 +477,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 保单识别
+     * 保单识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Wk3h7y0eb
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -494,12 +494,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 增值税发票识别
+     * 增值税发票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/nk3h7xy2t
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -511,12 +511,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 火车票识别
+     * 火车票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Ok3h7y35u
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -528,12 +528,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 出租车票识别
+     * 出租车票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Zk3h7xxnn
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -545,12 +545,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 定额发票识别
+     * 定额发票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/lk3h7y4ev
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -560,12 +560,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 驾驶证识别
+     * 驾驶证识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Vk3h7xzz7
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -577,12 +577,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 行驶证识别
+     * 行驶证识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/yk3h7y3ks
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -594,12 +594,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 车牌识别
+     * 车牌识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/ck3h7y191
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -611,12 +611,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 机动车销售发票识别
+     * 机动车销售发票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/vk3h7y4tx
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -628,12 +628,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 车辆合格证识别
+     * 车辆合格证识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/yk3h7y3sc
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -645,12 +645,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 试卷分析与识别
+     * 试卷分析与识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/jk9m7mj1l
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -662,12 +662,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 公式识别
+     * 公式识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Ok3h7xxva
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -679,12 +679,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * VIN码识别
+     * VIN码识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/zk3h7y51e
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -696,12 +696,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 二维码识别
+     * 二维码识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/qk3h7y5o7
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -713,14 +713,14 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 数字识别
+     * 数字识别.
      *
      * 对图像中的阿拉伯数字进行识别提取，适用于快递单号、手机号、充值码提取等场景
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Ok3h7y1vo 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -732,14 +732,14 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 网络图片文字识别
+     * 网络图片文字识别.
      *
      * 针对网络图片进行专项优化，支持识别艺术字体或背景复杂的文字内容。
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Sk3h7xyad 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -749,12 +749,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 网络图片文字识别（含位置版）
+     * 网络图片文字识别（含位置版）.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Nkaz574we 查看请求参数
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -766,12 +766,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 彩票识别
+     * 彩票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/ik3h7y5gl
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -783,12 +783,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 仪器仪表盘读数识别
+     * 仪器仪表盘读数识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Jkafike0v
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -800,12 +800,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 印章检测
+     * 印章检测.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Mk3h7y47a
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -817,12 +817,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 门脸文字识别
+     * 门脸文字识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/wk5hw3cvo
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -834,12 +834,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用机打发票识别
+     * 通用机打发票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Pk3h7y06q
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -851,12 +851,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 行程单识别
+     * 行程单识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Qk3h7xzro
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -868,12 +868,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 汽车票识别
+     * 汽车票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/Kkblx01ww
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */
@@ -885,12 +885,12 @@ class BaiduClient extends Client implements ClientInterface
     }
 
     /**
-     * 通行费发票识别
+     * 通行费发票识别.
      *
      * @see https://ai.baidu.com/ai-doc/OCR/1kbpyx8js
      *
-     * @param  string|\SplFileInfo $images
-     * @param  array $options
+     * @param string|\SplFileInfo $images
+     * @param array               $options
      *
      * @return array
      */

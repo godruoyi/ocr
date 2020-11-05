@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test;
 
 use Godruoyi\OCR\Application;
-use Godruoyi\OCR\Config;
-use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Clients\AliyunClient;
 use Godruoyi\OCR\Contracts\Request;
+use Godruoyi\OCR\Support\Response;
 
 class ALiyunClientTest extends TestCase
 {
@@ -37,13 +44,13 @@ class ALiyunClientTest extends TestCase
             return new Response(200, [], $a.$b);
         });
         $response = $this->application->aliyun->aaa(1111, 222);
-        $this->assertEquals('1111222', (string) $response->getBody());
+        $this->assertSame('1111222', (string) $response->getBody());
 
         // 2. you can custom return format.
         $response = $this->application->aliyun->extend('ccc', function (Request $request, $a, $b) {
             return $a.$b;
         })->ccc('a', 'b');
-        $this->assertEquals('ab', $response);
+        $this->assertSame('ab', $response);
 
         // 3. test call unexists method.
         $this->expectException(\BadMethodCallException::class);
@@ -79,7 +86,6 @@ class ALiyunClientTest extends TestCase
     //     $this->assertInstanceOf(Response::class, $response);
     //     $this->assertArrayHasKey('outputs', $response->toArray());
 
-
     //     var_dump($response->toArray());
     // }
 
@@ -105,6 +111,6 @@ class ALiyunClientTest extends TestCase
 
     public function testManyImage()
     {
-        $response = $this->application->aliyun->general([__DIR__.'/stubs/common.png',__DIR__.'/stubs/common.png',__DIR__.'/stubs/common.png']);
+        $response = $this->application->aliyun->general([__DIR__.'/stubs/common.png', __DIR__.'/stubs/common.png', __DIR__.'/stubs/common.png']);
     }
 }

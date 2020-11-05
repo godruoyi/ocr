@@ -1,14 +1,20 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Requests;
 
-use GuzzleHttp\Middleware;
-use InvalidArgumentException;
-use Godruoyi\OCR\Support\Encoder;
-use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Support\FileConverter;
-use Psr\Http\Message\RequestInterface;
+use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Support\TencentSignatureV3;
+use GuzzleHttp\Middleware;
+use Psr\Http\Message\RequestInterface;
 
 class TencentRequest extends Request
 {
@@ -17,7 +23,7 @@ class TencentRequest extends Request
     const BASEURI = 'https://ocr.tencentcloudapi.com';
 
     /**
-     * Signature request
+     * Signature request.
      *
      * @var \Godruoyi\OCR\Support\TencentSignatureV3
      */
@@ -28,7 +34,7 @@ class TencentRequest extends Request
      */
     protected function init()
     {
-        $id  = $this->app['config']->get('drivers.tencent.secret_id');
+        $id = $this->app['config']->get('drivers.tencent.secret_id');
         $key = $this->app['config']->get('drivers.tencent.secret_key');
 
         $this->signer = new TencentSignatureV3($id, $key);
@@ -44,10 +50,10 @@ class TencentRequest extends Request
         $apiVersion = $apiVersion ?: '2018-11-19';
 
         $headers = [
-            'X-TC-Action'        => ucfirst($action),
+            'X-TC-Action' => ucfirst($action),
             'X-TC-RequestClient' => self::VERSION,
-            'X-TC-Timestamp'     => time(),
-            'X-TC-Version'       => $apiVersion,
+            'X-TC-Timestamp' => time(),
+            'X-TC-Version' => $apiVersion,
         ];
 
         if (!empty($region)) {
@@ -60,7 +66,7 @@ class TencentRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function request($action, $images, array $options = []) : Response
+    public function request($action, $images, array $options = []): Response
     {
         $region = $options['region'] ?? $options['Region'] ?? '';
         $version = $options['version'] ?? $options['Version'] ?? '';
@@ -86,8 +92,8 @@ class TencentRequest extends Request
     /**
      * Format reqyest body.
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return array
      */
@@ -102,9 +108,9 @@ class TencentRequest extends Request
 
         if (FileConverter::isUrl($images)) {
             return array_merge($options, ['ImageUrl' => $images]);
-        } else {
-            return array_merge($options, ['ImageBase64' => FileConverter::toBase64Encode($images)]);
         }
+
+        return array_merge($options, ['ImageBase64' => FileConverter::toBase64Encode($images)]);
     }
 
     /**

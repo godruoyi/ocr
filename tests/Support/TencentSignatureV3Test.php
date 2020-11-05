@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
-use Test\TestCase;
 use Godruoyi\OCR\Support\TencentSignatureV3;
+use Test\TestCase;
 
 class TencentSignatureV3Test extends TestCase
 {
@@ -17,7 +25,7 @@ class TencentSignatureV3Test extends TestCase
         $signer = new TencentSignatureV3($this->secretId, $this->secretKey);
         $body = '{"Limit": 1, "Filters": [{"Values": ["\u672a\u547d\u540d"], "Name": "instance-name"}]}';
 
-        $this->assertEquals($signer->hashedRequestPayload($body), '35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064');
+        $this->assertSame($signer->hashedRequestPayload($body), '35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064');
     }
 
     public function testHashedRequestPayload2()
@@ -25,7 +33,7 @@ class TencentSignatureV3Test extends TestCase
         $signer = new TencentSignatureV3($this->secretId, $this->secretKey);
         $body = '{"ImageUrl":"https://cloud.tencent.com/1"}';
 
-        $this->assertEquals($signer->hashedRequestPayload($body), 'e3d1d29a998fcb1d83bb752972a15a6660041c7b112a481de8aedaa9e2e2729b');
+        $this->assertSame($signer->hashedRequestPayload($body), 'e3d1d29a998fcb1d83bb752972a15a6660041c7b112a481de8aedaa9e2e2729b');
     }
 
     public function testCanonicalRequest()
@@ -36,13 +44,13 @@ class TencentSignatureV3Test extends TestCase
             'post',
             'https://cvm.tencentcloudapi.com',
             [
-                'content-type' => ['application/json; charset=utf-8']
+                'content-type' => ['application/json; charset=utf-8'],
             ],
             '{"Limit": 1, "Filters": [{"Values": ["\u672a\u547d\u540d"], "Name": "instance-name"}]}',
         );
 
-        $this->assertEquals($signer->hashedRequestPayload($request->getBody()), '35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064');
-        $this->assertEquals($signer->canonicalRequest($request), "POST\n/\n\ncontent-type:application/json; charset=utf-8\nhost:cvm.tencentcloudapi.com\n\ncontent-type;host\n35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064");
+        $this->assertSame($signer->hashedRequestPayload($request->getBody()), '35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064');
+        $this->assertSame($signer->canonicalRequest($request), "POST\n/\n\ncontent-type:application/json; charset=utf-8\nhost:cvm.tencentcloudapi.com\n\ncontent-type;host\n35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064");
     }
 
     // public function testAuthorization()

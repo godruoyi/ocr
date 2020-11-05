@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Clients;
 
-use Godruoyi\OCR\Requests\TencentRequest;
 use Godruoyi\OCR\Contracts\Client as ClientInterface;
+use Godruoyi\OCR\Requests\TencentRequest;
 
 /**
  * @author    godruoyi godruoyi@gmail.com>
@@ -13,9 +21,6 @@ use Godruoyi\OCR\Contracts\Client as ClientInterface;
  * @see https://github.com/godruoyi/ocr
  *
  * @version 2.0
- *
- * @method array idcard($files, $options = []) 身份证识别
- *
  */
 class TencentClient extends Client implements ClientInterface
 {
@@ -30,12 +35,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用印刷体识别
+     * 通用印刷体识别.
      *
      * @see https://cloud.tencent.com/document/product/866/33526
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -45,12 +50,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 广告文字识别
+     * 广告文字识别.
      *
      * @see https://cloud.tencent.com/document/product/866/49524
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -60,12 +65,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用印刷体识别（高精度版）
+     * 通用印刷体识别（高精度版）.
      *
      * @see https://cloud.tencent.com/document/product/866/34937
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -75,12 +80,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用印刷体识别（精简版）
+     * 通用印刷体识别（精简版）.
      *
      * @see https://cloud.tencent.com/document/product/866/37831
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -90,12 +95,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用印刷体识别（高速版）
+     * 通用印刷体识别（高速版）.
      *
      * @see https://cloud.tencent.com/document/product/866/33525
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -105,12 +110,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 英文识别
+     * 英文识别.
      *
      * @see https://cloud.tencent.com/document/product/866/34938
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -120,12 +125,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用手写体识别
+     * 通用手写体识别.
      *
      * @see https://cloud.tencent.com/document/product/866/36212
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -135,12 +140,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 快速文本检测
+     * 快速文本检测.
      *
      * @see https://cloud.tencent.com/document/product/866/37830
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -149,15 +154,13 @@ class TencentClient extends Client implements ClientInterface
         return $this->request->request('TextDetect', $images, $options);
     }
 
-    //
-
     /**
-     * 身份证识别
+     * 身份证识别.
      *
      * @see https://cloud.tencent.com/document/product/866/33524
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -167,12 +170,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 名片识别
+     * 名片识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/36214
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -182,12 +185,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 营业执照识别
+     * 营业执照识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/36215
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -197,12 +200,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 银行卡识别
+     * 银行卡识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/36216
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -212,12 +215,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 港澳台通行证识别
+     * 港澳台通行证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/37074
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -227,12 +230,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 马来西亚身份证识别
+     * 马来西亚身份证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/37656
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -242,12 +245,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 护照识别（港澳台地区及境外护照）
+     * 护照识别（港澳台地区及境外护照）.
      *
      * @see @see https://cloud.tencent.com/document/product/866/37657
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -257,12 +260,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 护照识别（中国大陆地区护照）
+     * 护照识别（中国大陆地区护照）.
      *
      * @see @see https://cloud.tencent.com/document/product/866/37840
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -272,12 +275,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 组织机构代码证识别
+     * 组织机构代码证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/38298
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -287,12 +290,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 事业单位法人证书识别
+     * 事业单位法人证书识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/38299
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -302,12 +305,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 不动产权证识别
+     * 不动产权证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/38300
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -317,12 +320,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 企业证照识别
+     * 企业证照识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/38849
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -332,12 +335,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 户口本识别
+     * 户口本识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/40036
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -347,12 +350,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 房产证识别
+     * 房产证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/40037
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -362,12 +365,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 港澳台来往内地通行证识别
+     * 港澳台来往内地通行证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/43105
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -377,12 +380,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 港澳台居住证识别
+     * 港澳台居住证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/43106
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -392,12 +395,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 智能卡证分类
+     * 智能卡证分类.
      *
      * @see @see https://cloud.tencent.com/document/product/866/46770
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -407,12 +410,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 中国香港身份证识别
+     * 中国香港身份证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/46919
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -422,12 +425,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 泰国身份证识别
+     * 泰国身份证识别.
      *
      * @see @see https://cloud.tencent.com/document/product/866/48475
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -436,15 +439,13 @@ class TencentClient extends Client implements ClientInterface
         return $this->request->request('RecognizeThaiIDCardOCR', $images, $options);
     }
 
-    //
-
     /**
-     * 运单识别
+     * 运单识别.
      *
      * @see https://cloud.tencent.com/document/product/866/34934
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -454,12 +455,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 增值税发票识别
+     * 增值税发票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/36210
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -469,12 +470,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 火车票识别
+     * 火车票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37071
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -484,12 +485,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 出租车发票识别
+     * 出租车发票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37072
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -499,12 +500,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 定额发票识别
+     * 定额发票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37073
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -514,12 +515,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 机票行程单识别
+     * 机票行程单识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37075
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -529,12 +530,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 购车发票识别
+     * 购车发票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37076
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -544,12 +545,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 增值税发票（卷票）识别
+     * 增值税发票（卷票）识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37832
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -559,12 +560,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 过路过桥费发票识别
+     * 过路过桥费发票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37833
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -574,12 +575,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 轮船票识别
+     * 轮船票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37834
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -589,12 +590,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 混贴票据识别
+     * 混贴票据识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37835
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -604,12 +605,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 混贴票据分类
+     * 混贴票据分类.
      *
      * @see https://cloud.tencent.com/document/product/866/37836
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -619,12 +620,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 通用机打发票识别
+     * 通用机打发票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37837
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -634,12 +635,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 汽车票识别
+     * 汽车票识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37838
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -649,12 +650,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 完税证明识别
+     * 完税证明识别.
      *
      * @see https://cloud.tencent.com/document/product/866/37839
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -664,12 +665,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 金融票据切片识别
+     * 金融票据切片识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38295
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -679,12 +680,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 金融票据整单识别
+     * 金融票据整单识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38296
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -693,15 +694,13 @@ class TencentClient extends Client implements ClientInterface
         return $this->request->request('FinanBillOCR', $images, $options);
     }
 
-    //
-
     /**
-     * 车辆VIN码识别
+     * 车辆VIN码识别.
      *
      * @see https://cloud.tencent.com/document/product/866/34935
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -711,12 +710,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 行驶证识别
+     * 行驶证识别.
      *
      * @see https://cloud.tencent.com/document/product/866/36209
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -726,12 +725,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 车牌识别
+     * 车牌识别.
      *
      * @see https://cloud.tencent.com/document/product/866/36211
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -741,12 +740,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 驾驶证识别
+     * 驾驶证识别.
      *
      * @see https://cloud.tencent.com/document/product/866/36213
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -756,12 +755,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 机动车登记证书识别
+     * 机动车登记证书识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38297
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -771,12 +770,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 网约车驾驶证识别
+     * 网约车驾驶证识别.
      *
      * @see https://cloud.tencent.com/document/product/866/47165
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -786,12 +785,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 网约车运输证识别
+     * 网约车运输证识别.
      *
      * @see https://cloud.tencent.com/document/product/866/47325
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -803,12 +802,12 @@ class TencentClient extends Client implements ClientInterface
     // 行业文档识别相关接口
 
     /**
-     * 表格识别（V2)
+     * 表格识别（V2).
      *
      * @see https://cloud.tencent.com/document/product/866/49525
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -818,14 +817,14 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 表格识别（V1)
+     * 表格识别（V1).
      *
      * 此接口为表格识别的旧版本服务，不再进行服务升级，建议您使用识别能力更强、服务性能更优的新版表格识别。
      *
      * @see https://cloud.tencent.com/document/product/866/34936
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -835,12 +834,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 算式识别
+     * 算式识别.
      *
      * @see https://cloud.tencent.com/document/product/866/34939
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -850,12 +849,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 数学公式识别
+     * 数学公式识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38293
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -865,12 +864,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 数学试题识别
+     * 数学试题识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38294
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -880,12 +879,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 保险单据识别
+     * 保险单据识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38848
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -895,12 +894,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 印章识别
+     * 印章识别.
      *
      * @see https://cloud.tencent.com/document/product/866/45807
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -912,12 +911,12 @@ class TencentClient extends Client implements ClientInterface
     // 智能扫码相关接口
 
     /**
-     * 条码信息查询
+     * 条码信息查询.
      *
      * @see https://cloud.tencent.com/document/product/866/45513
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -927,12 +926,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 二维码和条形码识别
+     * 二维码和条形码识别.
      *
      * @see https://cloud.tencent.com/document/product/866/38292
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -944,12 +943,12 @@ class TencentClient extends Client implements ClientInterface
     // 营业执照核验相关接口
 
     /**
-     * 营业执照识别及核验（详细版）
+     * 营业执照识别及核验（详细版）.
      *
      * @see https://cloud.tencent.com/document/product/866/47278
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -959,12 +958,12 @@ class TencentClient extends Client implements ClientInterface
     }
 
     /**
-     * 营业执照识别及核验（基础版）
+     * 营业执照识别及核验（基础版）.
      *
      * @see https://cloud.tencent.com/document/product/866/47279
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */
@@ -976,12 +975,12 @@ class TencentClient extends Client implements ClientInterface
     // 增值税发票核验相关接口
 
     /**
-     * 增值税发票核验
+     * 增值税发票核验.
      *
      * @see https://cloud.tencent.com/document/product/866/47324
      *
-     * @param  mixed $images
-     * @param  array  $options
+     * @param mixed $images
+     * @param array $options
      *
      * @return mixed
      */

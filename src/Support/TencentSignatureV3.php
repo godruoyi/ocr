@@ -1,9 +1,16 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Support;
 
 use InvalidArgumentException;
-use Godruoyi\OCR\Support\Encoder;
 use Psr\Http\Message\RequestInterface;
 
 class TencentSignatureV3
@@ -28,41 +35,41 @@ class TencentSignatureV3
      * @var array
      */
     protected $signatureHeaders = [
-        'Content-Type', 'Host'
+        'Content-Type', 'Host',
     ];
 
     /**
-     * Registe config
+     * Registe config.
      *
      * @param array $configs
      */
     public function __construct(string $secretId, string $secretKey)
     {
-        $this->secretId  = $secretId;
+        $this->secretId = $secretId;
         $this->secretKey = $secretKey;
     }
 
     /**
-     * @param  string $body
+     * @param string $body
      *
      * @return string
      */
     public function hashedRequestPayload(string $body)
     {
-        return hash("SHA256", $body);
+        return hash('SHA256', $body);
     }
 
     /**
-     * Canonical Request
+     * Canonical Request.
      *
-     * @param  RequestInterface $request
+     * @param RequestInterface $request
      *
      * @return string
      */
     public function canonicalRequest(RequestInterface $request)
     {
-        $httpRequestMethod    = strtoupper($request->getMethod());
-        $canonicalURI         = '/';
+        $httpRequestMethod = strtoupper($request->getMethod());
+        $canonicalURI = '/';
         $canonicalQueryString = ''; //$request->getUri()->getQuery();
 
         $signatureHeaders = [];
@@ -70,22 +77,22 @@ class TencentSignatureV3
             $signatureHeaders[$h] = current($request->getHeader($h));
         }
 
-        $canonicalHeaders     = Encoder::getCanonicalHeaders($signatureHeaders);
-        $signedHeaders        = $this->getSignatureHeadersToString();
+        $canonicalHeaders = Encoder::getCanonicalHeaders($signatureHeaders);
+        $signedHeaders = $this->getSignatureHeadersToString();
         $hashedRequestPayload = $this->hashedRequestPayload($request->getBody()->getContents());
 
-        return $httpRequestMethod . "\n" .
-                $canonicalURI . "\n" .
-                $canonicalQueryString . "\n" .
-                $canonicalHeaders . "\n\n" .
-                $signedHeaders . "\n" .
+        return $httpRequestMethod."\n".
+                $canonicalURI."\n".
+                $canonicalQueryString."\n".
+                $canonicalHeaders."\n\n".
+                $signedHeaders."\n".
                 $hashedRequestPayload;
     }
 
     /**
      * Get Athorization.
      *
-     * @param  RequestInterface $request
+     * @param RequestInterface $request
      *
      * @return string
      */
@@ -98,16 +105,16 @@ class TencentSignatureV3
             throw new InvalidArgumentException('Request header Host or X-TC-Timestamp is empty, please check.');
         }
 
-        $date            = gmdate("Y-m-d", $xTcTimestamp);
-        $service         = explode(".", $host)[0];
+        $date = gmdate('Y-m-d', $xTcTimestamp);
+        $service = explode('.', $host)[0];
         $credentialScope = sprintf('%s/%s/%s', $date, $service, self::TC3_REQUEST);
-        $str2sign        = sprintf("%s\n%s\n%s\n%s", self::TC3_ALGORITHM, $xTcTimestamp, $credentialScope, hash("SHA256", $this->canonicalRequest($request)));
+        $str2sign = sprintf("%s\n%s\n%s\n%s", self::TC3_ALGORITHM, $xTcTimestamp, $credentialScope, hash('SHA256', $this->canonicalRequest($request)));
 
-        $dateKey    = hash_hmac("SHA256", $date, "TC3".$this->secretKey, true);
-        $serviceKey = hash_hmac("SHA256", $service, $dateKey, true);
-        $reqKey     = hash_hmac("SHA256", self::TC3_REQUEST, $serviceKey, true);
+        $dateKey = hash_hmac('SHA256', $date, 'TC3'.$this->secretKey, true);
+        $serviceKey = hash_hmac('SHA256', $service, $dateKey, true);
+        $reqKey = hash_hmac('SHA256', self::TC3_REQUEST, $serviceKey, true);
 
-        $signature = hash_hmac("SHA256", $str2sign, $reqKey);
+        $signature = hash_hmac('SHA256', $str2sign, $reqKey);
 
         return sprintf(
             '%s Credential=%s/%s, SignedHeaders=%s, Signature=%s',

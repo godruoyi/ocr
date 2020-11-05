@@ -1,10 +1,18 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Support;
 
 class BaiduSampleSigner
 {
-    const BCE_AUTH_VERSION = "bce-auth-v1";
+    const BCE_AUTH_VERSION = 'bce-auth-v1';
 
     const BCE_PREFIX = 'x-bce-';
 
@@ -31,7 +39,7 @@ class BaiduSampleSigner
     }
 
     /**
-     * Get sign to header
+     * Get sign to header.
      *
      * @return array
      */
@@ -41,13 +49,13 @@ class BaiduSampleSigner
     }
 
     /**
-     * 加密
+     * 加密.
      *
-     * @param  string $httpMethod  request method
-     * @param  string $path        request uri
-     * @param  array  $params      request params
-     * @param  array  $headers     sign headers
-     * @param  array  $options
+     * @param string $httpMethod request method
+     * @param string $path       request uri
+     * @param array  $params     request params
+     * @param array  $headers    sign headers
+     * @param array  $options
      *
      * @return string
      */
@@ -67,7 +75,7 @@ class BaiduSampleSigner
 
         //组成标准请求串
         $canonicalRequest = "$httpMethod\n$canonicalURI\n"
-            . "$canonicalQueryString\n$canonicalHeader";
+            ."$canonicalQueryString\n$canonicalHeader";
 
         //使用signKey和标准请求串完成签名
         $signature = hash_hmac('sha256', $canonicalRequest, $signingKey);
@@ -76,8 +84,8 @@ class BaiduSampleSigner
         $headerKeys = array_keys($headers);
         sort($headerKeys);
 
-        if (! empty($headers)) {
-            $signedHeaders = strtolower(trim(implode(";", $headerKeys)));
+        if (!empty($headers)) {
+            $signedHeaders = strtolower(trim(implode(';', $headerKeys)));
         }
 
         //组成最终签名串
@@ -87,22 +95,22 @@ class BaiduSampleSigner
     }
 
     /**
-     * Get auth string
+     * Get auth string.
      *
-     * @param  array  $options
+     * @param array $options
      *
      * @return string
      */
     public function getAuthString(array $options = [])
     {
         $timestamp = new \DateTime();
-        $timestamp->setTimezone(new \DateTimeZone("UTC"));
+        $timestamp->setTimezone(new \DateTimeZone('UTC'));
 
-        $expirationInSeconds = ! isset($options[self::EXPIRATION_IN_SECONDS])
+        $expirationInSeconds = !isset($options[self::EXPIRATION_IN_SECONDS])
             ? self::DEFAULT_EXPIRATION_IN_SECONDS
             : $options[self::EXPIRATION_IN_SECONDS];
 
-        return self::BCE_AUTH_VERSION . '/' . $this->accessKeyId . '/'
-            . $timestamp->format("Y-m-d\TH:i:s\Z") . '/' . $expirationInSeconds;
+        return self::BCE_AUTH_VERSION.'/'.$this->accessKeyId.'/'
+            .$timestamp->format("Y-m-d\TH:i:s\Z").'/'.$expirationInSeconds;
     }
 }

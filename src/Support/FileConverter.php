@@ -1,18 +1,25 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Support;
 
 use Exception;
 use RuntimeException;
 use SplFileInfo;
-use Psr\Http\Message\StreamInterface;
 
 class FileConverter
 {
     /**
-     * Converter Image To String
+     * Converter Image To String.
      *
-     * @param  string|Object|Resource $image
+     * @param string|object|resource $image
      *
      * @return string
      */
@@ -26,9 +33,9 @@ class FileConverter
     }
 
     /**
-     * Get image Content, support url/file/SplFileInfo
+     * Get image Content, support url/file/SplFileInfo.
      *
-     * @param  string|\SplFileInfo|Resource $image
+     * @param string|\SplFileInfo|resource $image
      *
      * @return string
      */
@@ -59,40 +66,42 @@ class FileConverter
         }
 
         try {
-            return (string) (new Http)->get($url)->getBody();
+            return (string) (new Http())->get($url)->getBody();
         } catch (Exception $e) {
             return '';
         }
     }
 
     /**
-     * Determine the given file has a file
+     * Determine the given file has a file.
      *
-     * @param  mixed $file
+     * @param mixed $file
      *
-     * @return boolean
+     * @return bool
      */
     public static function isString($file)
     {
-        return is_string($file) && (! self::isUrl($file));
+        return is_string($file) && (!self::isUrl($file));
     }
 
     /**
-     * Determine the given file has a active url
+     * Determine the given file has a active url.
      *
-     * @param  mixed  $file
-     * @return boolean
+     * @param mixed $file
+     *
+     * @return bool
      */
     public static function isUrl($file)
     {
-        return filter_var($file, FILTER_VALIDATE_URL) !== false;
+        return false !== filter_var($file, FILTER_VALIDATE_URL);
     }
 
     /**
-     * Determine the given file has a active url
+     * Determine the given file has a active url.
      *
-     * @param  mixed  $file
-     * @return boolean
+     * @param mixed $file
+     *
+     * @return bool
      */
     public static function isFile($file)
     {
@@ -100,17 +109,17 @@ class FileConverter
     }
 
     /**
-     * Determine the given file has a image type
+     * Determine the given file has a image type.
      *
-     * @param  mixed  $file
+     * @param mixed $file
      *
-     * @return boolean
+     * @return bool
      */
     public static function isImage($file)
     {
         try {
             $level = error_reporting(E_ERROR | E_PARSE);
-            $isImage = self::isFile($file) && getimagesize($file) !== false;
+            $isImage = self::isFile($file) && false !== getimagesize($file);
             error_reporting($level);
 
             return $isImage;
@@ -120,10 +129,11 @@ class FileConverter
     }
 
     /**
-     * Determine the given file has Rescouve stream
+     * Determine the given file has Rescouve stream.
      *
-     * @param  mixed  $resource
-     * @return boolean
+     * @param mixed $resource
+     *
+     * @return bool
      */
     public static function isResource($resource)
     {
@@ -131,10 +141,11 @@ class FileConverter
     }
 
     /**
-     * Determine the given file has SplFileInfo instance
+     * Determine the given file has SplFileInfo instance.
      *
-     * @param  mixed  $splFile
-     * @return boolean
+     * @param mixed $splFile
+     *
+     * @return bool
      */
     public static function isSplFileInfo($splFile)
     {

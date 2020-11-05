@@ -3,32 +3,27 @@
 /*
  * This file is part of the godruoyi/ocr.
  *
- * (c) godruoyi <godruoyi@gmail.com>
+ * (c) Godruoyi <gmail@godruoyi.com>
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * This source file is subject to the MIT license that is bundled.
  */
 
 namespace Godruoyi\OCR\Support;
 
-use Exception;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
-use GuzzleHttp\Exception\ClientException;
 
 class Http
 {
     /**
-     * GuzzleHttp\Client Instance
+     * GuzzleHttp\Client Instance.
      *
      * @var \GuzzleHttp\Client
      */
     protected $client;
 
     /**
-     * GuzzleHttp\Client Heades
+     * GuzzleHttp\Client Heades.
      *
      * @var array
      */
@@ -58,11 +53,11 @@ class Http
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         ],
 
-        'verify' => false
+        'verify' => false,
     ];
 
     /**
-     * Set Http Client Headers
+     * Set Http Client Headers.
      *
      * @param array $headers
      */
@@ -72,11 +67,11 @@ class Http
     }
 
     /**
-     * Send A Http Get Request
+     * Send A Http Get Request.
      *
-     * @param  string $url
-     * @param  array  $params
-     * @param  array  $options
+     * @param string $url
+     * @param array  $params
+     * @param array  $options
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -86,10 +81,10 @@ class Http
     }
 
     /**
-     * Send A Http POST Request
+     * Send A Http POST Request.
      *
-     * @param  string $url
-     * @param  array  $params
+     * @param string $url
+     * @param array  $params
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -101,11 +96,11 @@ class Http
     }
 
     /**
-     * Send A Http Request For GuzzleHttp Http Client
+     * Send A Http Request For GuzzleHttp Http Client.
      *
-     * @param  string $method
-     * @param  string $url
-     * @param  array  $options
+     * @param string $method
+     * @param string $url
+     * @param array  $options
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -134,7 +129,7 @@ class Http
      *
      * @param string       $url
      * @param string|array $data
-     * @param array $queries
+     * @param array        $queries
      * @param int          $encodeOption
      *
      * @return ResponseInterface
@@ -149,12 +144,12 @@ class Http
 
         return $this->request('POST', $url, array_merge([
             'query' => $queries,
-            'body'  => $data
+            'body' => $data,
         ], $options));
     }
 
     /**
-     * Set http middleware
+     * Set http middleware.
      *
      * @return mixed
      */

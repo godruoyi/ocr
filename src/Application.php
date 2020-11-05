@@ -1,25 +1,32 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR;
 
 use Closure;
-use InvalidArgumentException;
 use Godruoyi\Container\Container;
-use Godruoyi\OCR\Contracts\Client;
-use Psr\Container\ContainerInterface;
 use Godruoyi\Container\ServiceProviderInterface;
+use Godruoyi\OCR\Contracts\Client;
+use InvalidArgumentException;
 
 class Application extends Manager
 {
     /**
-     * The container instance,
+     * The container instance,.
      *
      * @var \Godruoyi\Container\Container
      */
     protected $container;
 
     /**
-     * OCR configurage
+     * OCR configurage.
      *
      * @var array
      */
@@ -42,7 +49,7 @@ class Application extends Manager
      */
     public function __construct(array $config = [])
     {
-        $this->container = new Container;
+        $this->container = new Container();
         $this->config = new Config($config);
 
         $this->boot();
@@ -51,7 +58,7 @@ class Application extends Manager
     }
 
     /**
-     * Get ocr container
+     * Get ocr container.
      *
      * @return \Godruoyi\Container\Container
      */
@@ -61,9 +68,7 @@ class Application extends Manager
     }
 
     /**
-     * Boot application for ocr
-     *
-     * @return void
+     * Boot application for ocr.
      */
     protected function boot()
     {
@@ -72,7 +77,7 @@ class Application extends Manager
     }
 
     /**
-     * Registe core alias and service
+     * Registe core alias and service.
      *
      * @return mixed
      */
@@ -107,9 +112,7 @@ class Application extends Manager
     /**
      * Registe a service to container.
      *
-     * @param  mixed $service
-     *
-     * @return void
+     * @param mixed $service
      */
     public function register($service)
     {
@@ -131,9 +134,9 @@ class Application extends Manager
     }
 
     /**
-     * Recover __get method
+     * Recover __get method.
      *
-     * @param  mixed $key
+     * @param mixed $key
      *
      * @return mixed
      */
@@ -143,7 +146,7 @@ class Application extends Manager
     }
 
     /**
-     * Create Aliyun Driver
+     * Create Aliyun Driver.
      *
      * @return miced
      */
@@ -153,7 +156,7 @@ class Application extends Manager
     }
 
     /**
-     * Create Baidu Driver
+     * Create Baidu Driver.
      *
      * @returnmiced
      */
@@ -163,7 +166,7 @@ class Application extends Manager
     }
 
     /**
-     * Create Tencent Driver
+     * Create Tencent Driver.
      *
      * @return [miced
      */
@@ -173,13 +176,13 @@ class Application extends Manager
     }
 
     /**
-     * Create Ai Driver
+     * Create Ai Driver.
      *
      * @retmiced
      */
     protected function createTencentAiDriver(): Client
     {
-        # code...
+        // code...
     }
 
     /**

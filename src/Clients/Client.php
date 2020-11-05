@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\OCR\Clients;
 
-use Closure;
 use BadMethodCallException;
+use Closure;
 
 class Client
 {
@@ -24,8 +32,9 @@ class Client
     /**
      * Register a custom method Closure.
      *
-     * @param  string    $method
-     * @param  \Closure  $callback
+     * @param string   $method
+     * @param \Closure $callback
+     *
      * @return $this
      */
     public function extend(string $method, Closure $fn)
@@ -38,8 +47,9 @@ class Client
     /**
      * Dynamically call the default driver instance.
      *
-     * @param  string  $method
-     * @param  array   $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)
