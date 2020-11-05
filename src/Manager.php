@@ -12,6 +12,7 @@ namespace Godruoyi\OCR;
 
 use Closure;
 use InvalidArgumentException;
+use Godruoyi\OCR\Contracts\Client;
 
 abstract class Manager
 {
@@ -62,7 +63,7 @@ abstract class Manager
      *
      * @throws InvalidArgumentException
      */
-    public function driver(string $driver = null)
+    public function driver(string $driver = null): Client
     {
         $driver = $driver ?: $this->getDefaultDriver();
 
@@ -92,7 +93,7 @@ abstract class Manager
      *
      * @throws InvalidArgumentException
      */
-    protected function createDriver($driver)
+    protected function createDriver($driver): Client
     {
         // First, we will determine if a custom driver creator exists for the given driver and
         // if it does not we will check for a creator method for the driver. Custom creator
