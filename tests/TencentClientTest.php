@@ -39,14 +39,14 @@ class TencentClientTest extends TestCase
     //     $this->assertInstanceOf(Response::class, $response);
     // }
 
-    // public function testIdCard()
-    // {
-    //     $response = $this->application->tencent->idCard(__DIR__.'/stubs/idcard_0.jpeg', [
-    //         'Region' => 'ap-shanghai'
-    //     ]);
+    public function testIdCard()
+    {
+        $response = $this->application->tencent->idCard(__DIR__.'/stubs/idcard_0.jpeg', [
+            'Region' => 'ap-shanghai'
+        ]);
 
-    //     $this->assertInstanceOf(Response::class, $response);
-    // }
+        $this->assertInstanceOf(Response::class, $response);
+    }
 
     // public function testVin()
     // {
