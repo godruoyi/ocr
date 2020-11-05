@@ -32,7 +32,6 @@ class Application extends Manager
      */
     protected $defaultProviders = [
         Providers\HttpServiceProvider::class,
-        Providers\CacheServiceProvider::class,
         Providers\LogServiceProvider::class,
     ];
 
