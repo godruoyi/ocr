@@ -10,7 +10,6 @@
 
 namespace Godruoyi\OCR\Clients;
 
-use Godruoyi\OCR\Contracts\Client as ClientInterface;
 use Godruoyi\OCR\Requests\AliyunRequest;
 
 /**
@@ -44,7 +43,7 @@ use Godruoyi\OCR\Requests\AliyunRequest;
  * @method array ugc($files, $options = [])             网络UGC图片文字识
  * @method array custom($files, $options = [])          自定义模板识别
  */
-class AliyunClient extends Client implements ClientInterface
+class AliyunClient extends Client
 {
     const OCR_IDCARD = 'https://dm-51.data.aliyun.com/rest/160601/ocr/ocr_idcard.json';
     const OCR_VEHICLE = 'https://dm-53.data.aliyun.com/rest/160601/ocr/ocr_vehicle.json';
@@ -437,19 +436,5 @@ class AliyunClient extends Client implements ClientInterface
         $options['_format'] = 'imgorurl';
 
         return $this->request(self::OCR_ECOMMERCE, $images, $options);
-    }
-
-    /**
-     * Request.
-     *
-     * @param string $url
-     * @param mixed  $images
-     * @param array  $options
-     *
-     * @return array
-     */
-    public function request($url, $images, array $options = [])
-    {
-        return $this->request->request(...func_get_args());
     }
 }

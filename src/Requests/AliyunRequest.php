@@ -27,7 +27,7 @@ class AliyunRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function request($url, $images, array $options = []): Response
+    public function send($url, $images, array $options = []): Response
     {
         return $this->http->json($url, $this->mergeOptions($images, $options));
     }

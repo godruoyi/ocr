@@ -10,7 +10,6 @@
 
 namespace Godruoyi\OCR\Clients;
 
-use Godruoyi\OCR\Contracts\Client as ClientInterface;
 use Godruoyi\OCR\Requests\BaiduRequest;
 
 /**
@@ -85,7 +84,7 @@ use Godruoyi\OCR\Requests\BaiduRequest;
  * @method array lottery() 彩票识别
  * @method array facade()  门脸文字识别
  */
-class BaiduClient extends Client implements ClientInterface
+class BaiduClient extends Client
 {
     /**
      * Register auth request instance.
@@ -109,7 +108,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function generalBasic($images, array $options = [])
     {
-        return $this->request->request('general_basic', $images, $options);
+        return $this->request('general_basic', $images, $options);
     }
 
     /**
@@ -126,7 +125,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('accurate_basic', $images, $options);
+        return $this->request('accurate_basic', $images, $options);
     }
 
     /**
@@ -141,7 +140,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function general($images, array $options = [])
     {
-        return $this->request->request('general', $images, $options);
+        return $this->request('general', $images, $options);
     }
 
     /**
@@ -158,7 +157,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('accurate', $images, $options);
+        return $this->request('accurate', $images, $options);
     }
 
     /**
@@ -175,7 +174,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('doc_analysis_office', $images, $options);
+        return $this->request('doc_analysis_office', $images, $options);
     }
 
     /**
@@ -192,7 +191,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('handwriting', $images, $options);
+        return $this->request('handwriting', $images, $options);
     }
 
     /**
@@ -209,7 +208,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('idcard', $images, $options);
+        return $this->request('idcard', $images, $options);
     }
 
     /**
@@ -224,7 +223,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function bankcard($images, array $options = [])
     {
-        return $this->request->request('bankcard', $images, $options);
+        return $this->request('bankcard', $images, $options);
     }
 
     /**
@@ -241,7 +240,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('business_license', $images, $options);
+        return $this->request('business_license', $images, $options);
     }
 
     /**
@@ -256,7 +255,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function passport($images, array $options = [])
     {
-        return $this->request->request('passport', $images, $options);
+        return $this->request('passport', $images, $options);
     }
 
     /**
@@ -271,7 +270,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function businessCard($images, array $options = [])
     {
-        return $this->request->request('business_card', $images, $options);
+        return $this->request('business_card', $images, $options);
     }
 
     /**
@@ -286,7 +285,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function householdRegister($images, array $options = [])
     {
-        return $this->request->request('household_register', $images, $options);
+        return $this->request('household_register', $images, $options);
     }
 
     /**
@@ -301,7 +300,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function birthCertificate($images, array $options = [])
     {
-        return $this->request->request('birth_certificate', $images, $options);
+        return $this->request('birth_certificate', $images, $options);
     }
 
     /**
@@ -316,7 +315,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function multiCardClassify($images, array $options = [])
     {
-        return $this->request->request('multi_card_classify', $images, $options);
+        return $this->request('multi_card_classify', $images, $options);
     }
 
     /**
@@ -331,7 +330,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function hkMacauExitentrypermit($images, array $options = [])
     {
-        return $this->request->request('HK_Macau_exitentrypermit', $images, $options);
+        return $this->request('HK_Macau_exitentrypermit', $images, $options);
     }
 
     /**
@@ -346,7 +345,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function taiwanExitentrypermit($images, array $options = [])
     {
-        return $this->request->request('taiwan_exitentrypermit', $images, $options);
+        return $this->request('taiwan_exitentrypermit', $images, $options);
     }
 
     /**
@@ -365,7 +364,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $uri = 'https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request';
 
-        return $this->request->request($uri, $images, $options);
+        return $this->request($uri, $images, $options);
     }
 
     /**
@@ -385,7 +384,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $uri = 'https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result';
 
-        return $this->request->request($uri, [
+        return $this->request($uri, [
             'result_type' => $requestType,
             'request_id' => $requestId,
         ]);
@@ -405,7 +404,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function syncTable($images, array $options = [])
     {
-        return $this->request->request('form', $images, $options);
+        return $this->request('form', $images, $options);
     }
 
     /**
@@ -422,7 +421,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('receipt', $images, $options);
+        return $this->request('receipt', $images, $options);
     }
 
     /**
@@ -439,7 +438,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('medical_invoice', $images, $options);
+        return $this->request('medical_invoice', $images, $options);
     }
 
     /**
@@ -456,7 +455,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('medical_statement', $images, $options);
+        return $this->request('medical_statement', $images, $options);
     }
 
     /**
@@ -473,7 +472,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('medical_record', $images, $options);
+        return $this->request('medical_record', $images, $options);
     }
 
     /**
@@ -490,7 +489,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('insurance_documents', $images, $options);
+        return $this->request('insurance_documents', $images, $options);
     }
 
     /**
@@ -507,7 +506,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('vat_invoice', $images, $options);
+        return $this->request('vat_invoice', $images, $options);
     }
 
     /**
@@ -524,7 +523,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('train_ticket', $images, $options);
+        return $this->request('train_ticket', $images, $options);
     }
 
     /**
@@ -541,7 +540,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('taxi_receipt', $images, $options);
+        return $this->request('taxi_receipt', $images, $options);
     }
 
     /**
@@ -556,7 +555,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function quotaInvoice($images, array $options = [])
     {
-        return $this->request->request('quota_invoice', $images, $options);
+        return $this->request('quota_invoice', $images, $options);
     }
 
     /**
@@ -573,7 +572,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('driving_license', $images, $options);
+        return $this->request('driving_license', $images, $options);
     }
 
     /**
@@ -590,7 +589,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('vehicle_license', $images, $options);
+        return $this->request('vehicle_license', $images, $options);
     }
 
     /**
@@ -607,7 +606,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('license_plate', $images, $options);
+        return $this->request('license_plate', $images, $options);
     }
 
     /**
@@ -624,7 +623,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('vehicle_invoice', $images, $options);
+        return $this->request('vehicle_invoice', $images, $options);
     }
 
     /**
@@ -641,7 +640,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('vehicle_certificate', $images, $options);
+        return $this->request('vehicle_certificate', $images, $options);
     }
 
     /**
@@ -658,7 +657,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('doc_analysis', $images, $options);
+        return $this->request('doc_analysis', $images, $options);
     }
 
     /**
@@ -675,7 +674,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('formula', $images, $options);
+        return $this->request('formula', $images, $options);
     }
 
     /**
@@ -692,7 +691,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('vin_code', $images, $options);
+        return $this->request('vin_code', $images, $options);
     }
 
     /**
@@ -709,7 +708,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('qrcode', $images, $options);
+        return $this->request('qrcode', $images, $options);
     }
 
     /**
@@ -728,7 +727,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('numbers', $images, $options);
+        return $this->request('numbers', $images, $options);
     }
 
     /**
@@ -745,7 +744,7 @@ class BaiduClient extends Client implements ClientInterface
      */
     public function webimage($images, array $options = [])
     {
-        return $this->request->request('webimage', $images, $options);
+        return $this->request('webimage', $images, $options);
     }
 
     /**
@@ -762,7 +761,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('webimage_loc', $images, $options);
+        return $this->request('webimage_loc', $images, $options);
     }
 
     /**
@@ -779,7 +778,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('lottery', $images, $options);
+        return $this->request('lottery', $images, $options);
     }
 
     /**
@@ -796,7 +795,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('meter', $images, $options);
+        return $this->request('meter', $images, $options);
     }
 
     /**
@@ -813,7 +812,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('seal', $images, $options);
+        return $this->request('seal', $images, $options);
     }
 
     /**
@@ -830,7 +829,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('lottery', $images, $options);
+        return $this->request('lottery', $images, $options);
     }
 
     /**
@@ -847,7 +846,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('invoice', $images, $options);
+        return $this->request('invoice', $images, $options);
     }
 
     /**
@@ -864,7 +863,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('air_ticket', $images, $options);
+        return $this->request('air_ticket', $images, $options);
     }
 
     /**
@@ -881,7 +880,7 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('bus_ticket', $images, $options);
+        return $this->request('bus_ticket', $images, $options);
     }
 
     /**
@@ -898,6 +897,6 @@ class BaiduClient extends Client implements ClientInterface
     {
         $options['_urlauto2base64'] = true;
 
-        return $this->request->request('toll_invoice', $images, $options);
+        return $this->request('toll_invoice', $images, $options);
     }
 }

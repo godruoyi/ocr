@@ -10,7 +10,6 @@
 
 namespace Godruoyi\OCR\Clients;
 
-use Godruoyi\OCR\Contracts\Client as ClientInterface;
 use Godruoyi\OCR\Requests\TencentRequest;
 
 /**
@@ -22,7 +21,7 @@ use Godruoyi\OCR\Requests\TencentRequest;
  *
  * @version 2.0
  */
-class TencentClient extends Client implements ClientInterface
+class TencentClient extends Client
 {
     /**
      * Register request.
@@ -46,7 +45,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function generalBasic($images, array $options = [])
     {
-        return $this->request->request('GeneralBasicOCR', $images, $options);
+        return $this->request('GeneralBasicOCR', $images, $options);
     }
 
     /**
@@ -61,7 +60,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function advertise($images, array $options = [])
     {
-        return $this->request->request('AdvertiseOCR', $images, $options);
+        return $this->request('AdvertiseOCR', $images, $options);
     }
 
     /**
@@ -76,7 +75,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function generalAccurate($images, array $options = [])
     {
-        return $this->request->request('GeneralAccurateOCR', $images, $options);
+        return $this->request('GeneralAccurateOCR', $images, $options);
     }
 
     /**
@@ -91,7 +90,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function generalEfficient($images, array $options = [])
     {
-        return $this->request->request('GeneralEfficientOCR', $images, $options);
+        return $this->request('GeneralEfficientOCR', $images, $options);
     }
 
     /**
@@ -106,7 +105,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function generalFast($images, array $options = [])
     {
-        return $this->request->request('GeneralFastOCR', $images, $options);
+        return $this->request('GeneralFastOCR', $images, $options);
     }
 
     /**
@@ -121,7 +120,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function english($images, array $options = [])
     {
-        return $this->request->request('EnglishOCR', $images, $options);
+        return $this->request('EnglishOCR', $images, $options);
     }
 
     /**
@@ -136,7 +135,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function generalHandwriting($images, array $options = [])
     {
-        return $this->request->request('GeneralHandwritingOCR', $images, $options);
+        return $this->request('GeneralHandwritingOCR', $images, $options);
     }
 
     /**
@@ -151,7 +150,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function textDetect($images, array $options = [])
     {
-        return $this->request->request('TextDetect', $images, $options);
+        return $this->request('TextDetect', $images, $options);
     }
 
     /**
@@ -166,7 +165,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function idCard($images, array $options = [])
     {
-        return $this->request->request('IDCardOCR', $images, $options);
+        return $this->request('IDCardOCR', $images, $options);
     }
 
     /**
@@ -181,7 +180,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function businessCard($images, array $options = [])
     {
-        return $this->request->request('BusinessCardOCR', $images, $options);
+        return $this->request('BusinessCardOCR', $images, $options);
     }
 
     /**
@@ -196,7 +195,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function bizLicense($images, array $options = [])
     {
-        return $this->request->request('BizLicenseOCR', $images, $options);
+        return $this->request('BizLicenseOCR', $images, $options);
     }
 
     /**
@@ -211,7 +210,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function bankCard($images, array $options = [])
     {
-        return $this->request->request('BankCardOCR', $images, $options);
+        return $this->request('BankCardOCR', $images, $options);
     }
 
     /**
@@ -226,7 +225,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function permit($images, array $options = [])
     {
-        return $this->request->request('PermitOCR', $images, $options);
+        return $this->request('PermitOCR', $images, $options);
     }
 
     /**
@@ -241,7 +240,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function mlidCard($images, array $options = [])
     {
-        return $this->request->request('MLIDCardOCR', $images, $options);
+        return $this->request('MLIDCardOCR', $images, $options);
     }
 
     /**
@@ -256,7 +255,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function mlidPassport($images, array $options = [])
     {
-        return $this->request->request('MLIDPassportOCR', $images, $options);
+        return $this->request('MLIDPassportOCR', $images, $options);
     }
 
     /**
@@ -271,7 +270,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function passport($images, array $options = [])
     {
-        return $this->request->request('PassportOCR', $images, $options);
+        return $this->request('PassportOCR', $images, $options);
     }
 
     /**
@@ -286,7 +285,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function orgCodeCert($images, array $options = [])
     {
-        return $this->request->request('OrgCodeCertOCR', $images, $options);
+        return $this->request('OrgCodeCertOCR', $images, $options);
     }
 
     /**
@@ -301,7 +300,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function institution($images, array $options = [])
     {
-        return $this->request->request('InstitutionOCR', $images, $options);
+        return $this->request('InstitutionOCR', $images, $options);
     }
 
     /**
@@ -316,7 +315,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function estateCert($images, array $options = [])
     {
-        return $this->request->request('EstateCertOCR', $images, $options);
+        return $this->request('EstateCertOCR', $images, $options);
     }
 
     /**
@@ -331,7 +330,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function enterpriseLicense($images, array $options = [])
     {
-        return $this->request->request('EnterpriseLicenseOCR', $images, $options);
+        return $this->request('EnterpriseLicenseOCR', $images, $options);
     }
 
     /**
@@ -346,7 +345,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function residenceBooklet($images, array $options = [])
     {
-        return $this->request->request('ResidenceBookletOCR', $images, $options);
+        return $this->request('ResidenceBookletOCR', $images, $options);
     }
 
     /**
@@ -361,7 +360,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function propOwnerCert($images, array $options = [])
     {
-        return $this->request->request('PropOwnerCertOCR', $images, $options);
+        return $this->request('PropOwnerCertOCR', $images, $options);
     }
 
     /**
@@ -376,7 +375,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function mainlandPermit($images, array $options = [])
     {
-        return $this->request->request('MainlandPermitOCR', $images, $options);
+        return $this->request('MainlandPermitOCR', $images, $options);
     }
 
     /**
@@ -391,7 +390,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function hmtResidentPermitOCR($images, array $options = [])
     {
-        return $this->request->request('HmtResidentPermitOCR', $images, $options);
+        return $this->request('HmtResidentPermitOCR', $images, $options);
     }
 
     /**
@@ -406,7 +405,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function classifyDetect($images, array $options = [])
     {
-        return $this->request->request('ClassifyDetectOCR', $images, $options);
+        return $this->request('ClassifyDetectOCR', $images, $options);
     }
 
     /**
@@ -421,7 +420,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function hkIDCard($images, array $options = [])
     {
-        return $this->request->request('HKIDCardOCR', $images, $options);
+        return $this->request('HKIDCardOCR', $images, $options);
     }
 
     /**
@@ -436,7 +435,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function recognizeThaiIDCard($images, array $options = [])
     {
-        return $this->request->request('RecognizeThaiIDCardOCR', $images, $options);
+        return $this->request('RecognizeThaiIDCardOCR', $images, $options);
     }
 
     /**
@@ -451,7 +450,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function waybill($images, array $options = [])
     {
-        return $this->request->request('WaybillOCR', $images, $options);
+        return $this->request('WaybillOCR', $images, $options);
     }
 
     /**
@@ -466,7 +465,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function vatInvoice($images, array $options = [])
     {
-        return $this->request->request('VatInvoiceOCR', $images, $options);
+        return $this->request('VatInvoiceOCR', $images, $options);
     }
 
     /**
@@ -481,7 +480,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function trainTicket($images, array $options = [])
     {
-        return $this->request->request('TrainTicketOCR', $images, $options);
+        return $this->request('TrainTicketOCR', $images, $options);
     }
 
     /**
@@ -496,7 +495,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function taxiInvoice($images, array $options = [])
     {
-        return $this->request->request('TaxiInvoiceOCR', $images, $options);
+        return $this->request('TaxiInvoiceOCR', $images, $options);
     }
 
     /**
@@ -511,7 +510,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function quotaInvoice($images, array $options = [])
     {
-        return $this->request->request('QuotaInvoiceOCR', $images, $options);
+        return $this->request('QuotaInvoiceOCR', $images, $options);
     }
 
     /**
@@ -526,7 +525,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function flightInvoice($images, array $options = [])
     {
-        return $this->request->request('FlightInvoiceOCR', $images, $options);
+        return $this->request('FlightInvoiceOCR', $images, $options);
     }
 
     /**
@@ -541,7 +540,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function carInvoice($images, array $options = [])
     {
-        return $this->request->request('CarInvoiceOCR', $images, $options);
+        return $this->request('CarInvoiceOCR', $images, $options);
     }
 
     /**
@@ -556,7 +555,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function vatRollInvoice($images, array $options = [])
     {
-        return $this->request->request('VatRollInvoiceOCR', $images, $options);
+        return $this->request('VatRollInvoiceOCR', $images, $options);
     }
 
     /**
@@ -571,7 +570,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function tollInvoice($images, array $options = [])
     {
-        return $this->request->request('TollInvoiceOCR', $images, $options);
+        return $this->request('TollInvoiceOCR', $images, $options);
     }
 
     /**
@@ -586,7 +585,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function shipInvoice($images, array $options = [])
     {
-        return $this->request->request('ShipInvoiceOCR', $images, $options);
+        return $this->request('ShipInvoiceOCR', $images, $options);
     }
 
     /**
@@ -601,7 +600,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function mixedInvoice($images, array $options = [])
     {
-        return $this->request->request('MixedInvoiceOCR', $images, $options);
+        return $this->request('MixedInvoiceOCR', $images, $options);
     }
 
     /**
@@ -616,7 +615,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function mixedInvoiceDetect($images, array $options = [])
     {
-        return $this->request->request('MixedInvoiceDetect', $images, $options);
+        return $this->request('MixedInvoiceDetect', $images, $options);
     }
 
     /**
@@ -631,7 +630,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function invoiceGeneral($images, array $options = [])
     {
-        return $this->request->request('InvoiceGeneralOCR', $images, $options);
+        return $this->request('InvoiceGeneralOCR', $images, $options);
     }
 
     /**
@@ -646,7 +645,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function busInvoice($images, array $options = [])
     {
-        return $this->request->request('BusInvoiceOCR', $images, $options);
+        return $this->request('BusInvoiceOCR', $images, $options);
     }
 
     /**
@@ -661,7 +660,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function dutyPaidProof($images, array $options = [])
     {
-        return $this->request->request('DutyPaidProofOCR', $images, $options);
+        return $this->request('DutyPaidProofOCR', $images, $options);
     }
 
     /**
@@ -676,7 +675,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function finanBillSlice($images, array $options = [])
     {
-        return $this->request->request('FinanBillSliceOCR', $images, $options);
+        return $this->request('FinanBillSliceOCR', $images, $options);
     }
 
     /**
@@ -691,7 +690,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function finanBill($images, array $options = [])
     {
-        return $this->request->request('FinanBillOCR', $images, $options);
+        return $this->request('FinanBillOCR', $images, $options);
     }
 
     /**
@@ -706,7 +705,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function vin($images, array $options = [])
     {
-        return $this->request->request('VinOCR', $images, $options);
+        return $this->request('VinOCR', $images, $options);
     }
 
     /**
@@ -721,7 +720,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function vehicleLicense($images, array $options = [])
     {
-        return $this->request->request('VehicleLicenseOCR', $images, $options);
+        return $this->request('VehicleLicenseOCR', $images, $options);
     }
 
     /**
@@ -736,7 +735,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function licensePlate($images, array $options = [])
     {
-        return $this->request->request('LicensePlateOCR', $images, $options);
+        return $this->request('LicensePlateOCR', $images, $options);
     }
 
     /**
@@ -751,7 +750,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function driverLicense($images, array $options = [])
     {
-        return $this->request->request('DriverLicenseOCR', $images, $options);
+        return $this->request('DriverLicenseOCR', $images, $options);
     }
 
     /**
@@ -766,7 +765,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function vehicleRegCert($images, array $options = [])
     {
-        return $this->request->request('VehicleRegCertOCR', $images, $options);
+        return $this->request('VehicleRegCertOCR', $images, $options);
     }
 
     /**
@@ -781,7 +780,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function rideHailingDriverLicense($images, array $options = [])
     {
-        return $this->request->request('RideHailingDriverLicenseOCR', $images, $options);
+        return $this->request('RideHailingDriverLicenseOCR', $images, $options);
     }
 
     /**
@@ -796,7 +795,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function rideHailingTransportLicense($images, array $options = [])
     {
-        return $this->request->request('RideHailingTransportLicenseOCR', $images, $options);
+        return $this->request('RideHailingTransportLicenseOCR', $images, $options);
     }
 
     // 行业文档识别相关接口
@@ -813,7 +812,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function recognizeTable($images, array $options = [])
     {
-        return $this->request->request('RecognizeTableOCR', $images, $options);
+        return $this->request('RecognizeTableOCR', $images, $options);
     }
 
     /**
@@ -845,7 +844,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function arithmetic($images, array $options = [])
     {
-        return $this->request->request('ArithmeticOCR', $images, $options);
+        return $this->request('ArithmeticOCR', $images, $options);
     }
 
     /**
@@ -860,7 +859,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function formula($images, array $options = [])
     {
-        return $this->request->request('FormulaOCR', $images, $options);
+        return $this->request('FormulaOCR', $images, $options);
     }
 
     /**
@@ -875,7 +874,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function eduPaper($images, array $options = [])
     {
-        return $this->request->request('EduPaperOCR', $images, $options);
+        return $this->request('EduPaperOCR', $images, $options);
     }
 
     /**
@@ -890,7 +889,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function insuranceBill($images, array $options = [])
     {
-        return $this->request->request('InsuranceBillOCR', $images, $options);
+        return $this->request('InsuranceBillOCR', $images, $options);
     }
 
     /**
@@ -905,7 +904,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function seal($images, array $options = [])
     {
-        return $this->request->request('SealOCR', $images, $options);
+        return $this->request('SealOCR', $images, $options);
     }
 
     // 智能扫码相关接口
@@ -922,7 +921,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function queryBarCode($images, array $options = [])
     {
-        return $this->request->request('QueryBarCode', $images, $options);
+        return $this->request('QueryBarCode', $images, $options);
     }
 
     /**
@@ -937,7 +936,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function qrcode($images, array $options = [])
     {
-        return $this->request->request('QrcodeOCR', $images, $options);
+        return $this->request('QrcodeOCR', $images, $options);
     }
 
     // 营业执照核验相关接口
@@ -954,7 +953,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function verifyBizLicense($images, array $options = [])
     {
-        return $this->request->request('VerifyBizLicense', $images, $options);
+        return $this->request('VerifyBizLicense', $images, $options);
     }
 
     /**
@@ -969,7 +968,7 @@ class TencentClient extends Client implements ClientInterface
      */
     public function verifyBasicBizLicense($images, array $options = [])
     {
-        return $this->request->request('VerifyBasicBizLicense', $images, $options);
+        return $this->request('VerifyBasicBizLicense', $images, $options);
     }
 
     // 增值税发票核验相关接口
@@ -986,6 +985,6 @@ class TencentClient extends Client implements ClientInterface
      */
     public function vatInvoiceVerify($images, array $options = [])
     {
-        return $this->request->request('VatInvoiceVerify', $images, $options);
+        return $this->request('VatInvoiceVerify', $images, $options);
     }
 }

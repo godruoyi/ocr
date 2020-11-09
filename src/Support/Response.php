@@ -12,7 +12,7 @@ namespace Godruoyi\OCR\Support;
 
 use GuzzleHttp\Psr7\Response as GuzzleHttpResponse;
 
-class Response extends GuzzleHttpResponse
+class Response extends GuzzleHttpResponse implements \ArrayAccess
 {
     /**
      * Create response from psr response.
@@ -65,5 +65,52 @@ class Response extends GuzzleHttpResponse
         $this->getBody()->rewind();
 
         return (string) $this->getBody();
+    }
+
+    /**
+     * @param int $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        $item = $this->toArray();
+
+        return isset($item[$offset]);
+    }
+
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        $item = $this->toArray();
+
+        if (isset($item[$offset])) {
+            return $item[$offset];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function offsetSet($offset, $value)
+    {
+    }
+
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetUnset($offset)
+    {
     }
 }

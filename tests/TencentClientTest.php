@@ -12,7 +12,6 @@ namespace Test;
 
 use Godruoyi\OCR\Application;
 use Godruoyi\OCR\Clients\TencentClient;
-use Godruoyi\OCR\Requests\TencentRequest;
 use Godruoyi\OCR\Support\Response;
 
 class TencentClientTest extends TestCase
@@ -20,10 +19,8 @@ class TencentClientTest extends TestCase
     public function testBasic()
     {
         $tencent = $this->application->tencent;
-        $request = $tencent->getRequest();
 
         $this->assertInstanceOf(TencentClient::class, $tencent);
-        $this->assertInstanceOf(TencentRequest::class, $request);
     }
 
     // public function testGeneralBasic()
@@ -47,11 +44,27 @@ class TencentClientTest extends TestCase
 
     public function testIdCard()
     {
-        $response = $this->application->tencent->idCard(__DIR__.'/stubs/idcard_0.jpeg', [
+        $response = $this->application->tencent->idCard(__DIR__.'/stubs/chepai.png', [
             'Region' => 'ap-shanghai',
         ]);
 
-        $this->assertInstanceOf(Response::class, $response);
+        // {"Response":{"Error":{"Code":"FailedOperation.OcrFailed","Message":"OCR识别失败"},"RequestId":"e99734d7-1540-496a-a343-b46760583c04"}}
+        // {"Response":{"Name":"徐连波","Sex":"男","Nation":"苗","Birth":"1992/3/12","Address":"贵州省务川仡佬族苗族自治县黄都镇高洞村双龙组","IdNum":"522126199203121552","Authority":"","ValidDate":"","AdvancedInfo":"{}","RequestId":"97f72468-4d65-4e64-b13e-8d5b8fcbd2f7"}}
+
+        // $this->assertInstanceOf(Response::class, $response);
+        // $this->assertArrayHasKey('Response', $response->toArray());
+        // $this->assertEquals('徐连波', $response['Response']['Name']);
+
+        $body = $response->toArray();
+
+        if (isset($body['Response']['Error']) && !empty($body['Response']['Error'])) {
+            // 识别失败
+            var_dump($body['Response']['Error']['Message']);
+        } else {
+            $idCard = $response['Response']['IdNum'];
+
+            var_dump($idCard);
+        }
     }
 
     // public function testVin()

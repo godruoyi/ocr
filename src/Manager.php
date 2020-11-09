@@ -11,8 +11,8 @@
 namespace Godruoyi\OCR;
 
 use Closure;
-use InvalidArgumentException;
 use Godruoyi\OCR\Contracts\Client;
+use InvalidArgumentException;
 
 abstract class Manager
 {

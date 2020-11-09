@@ -61,7 +61,7 @@ abstract class Request implements RequestInterface
             $this->http->middlewares($middleware, $name);
         }
 
-        if (!$this->app['config']->get('disable_log')) {
+        if ($this->app['config']->get('log.enable')) {
             $this->http->middlewares($this->logMiddleware(), 'orc.log');
         }
     }
@@ -116,7 +116,7 @@ abstract class Request implements RequestInterface
      *
      * @return array
      */
-    abstract public function request($url, $images, array $options = []): Response;
+    abstract public function send($url, $images, array $options = []): Response;
 
     /**
      * Get app instance.

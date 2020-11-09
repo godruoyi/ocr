@@ -66,7 +66,7 @@ class TencentRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function request($action, $images, array $options = []): Response
+    public function send($action, $images, array $options = []): Response
     {
         $region = $options['region'] ?? $options['Region'] ?? '';
         $version = $options['version'] ?? $options['Version'] ?? '';

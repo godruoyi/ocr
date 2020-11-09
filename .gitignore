@@ -9,3 +9,4 @@ tests/stubs/config.php
 .idea
 *.DS_Store
 composer.lock
+*.log

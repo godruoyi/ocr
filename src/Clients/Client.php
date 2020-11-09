@@ -12,8 +12,11 @@ namespace Godruoyi\OCR\Clients;
 
 use BadMethodCallException;
 use Closure;
+use Godruoyi\OCR\Contracts\Client as ClientInterface;
+use Godruoyi\OCR\Contracts\Request;
+use Godruoyi\OCR\Support\Response;
 
-class Client
+class Client implements ClientInterface
 {
     /**
      * The registered custom methods.
@@ -72,8 +75,22 @@ class Client
      *
      * @return \Godruoyi\OCR\Contracts\Request
      */
-    public function getRequest()
+    protected function getRequest(): Request
     {
         return $this->request;
+    }
+
+    /**
+     * Request.
+     *
+     * @param string $url
+     * @param mixed  $images
+     * @param array  $options
+     *
+     * @return array
+     */
+    public function request($url, $images, array $options = []): Response
+    {
+        return $this->request->send(...func_get_args());
     }
 }

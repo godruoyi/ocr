@@ -49,7 +49,7 @@ class BaiduRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function request($url, $images, array $options = []): Response
+    public function send($url, $images, array $options = []): Response
     {
         return $this->http->post($url, $this->mergeOptions($images, $options), [
             'base_uri' => self::BASEURI,

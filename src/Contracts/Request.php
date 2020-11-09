@@ -23,7 +23,7 @@ interface Request
      *
      * @throws \GuzzleHttp\Exception\RequestException
      *
-     * @return array
+     * @return \Godruoyi\OCR\Support\Response
      */
-    public function request($url, $images, array $options = []): Response;
+    public function send($url, $images, array $options = []): Response;
 }
