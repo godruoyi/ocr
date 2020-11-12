@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ----
 
+### [2.0.0](https://github.com/godruoyi/ocr/tree/2.0.0) - 2020-11-12
+
+- 重写整个 sdk
+- 加入类 laravel container 支持
+- 重新整理各平台目前支持的接口文档
+- 返回标准的 Pse Response
+- 不再对请求成功做判断
+
 ### [1.1.0](https://github.com/godruoyi/ocr/tree/1.1.0) - 2017-12-06
 
 #### Changed

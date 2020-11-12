@@ -13,8 +13,8 @@
     ],
     "require": {
         "php": ">=7.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "monolog/monolog": "^1.22",
+        "guzzlehttp/guzzle": "^6.3 || ^7.0",
+        "monolog/monolog": "^1.22 || ^2.0",
         "godruoyi/easy-container": "^1.1"
     },
     "require-dev": {
