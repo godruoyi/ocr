@@ -42,13 +42,6 @@
 composer require "godruoyi/ocr:^2.0"
 ```
 
-目前 2.0 版本还处于 rc 中，你可以通过在 composer.json 中添加 dev 标识来安装新行版：
-
-```
-"minimum-stability": "dev",
-"prefer-stable": true,
-```
-
 ## Document
 
 完整的文档地址请参考 [Wiki](https://github.com/godruoyi/ocr/wiki)。
