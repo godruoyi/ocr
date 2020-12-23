@@ -27,7 +27,7 @@ use Godruoyi\OCR\Requests\AliyunRequest;
  * @method array vehicle($files, $options = [])           行驶证识别
  * @method array driverLicense($files, $options = [])     驾驶证识别
  * @method array businessLicense($files, $options = [])   营业执照识别
- * @method array bankAccountPermit($files, $options = []) 营业执照识别
+ * @method array bankAccountPermit($files, $options = []) 银行开户许可证识别
  * @method array bankCard($files, $options = [])          银行卡识别
  * @method array businessCard($files, $options = [])      名片识别
  * @method array trainTicket($files, $options = [])       火车票识别
