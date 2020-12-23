@@ -23,25 +23,26 @@ use Godruoyi\OCR\Requests\AliyunRequest;
  *
  * @version 2.0
  *
- * @method array idcard($files, $options = [])          身份证识别
- * @method array vehicle($files, $options = [])         行驶证识别
- * @method array driverLicense($files, $options = [])   驾驶证识别
- * @method array businessLicense($files, $options = []) 营业执照识别
- * @method array bankCard($files, $options = [])        银行卡识别
- * @method array businessCard($files, $options = [])    名片识别
- * @method array trainTicket($files, $options = [])     火车票识别
- * @method array vehiclePlate($files, $options = [])    车牌识别
- * @method array general($files, $options = [])         通用文字识别
- * @method array passport($files, $options = [])        护照
- * @method array tableParse($files, $options = [])      表格识别
- * @method array vin($files, $options = [])             vin码识别
- * @method array generalAdvanced($files, $options = []) 通用文字识别高精版
- * @method array invoice($files, $options = [])         增值税电子发票识别
- * @method array houseCert($files, $options = [])       房产证图片文字识别
- * @method array document($files, $options = [])        文档小说图片文字识别
- * @method array ecommerce($files, $options = [])       电商图片文字识别
- * @method array ugc($files, $options = [])             网络UGC图片文字识
- * @method array custom($files, $options = [])          自定义模板识别
+ * @method array idcard($files, $options = [])            身份证识别
+ * @method array vehicle($files, $options = [])           行驶证识别
+ * @method array driverLicense($files, $options = [])     驾驶证识别
+ * @method array businessLicense($files, $options = [])   营业执照识别
+ * @method array bankAccountPermit($files, $options = []) 营业执照识别
+ * @method array bankCard($files, $options = [])          银行卡识别
+ * @method array businessCard($files, $options = [])      名片识别
+ * @method array trainTicket($files, $options = [])       火车票识别
+ * @method array vehiclePlate($files, $options = [])      车牌识别
+ * @method array general($files, $options = [])           通用文字识别
+ * @method array passport($files, $options = [])          护照
+ * @method array tableParse($files, $options = [])        表格识别
+ * @method array vin($files, $options = [])               vin码识别
+ * @method array generalAdvanced($files, $options = [])   通用文字识别高精版
+ * @method array invoice($files, $options = [])           增值税电子发票识别
+ * @method array houseCert($files, $options = [])         房产证图片文字识别
+ * @method array document($files, $options = [])          文档小说图片文字识别
+ * @method array ecommerce($files, $options = [])         电商图片文字识别
+ * @method array ugc($files, $options = [])               网络UGC图片文字识
+ * @method array custom($files, $options = [])            自定义模板识别
  */
 class AliyunClient extends Client
 {
@@ -49,6 +50,7 @@ class AliyunClient extends Client
     const OCR_VEHICLE = 'https://dm-53.data.aliyun.com/rest/160601/ocr/ocr_vehicle.json';
     const OCR_DRIVER_LICENSE = 'https://dm-52.data.aliyun.com/rest/160601/ocr/ocr_driver_license.json';
     const OCR_BUSINESS_LICENSE = 'https://dm-58.data.aliyun.com/rest/160601/ocr/ocr_business_license.json';
+    const OCR_BANK_ACCOUNT_PERMIT = 'https://ocrapi-bank-account-permit.taobao.com/ocrservice/bankAccountPermit';
     const OCR_BANK_CARD = 'http://yhk.market.alicloudapi.com/rest/160601/ocr/ocr_bank_card.json';
     const OCR_BUSINESS_CARD = 'https://dm-57.data.aliyun.com/rest/160601/ocr/ocr_business_card.json';
     const OCR_TRAIN_TICKET = 'http://ocrhcp.market.alicloudapi.com/api/predict/ocr_train_ticket';
@@ -146,6 +148,22 @@ class AliyunClient extends Client
     {
         return $this->request(self::OCR_BUSINESS_LICENSE, $images, $options);
     }
+
+	/**
+	 * 印刷文字识别-银行开户许可证识别.
+	 *
+	 * @see https://market.aliyun.com/products/57124001/cmapi00042885.html
+	 *
+	 * @param string|SplFIleInfo $images
+	 * @param array              $options
+	 *                                    null
+	 *
+	 * @return array
+	 */
+	public function bankAccountPermit($images, array $options = [])
+	{
+		return $this->request(self::OCR_BANK_ACCOUNT_PERMIT, $images, $options);
+	}
 
     /**
      * 印刷文字识别-银行卡识别.
