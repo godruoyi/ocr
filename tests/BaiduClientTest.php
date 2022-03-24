@@ -23,6 +23,15 @@ class BaiduClientTest extends TestCase
         $this->assertInstanceOf(BaiduClient::class, $baidu);
     }
 
+    public function testAccurateBasic()
+    {
+        $baidu = $this->application->baidu;
+        $data = $baidu->accurateBasic('http://dns.phealxt.com/images/prescription_bill/06ZUXGDaczmvx3GHzFv0rR59cxOZGTFIUy8tlU4A.jpg');
+
+        var_dump($data->toArray());die();
+
+    }
+
     // public function testGeneralBasic()
     // {
     //     $response = $this->application->baidu->generalBasic(__DIR__.'/stubs/common.png', [

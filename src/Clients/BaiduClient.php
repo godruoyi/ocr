@@ -123,7 +123,7 @@ class BaiduClient extends Client
      */
     public function accurateBasic($images, array $options = [])
     {
-        $options['_urlauto2base64'] = true;
+        $options['_urlauto2base64'] = false;
 
         return $this->request('accurate_basic', $images, $options);
     }

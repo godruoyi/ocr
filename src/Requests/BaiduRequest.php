@@ -10,6 +10,7 @@
 
 namespace Godruoyi\OCR\Requests;
 
+use Godruoyi\OCR\Support\BaiduAccessToken;
 use Godruoyi\OCR\Support\BaiduSampleSigner;
 use Godruoyi\OCR\Support\FileConverter;
 use Godruoyi\OCR\Support\Response;
@@ -24,6 +25,8 @@ class BaiduRequest extends Request
      * @var string
      */
     const BASEURI = 'https://aip.baidubce.com/rest/2.0/ocr/v1/';
+
+    protected $accessToken;
 
     /**
      * {@inheritdoc}
@@ -43,7 +46,7 @@ class BaiduRequest extends Request
         $accessKeyId = $this->app['config']->get('drivers.baidu.access_key');
         $secretAccessKey = $this->app['config']->get('drivers.baidu.secret_key');
 
-        $this->signer = new BaiduSampleSigner($accessKeyId, $secretAccessKey);
+        $this->accessToken = (new BaiduAccessToken($accessKeyId, $secretAccessKey))->getAccessToken()['access_token'];
     }
 
     /**
@@ -51,6 +54,7 @@ class BaiduRequest extends Request
      */
     public function send($url, $images, array $options = []): Response
     {
+        $options['access_token'] = $this->accessToken;
         return $this->http->post($url, $this->mergeOptions($images, $options), [
             'base_uri' => self::BASEURI,
         ]);
@@ -87,12 +91,14 @@ class BaiduRequest extends Request
     {
         return function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
-                $httpMethod = $request->getMethod();
-                $path = $request->getUri()->getPath();
-                $host = current($request->getHeader('Host'));
+//                $httpMethod = $request->getMethod();
+//                $path = $request->getUri()->getPath();
+//                $host = current($request->getHeader('Host'));
 
-                $authorization = $this->signer->sign($httpMethod, $path, compact('host'));
-                $request = $request->withHeader('Authorization', $authorization);
+//                $authorization = $this->signer->sign($httpMethod, $path, compact('host'));
+//                $request = $request->withHeader('Authorization', $authorization);
+
+//                $options['access_token'] = $this->accessToken;
 
                 return $handler($request, $options);
             };
