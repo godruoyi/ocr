@@ -1,5 +1,5 @@
 {
-    "name": "wangwei/ocr",
+    "name": "wv/ocr",
     "description": "The Best Image Ocr SDK For BAT.",
     "keywords": ["OCR", "文字识别", "百度 OCR", "腾讯 OCR", "阿里云 OCR"],
     "homepage": "http://github.com/godruoyi/ocr",
