@@ -21,8 +21,6 @@ class Config
 
     /**
      * Make config instance.
-     *
-     * @param array $items
      */
     public function __construct(array $items = [])
     {

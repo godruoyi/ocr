@@ -14,10 +14,10 @@ use Godruoyi\Container\ContainerInterface;
 use Godruoyi\OCR\Contracts\Request as RequestInterface;
 use Godruoyi\OCR\Support\Arr;
 use Godruoyi\OCR\Support\Http;
-use Godruoyi\OCR\Support\Response;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 
 abstract class Request implements RequestInterface
@@ -39,7 +39,6 @@ abstract class Request implements RequestInterface
     /**
      * Auto regist http and container instance.
      *
-     * @param Http               $http
      * @param ContainerInterface $container
      */
     public function __construct(Http $http, ContainerInterface $app)
@@ -76,11 +75,11 @@ abstract class Request implements RequestInterface
     protected function logMiddleware()
     {
         $driver = $this->app['config']->get('log.default');
-        $config = $this->app['config']->get('log.channels.'.$driver);
+        $config = $this->app['config']->get('log.channels.' . $driver);
         $logger = $this->app['logger'];
 
         // because base64 image is very big, we just record request header if you not set formater in you log configurage.
-        $defaultFormatter = ">>>>>>>>\n{req_headers}\n\n<<<<<<<<\n{response}\n--------\n{error}";
+        $defaultFormatter = ">>>>>>>>\n{req_headers}\n\n<<<<<<<<\n{response}\n--------\nError: {error}\n\n";
 
         $formatter = Arr::get($config, 'formatter', $defaultFormatter);
         $level = Arr::get($config, 'level', LogLevel::DEBUG);
@@ -93,8 +92,6 @@ abstract class Request implements RequestInterface
      * [
      *     'aliyun' => callable
      * ].
-     *
-     * @return array
      */
     protected function middlewares(): array
     {
@@ -112,11 +109,10 @@ abstract class Request implements RequestInterface
      * Translation $images and $options to guzzle http options.
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return array
      */
-    abstract public function send($url, $images, array $options = []): Response;
+    abstract public function send($url, $images, array $options = []): ResponseInterface;
 
     /**
      * Get app instance.

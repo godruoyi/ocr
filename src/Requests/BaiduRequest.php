@@ -10,11 +10,9 @@
 
 namespace Godruoyi\OCR\Requests;
 
-use Godruoyi\OCR\Support\BaiduSampleSigner;
+use Godruoyi\OCR\Support\BaiduAccessToken;
 use Godruoyi\OCR\Support\FileConverter;
-use Godruoyi\OCR\Support\Response;
-use GuzzleHttp\Middleware;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class BaiduRequest extends Request
 {
@@ -23,17 +21,12 @@ class BaiduRequest extends Request
      *
      * @var string
      */
-    const BASEURI = 'https://aip.baidubce.com/rest/2.0/ocr/v1/';
+    public const BASEURL = 'https://aip.baidubce.com/rest/2.0/ocr/v1/';
 
     /**
-     * {@inheritdoc}
+     * @var BaiduAccessToken
      */
-    protected function middlewares(): array
-    {
-        return [
-            'baidu' => $this->requestMiddleware(),
-        ];
-    }
+    protected $accessToken;
 
     /**
      * {@inheritdoc}
@@ -43,24 +36,27 @@ class BaiduRequest extends Request
         $accessKeyId = $this->app['config']->get('drivers.baidu.access_key');
         $secretAccessKey = $this->app['config']->get('drivers.baidu.secret_key');
 
-        $this->signer = new BaiduSampleSigner($accessKeyId, $secretAccessKey);
+        $this->accessToken = new BaiduAccessToken(
+            $this->app['http'],
+            $this->app['cache'],
+            $accessKeyId,
+            $secretAccessKey
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function send($url, $images, array $options = []): Response
+    public function send($url, $images, array $options = []): ResponseInterface
     {
+        $url = $url . '?access_token=' . $this->accessToken->getAccessToken();
         return $this->http->post($url, $this->mergeOptions($images, $options), [
-            'base_uri' => self::BASEURI,
+            'base_uri' => self::BASEURL,
         ]);
     }
 
     /**
      * @param mixed $images
-     * @param array $options
-     *
-     * @return array
      */
     public function mergeOptions($images, array $options): array
     {
@@ -78,24 +74,5 @@ class BaiduRequest extends Request
         }
 
         return $options;
-    }
-
-    /**
-     * Register request middleware.
-     */
-    protected function requestMiddleware()
-    {
-        return function (callable $handler) {
-            return function (RequestInterface $request, array $options) use ($handler) {
-                $httpMethod = $request->getMethod();
-                $path = $request->getUri()->getPath();
-                $host = current($request->getHeader('Host'));
-
-                $authorization = $this->signer->sign($httpMethod, $path, compact('host'));
-                $request = $request->withHeader('Authorization', $authorization);
-
-                return $handler($request, $options);
-            };
-        };
     }
 }

@@ -10,7 +10,7 @@
 
 namespace Test;
 
-use Godruoyi\OCR\Contracts\Client;
+use Godruoyi\OCR\Clients\Client;
 
 class HuaweiClient2 extends Client
 {

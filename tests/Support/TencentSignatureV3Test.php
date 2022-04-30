@@ -11,6 +11,7 @@
 namespace Test\Support;
 
 use Godruoyi\OCR\Support\TencentSignatureV3;
+use GuzzleHttp\Psr7\Request;
 use Test\TestCase;
 
 class TencentSignatureV3Test extends TestCase
@@ -32,19 +33,20 @@ class TencentSignatureV3Test extends TestCase
     {
         $signer = new TencentSignatureV3($this->secretId, $this->secretKey);
 
-        $request = new \GuzzleHttp\Psr7\Request(
+        $request = new Request(
             'post',
             'https://cvm.tencentcloudapi.com',
             [
                 'content-type' => ['application/json; charset=utf-8'],
-                'headers'      => [
+                'headers' => [
                     'X-TC-Timestamp' => '1551113065',
                 ],
             ],
-            '{"Limit": 1, "Filters": [{"Values": ["\u672a\u547d\u540d"], "Name": "instance-name"}]}',
+            '{"Limit": 1, "Filters": [{"Values": ["\u672a\u547d\u540d"], "Name": "instance-name"}]}'
         );
 
         $this->assertSame($signer->hashedRequestPayload($request->getBody()), '35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064');
+        $request->getBody()->rewind();
         $this->assertSame($signer->canonicalRequest($request), "POST\n/\n\ncontent-type:application/json; charset=utf-8\nhost:cvm.tencentcloudapi.com\n\ncontent-type;host\n35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064");
     }
 }

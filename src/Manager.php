@@ -11,6 +11,7 @@
 namespace Godruoyi\OCR;
 
 use Closure;
+use Godruoyi\Container\ContainerInterface;
 use Godruoyi\OCR\Contracts\Client;
 use InvalidArgumentException;
 
@@ -19,7 +20,7 @@ abstract class Manager
     /**
      * The application instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var ContainerInterface
      */
     protected $app;
 
@@ -39,10 +40,8 @@ abstract class Manager
 
     /**
      * Create a new manager instance.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
      */
-    public function __construct($app)
+    public function __construct(ContainerInterface $app)
     {
         $this->app = $app;
     }
@@ -56,22 +55,13 @@ abstract class Manager
 
     /**
      * Get a driver instance.
-     *
-     * @param string $driver
-     *
-     * @return mixed
-     *
-     * @throws InvalidArgumentException
      */
     public function driver(string $driver = null): Client
     {
         $driver = $driver ?: $this->getDefaultDriver();
 
         if (is_null($driver)) {
-            throw new InvalidArgumentException(sprintf(
-                'Unable to resolve NULL driver for [%s].',
-                static::class
-            ));
+            throw new InvalidArgumentException(sprintf('Unable to resolve NULL driver for [%s].', static::class));
         }
 
         // If the given driver has not been created before, we will create the instances
@@ -101,7 +91,8 @@ abstract class Manager
         if (isset($this->customCreators[$driver])) {
             return $this->callCustomCreator($driver);
         }
-        $method = 'create'.ucfirst($driver).'Driver';
+
+        $method = 'create' . ucfirst($driver) . 'Driver';
 
         if (method_exists($this, $method)) {
             return $this->$method();
@@ -125,8 +116,7 @@ abstract class Manager
     /**
      * Register a custom driver creator Closure.
      *
-     * @param string   $driver
-     * @param \Closure $callback
+     * @param string $driver
      *
      * @return $this
      */
@@ -151,7 +141,7 @@ abstract class Manager
      * Dynamically call the default driver instance.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */

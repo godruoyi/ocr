@@ -15,9 +15,9 @@ use Psr\Http\Message\RequestInterface;
 
 class TencentSignatureV3
 {
-    const TC3_ALGORITHM = 'TC3-HMAC-SHA256';
+    public const TC3_ALGORITHM = 'TC3-HMAC-SHA256';
 
-    const TC3_REQUEST = 'tc3_request';
+    public const TC3_REQUEST = 'tc3_request';
 
     /**
      * @var string
@@ -50,8 +50,6 @@ class TencentSignatureV3
     }
 
     /**
-     * @param string $body
-     *
      * @return string
      */
     public function hashedRequestPayload(string $body)
@@ -62,15 +60,13 @@ class TencentSignatureV3
     /**
      * Canonical Request.
      *
-     * @param RequestInterface $request
-     *
      * @return string
      */
     public function canonicalRequest(RequestInterface $request)
     {
         $httpRequestMethod = strtoupper($request->getMethod());
         $canonicalURI = '/';
-        $canonicalQueryString = ''; //$request->getUri()->getQuery();
+        $canonicalQueryString = ''; // $request->getUri()->getQuery();
 
         $signatureHeaders = [];
         foreach ($this->signatureHeaders as $h) {
@@ -91,8 +87,6 @@ class TencentSignatureV3
 
     /**
      * Get Athorization.
-     *
-     * @param RequestInterface $request
      *
      * @return string
      */
@@ -140,8 +134,6 @@ class TencentSignatureV3
 
     /**
      * Set Signature Headers.
-     *
-     * @param array $headers
      */
     public function setSignatureHeaders(array $headers)
     {

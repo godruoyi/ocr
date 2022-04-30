@@ -11,9 +11,9 @@
 namespace Godruoyi\OCR\Requests;
 
 use Godruoyi\OCR\Support\FileConverter;
-use Godruoyi\OCR\Support\Response;
 use GuzzleHttp\Middleware;
 use InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
 
 class AliyunRequest extends Request
 {
@@ -27,16 +27,13 @@ class AliyunRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function send($url, $images, array $options = []): Response
+    public function send($url, $images, array $options = []): ResponseInterface
     {
         return $this->http->json($url, $this->mergeOptions($images, $options));
     }
 
     /**
      * @param mixed $images
-     * @param array $options
-     *
-     * @return array
      */
     protected function mergeOptions($images, array $options): array
     {
@@ -47,7 +44,7 @@ class AliyunRequest extends Request
             throw new InvalidArgumentException(sprintf('Unallowed format type, only [%s]', join($this->requestFormats, ',')));
         }
 
-        $format = 'format'.ucfirst($format);
+        $format = 'format' . ucfirst($format);
 
         return $this->{$format}($images, $options);
     }
@@ -56,9 +53,6 @@ class AliyunRequest extends Request
      * Basic request format.
      *
      * @param mixed $images
-     * @param array $options
-     *
-     * @return array
      */
     protected function formatBasic($images, array $options): array
     {
@@ -78,9 +72,6 @@ class AliyunRequest extends Request
      * Use inputs warp request data.
      *
      * @param mixed $images
-     * @param array $options
-     *
-     * @return array
      */
     protected function formatInputs($images, array $options): array
     {
@@ -108,7 +99,6 @@ class AliyunRequest extends Request
      * support online image.
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return array
      */
@@ -130,8 +120,6 @@ class AliyunRequest extends Request
      * [
      *     'aliyun' => callable
      * ].
-     *
-     * @return array
      */
     protected function middlewares(): array
     {
@@ -178,12 +166,9 @@ class AliyunRequest extends Request
     {
         $appcode = $this->app['config']->get('drivers.aliyun.appcode');
 
-        return $request->withHeader('Authorization', 'APPCODE '.$appcode);
+        return $request->withHeader('Authorization', 'APPCODE ' . $appcode);
     }
 
-    /**
-     * @return bool
-     */
     protected function canUseSignatureWay(): bool
     {
         $id = $this->app['config']->get('drivers.aliyun.secret_id');

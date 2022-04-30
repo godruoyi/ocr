@@ -11,7 +11,7 @@
 namespace Test;
 
 use Godruoyi\OCR\Contracts\Client;
-use Godruoyi\OCR\Support\Response;
+use Psr\Http\Message\ResponseInterface;
 
 class HuaweiClient implements Client
 {
@@ -26,14 +26,13 @@ class HuaweiClient implements Client
      * Fire a ocr http request.
      *
      * @param string $url
-     * @param mixed  $images
-     * @param array  $options
-     *
-     * @throws \GuzzleHttp\Exception\RequestException
+     * @param mixed $images
      *
      * @return array
+     * @throws \GuzzleHttp\Exception\RequestException
+     *
      */
-    public function request($url, $images, array $options = []): Response
+    public function request($url, $images, array $options = []): ResponseInterface
     {
         $psrResponse = (new Http())->post();
 

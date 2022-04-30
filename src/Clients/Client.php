@@ -14,7 +14,7 @@ use BadMethodCallException;
 use Closure;
 use Godruoyi\OCR\Contracts\Client as ClientInterface;
 use Godruoyi\OCR\Contracts\Request;
-use Godruoyi\OCR\Support\Response;
+use Psr\Http\Message\ResponseInterface;
 
 class Client implements ClientInterface
 {
@@ -35,7 +35,6 @@ class Client implements ClientInterface
     /**
      * Register a custom method Closure.
      *
-     * @param string   $method
      * @param \Closure $callback
      *
      * @return $this
@@ -51,18 +50,14 @@ class Client implements ClientInterface
      * Dynamically call the default driver instance.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */
     public function __call($method, $parameters)
     {
         if (!isset($this->customMethods[$method])) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.',
-                static::class,
-                $method
-            ));
+            throw new BadMethodCallException(sprintf('Method %s::%s does not exist.', static::class, $method));
         }
 
         $fn = $this->customMethods[$method];
@@ -72,8 +67,6 @@ class Client implements ClientInterface
 
     /**
      * Get request instance.
-     *
-     * @return \Godruoyi\OCR\Contracts\Request
      */
     protected function getRequest(): Request
     {
@@ -84,12 +77,11 @@ class Client implements ClientInterface
      * Request.
      *
      * @param string $url
-     * @param mixed  $images
-     * @param array  $options
+     * @param mixed $images
      *
      * @return array
      */
-    public function request($url, $images, array $options = []): Response
+    public function request($url, $images, array $options = []): ResponseInterface
     {
         return $this->request->send(...func_get_args());
     }

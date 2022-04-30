@@ -11,17 +11,19 @@
 namespace Godruoyi\OCR;
 
 use Closure;
+use Exception;
 use Godruoyi\Container\Container;
 use Godruoyi\Container\ServiceProviderInterface;
 use Godruoyi\OCR\Contracts\Client;
 use InvalidArgumentException;
+use Psr\Cache\CacheItemPoolInterface;
 
 class Application extends Manager
 {
     /**
      * The container instance,.
      *
-     * @var \Godruoyi\Container\Container
+     * @var Container
      */
     protected $container;
 
@@ -40,12 +42,12 @@ class Application extends Manager
     protected $defaultProviders = [
         Providers\HttpServiceProvider::class,
         Providers\LogServiceProvider::class,
+        Providers\CacheServiceProvider::class,
     ];
 
     /**
      * Create application instance.
-     *
-     * @param array $config
+     * @throws Exception
      */
     public function __construct(array $config = [])
     {
@@ -59,8 +61,6 @@ class Application extends Manager
 
     /**
      * Get ocr container.
-     *
-     * @return \Godruoyi\Container\Container
      */
     public function getContainer(): Container
     {
@@ -69,6 +69,7 @@ class Application extends Manager
 
     /**
      * Boot application for ocr.
+     * @throws Exception
      */
     protected function boot()
     {
@@ -79,7 +80,8 @@ class Application extends Manager
     /**
      * Registe core alias and service.
      *
-     * @return mixed
+     * @return void
+     * @throws Exception
      */
     protected function registerCore()
     {
@@ -100,7 +102,7 @@ class Application extends Manager
     /**
      * Register default service provider.
      *
-     * @return mixed
+     * @return void
      */
     protected function registerDefaultProvider()
     {
@@ -110,7 +112,7 @@ class Application extends Manager
     }
 
     /**
-     * Registe a service to container.
+     * Register a service to container.
      *
      * @param mixed $service
      */
@@ -146,9 +148,22 @@ class Application extends Manager
     }
 
     /**
+     * RebindCache cache support.
+     *
+     * @param CacheItemPoolInterface $cache
+     * @return Application
+     */
+    public function rebindCache(CacheItemPoolInterface $cache): self
+    {
+        $this->container->instance('cache', $cache);
+
+        return $this;
+    }
+
+    /**
      * Create Aliyun Driver.
      *
-     * @return miced
+     * @return mixed
      */
     protected function createAliyunDriver(): Client
     {
@@ -158,7 +173,7 @@ class Application extends Manager
     /**
      * Create Baidu Driver.
      *
-     * @returnmiced
+     * @return mixed
      */
     protected function createBaiduDriver(): Client
     {
@@ -168,7 +183,7 @@ class Application extends Manager
     /**
      * Create Tencent Driver.
      *
-     * @return [miced
+     * @return mixed
      */
     protected function createTencentDriver(): Client
     {
@@ -178,11 +193,11 @@ class Application extends Manager
     /**
      * Create Ai Driver.
      *
-     * @retmiced
+     * @return mixed
      */
     protected function createTencentAiDriver(): Client
     {
-        // code...
+        throw new InvalidArgumentException('Tencent AI is not supported');
     }
 
     /**
@@ -190,6 +205,9 @@ class Application extends Manager
      */
     public function getDefaultDriver()
     {
-        return $this->container['config']->get('driver') ?: 'aliyun';
+        $default = $this->container['config']->get('default') ?: null;
+
+        // compatible with old config
+        return $default ?: $this->container['config']->get('driver');
     }
 }

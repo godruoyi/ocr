@@ -11,21 +11,20 @@
 namespace Godruoyi\OCR\Requests;
 
 use Godruoyi\OCR\Support\FileConverter;
-use Godruoyi\OCR\Support\Response;
 use Godruoyi\OCR\Support\TencentSignatureV3;
-use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class TencentRequest extends Request
 {
-    const VERSION = 'Godruoyi_OCR_PHP_SDK_2.0';
+    public const VERSION = 'Godruoyi_OCR_PHP_SDK_2.0';
 
-    const BASEURI = 'https://ocr.tencentcloudapi.com';
+    public const BASEURI = 'https://ocr.tencentcloudapi.com';
 
     /**
      * Signature request.
      *
-     * @var \Godruoyi\OCR\Support\TencentSignatureV3
+     * @var TencentSignatureV3
      */
     protected $signer;
 
@@ -43,9 +42,12 @@ class TencentRequest extends Request
     /**
      * sdk default options.
      *
+     * @param string $action
+     * @param string $region
+     * @param string $apiVersion
      * @return array
      */
-    protected function requestOptions(string $action, string $region = '', string $apiVersion = '2018-11-19')
+    protected function requestOptions(string $action, string $region = '', string $apiVersion = '2018-11-19'): array
     {
         $apiVersion = $apiVersion ?: '2018-11-19';
 
@@ -66,7 +68,7 @@ class TencentRequest extends Request
     /**
      * {@inheritdoc}
      */
-    public function send($action, $images, array $options = []): Response
+    public function send($action, $images, array $options = []): ResponseInterface
     {
         $region = $options['region'] ?? $options['Region'] ?? '';
         $version = $options['version'] ?? $options['Version'] ?? '';
@@ -93,7 +95,6 @@ class TencentRequest extends Request
      * Format reqyest body.
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return array
      */

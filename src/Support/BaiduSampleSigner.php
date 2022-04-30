@@ -12,21 +12,21 @@ namespace Godruoyi\OCR\Support;
 
 class BaiduSampleSigner
 {
-    const BCE_AUTH_VERSION = 'bce-auth-v1';
+    public const BCE_AUTH_VERSION = 'bce-auth-v1';
 
-    const BCE_PREFIX = 'x-bce-';
+    public const BCE_PREFIX = 'x-bce-';
 
-    const EXPIRATION_IN_SECONDS = 'expirationInSeconds';
+    public const EXPIRATION_IN_SECONDS = 'expirationInSeconds';
 
-    const HEADERS_TO_SIGN = 'headersToSign';
+    public const HEADERS_TO_SIGN = 'headersToSign';
 
-    const TIMESTAMP = 'timestamp';
+    public const TIMESTAMP = 'timestamp';
 
-    const DEFAULT_EXPIRATION_IN_SECONDS = 1800;
+    public const DEFAULT_EXPIRATION_IN_SECONDS = 1800;
 
-    const MIN_EXPIRATION_IN_SECONDS = 300;
+    public const MIN_EXPIRATION_IN_SECONDS = 300;
 
-    const MAX_EXPIRATION_IN_SECONDS = 129600;
+    public const MAX_EXPIRATION_IN_SECONDS = 129600;
 
     protected $accessKeyId;
 
@@ -55,7 +55,6 @@ class BaiduSampleSigner
      * @param string $path       request uri
      * @param array  $params     request params
      * @param array  $headers    sign headers
-     * @param array  $options
      *
      * @return string
      */
@@ -73,11 +72,11 @@ class BaiduSampleSigner
         $canonicalQueryString = Encoder::getCanonicalQueryString($querys);
         $canonicalHeader = Encoder::getCanonicalHeaders($headers);
 
-        //组成标准请求串
+        // 组成标准请求串
         $canonicalRequest = "$httpMethod\n$canonicalURI\n"
             ."$canonicalQueryString\n$canonicalHeader";
 
-        //使用signKey和标准请求串完成签名
+        // 使用signKey和标准请求串完成签名
         $signature = hash_hmac('sha256', $canonicalRequest, $signingKey);
 
         $signedHeaders = '';
@@ -88,7 +87,7 @@ class BaiduSampleSigner
             $signedHeaders = strtolower(trim(implode(';', $headerKeys)));
         }
 
-        //组成最终签名串
+        // 组成最终签名串
         $authorizationHeader = "$authString/$signedHeaders/$signature";
 
         return $authorizationHeader;
@@ -96,8 +95,6 @@ class BaiduSampleSigner
 
     /**
      * Get auth string.
-     *
-     * @param array $options
      *
      * @return string
      */

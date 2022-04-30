@@ -15,8 +15,6 @@ class Encoder
     /**
      * 在 uri 编码中不能对 '/' 编码
      *
-     * @param string $path
-     *
      * @return string
      */
     public static function urlEncodeExceptSlash(string $path)
@@ -26,8 +24,6 @@ class Encoder
 
     /**
      * 生成标准化 QueryString.
-     *
-     * @param array $parameters
      *
      * @return string
      */
@@ -57,8 +53,6 @@ class Encoder
     /**
      * 生成标准化 uri，确保开头含有 /.
      *
-     * @param string $path
-     *
      * @return string
      */
     public static function getCanonicalURIPath(string $path)
@@ -75,13 +69,11 @@ class Encoder
     /**
      * 生成标准化 http 请求头串.
      *
-     * @param array $headers
-     *
      * @return mixed
      */
     public static function getCanonicalHeaders(array $headers)
     {
-        //如果没有headers，则返回空串
+        // 如果没有 headers，则返回空串
         if (0 == count($headers)) {
             return '';
         }

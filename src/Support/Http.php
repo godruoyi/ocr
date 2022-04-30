@@ -41,7 +41,7 @@ class Http
      *
      * @var callable
      */
-    protected $handlerFun;
+    protected $handlerFun = [];
 
     /**
      * Guzzle client default settings.
@@ -58,8 +58,6 @@ class Http
 
     /**
      * Set Http Client Headers.
-     *
-     * @param array $headers
      */
     public function setHeaders(array $headers = [])
     {
@@ -70,8 +68,7 @@ class Http
      * Send A Http Get Request.
      *
      * @param string $url
-     * @param array  $params
-     * @param array  $options
+     * @param array $params
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -84,7 +81,7 @@ class Http
      * Send A Http POST Request.
      *
      * @param string $url
-     * @param array  $params
+     * @param array $params
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -100,7 +97,7 @@ class Http
      *
      * @param string $method
      * @param string $url
-     * @param array  $options
+     * @param array $options
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -115,8 +112,8 @@ class Http
             $handler->push($m['middleware'], $m['name']);
         }
 
-        if (($fn = $this->handlerFun) && is_callable($fn)) {
-            $fn($handler);
+        foreach ($this->handlerFun as $fn) {
+            is_callable($fn) && $fn($handler);
         }
 
         $options['handler'] = $handler;
@@ -127,10 +124,10 @@ class Http
     /**
      * JSON request.
      *
-     * @param string       $url
+     * @param string $url
      * @param string|array $data
-     * @param array        $queries
-     * @param int          $encodeOption
+     * @param array $queries
+     * @param int $encodeOption
      *
      * @return ResponseInterface
      *
@@ -165,7 +162,7 @@ class Http
      */
     public function customHttpHandler(callable $fu)
     {
-        $this->handlerFun = $fu;
+        $this->handlerFun[] = $fu;
 
         return $this;
     }
