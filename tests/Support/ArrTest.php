@@ -34,7 +34,7 @@ class ArrTest extends TestCase
             'foo' => 'bar',
         ];
 
-        $this->assertSame($expected, Arr::sortRecursive($array));
+        $this->assertEquals($expected, Arr::sortRecursive($array));
     }
 
     public function testExcept()
@@ -224,7 +224,7 @@ class ArrTest extends TestCase
 
         $this->assertSame(['bar', 'foo', 'bar', 'baz'], Arr::prepend($array, 'bar'));
         $this->assertSame(['zoo', 'foo', 'bar', 'baz'], Arr::prepend($array, 'zoo'));
-        $this->assertSame(['foo', 'bar', 'zoo'], Arr::prepend($array, 'zoo', 2));
+        $this->assertEquals(['foo', 'bar', 'zoo'], Arr::prepend($array, 'zoo', 2));
     }
 
     public function testQuery()

@@ -24,7 +24,7 @@ class BaseClientTest extends TestCase
 
         $response = $this->application->aliyun->hello(1, 2);
 
-        $this->assertSame(3, $response->getBody()->getContents());
+        $this->assertEquals('3', $response->getBody()->getContents());
     }
 
     public function testCallNotExistsMethod()

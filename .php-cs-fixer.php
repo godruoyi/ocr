@@ -18,8 +18,6 @@ return (new Config())->setRules([
     'ordered_imports' => true,
     'no_useless_else' => true,
     'no_useless_return' => true,
-    'php_unit_construct' => true,
-    'php_unit_strict' => true,
 ])
     ->setFinder(
         Finder::create()
