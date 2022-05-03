@@ -86,6 +86,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
+          version: "v0.1.15"
         env:
           BAIDU_ACCESS_KEY: ${{ secrets.BAIDU_ACCESS_KEY }}
           BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
