@@ -121,6 +121,10 @@ class FileConverter
      */
     public static function isImage($file)
     {
+        if (phpversion() >= 8.0) {
+            return $file instanceof \GdImage;
+        }
+
         return self::isResource($file) && get_resource_type($file) === 'gd';
     }
 

@@ -19,6 +19,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           tools: composer:v2
+          extensions: gd
           coverage: none
 
       - name: Install dependencies
@@ -57,6 +58,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           coverage: pcov
+          extensions: gd
           tools: composer:v2, php-cs-fixer
 
       - name: Coding Guidelines
@@ -72,6 +74,12 @@ jobs:
 
       - name: Collect code coverage with phpunit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        env:
+          BAIDU_ACCESS_KEY: ${{ secrets.BAIDU_ACCESS_KEY }}
+          BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+          ALIYUN_APPCODE: ${{ secrets.ALIYUN_APPCODE }}
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
 
       - name: Send code coverage report to Codecov.io
         uses: codecov/codecov-action@v2
