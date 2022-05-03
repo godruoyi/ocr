@@ -11,7 +11,10 @@
 namespace Test;
 
 use Godruoyi\OCR\Application;
-use Godruoyi\OCR\Requests\AliyunRequest;
+use Godruoyi\OCR\Support\Http;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -42,22 +45,39 @@ class TestCase extends BaseTestCase
         $this->config = null;
     }
 
-    /**
-     * @param $response
-     *
-     * @return void
-     */
-    public function mockAliyunResponse($response, $times = 1)
+    protected function mockHttpWithResponseAndHistory($http, $response, &$container = []): Http
     {
-        $app = $this->application->getContainer();
+        $http = $this->mockHttpWithResponse($response, $http);
 
-        $app->bind(AliyunRequest::class, function () use ($response, $times) {
-            $mockRequest = Mockery::mock("Request, " . AliyunRequest::class);
-            $mockRequest->shouldReceive('send')
-                ->times($times)
-                ->andReturn($response);
+        $http->middlewares(Middleware::history($container), 'history');
 
-            return $mockRequest;
+        return $http;
+    }
+
+    protected function mockHttpWithResponse($response, $http = null): Http
+    {
+        if (!$http) {
+            $http = new Http();
+        }
+
+        $http->customHttpHandler(function ($stack) use ($response) {
+            $stack->setHandler(new MockHandler(is_array($response) ? $response : [$response]));
         });
+
+        return $http;
+    }
+
+    protected function createSuccessResponse(): GuzzleResponse
+    {
+        return new GuzzleResponse(200, [], 'OK');
+    }
+
+    protected function mockeryHttp()
+    {
+        $http = Mockery::mock('HTTP, ' . Http::class);
+        $http->shouldReceive('middlewares')
+            ->andReturnNull();
+
+        return $http;
     }
 }

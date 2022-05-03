@@ -13,7 +13,6 @@ namespace Godruoyi\OCR\Clients;
 use BadMethodCallException;
 use Closure;
 use Godruoyi\OCR\Contracts\Client as ClientInterface;
-use Godruoyi\OCR\Contracts\Request;
 use Psr\Http\Message\ResponseInterface;
 
 class Client implements ClientInterface
@@ -63,14 +62,6 @@ class Client implements ClientInterface
         $fn = $this->customMethods[$method];
 
         return $fn($this->request, ...$parameters);
-    }
-
-    /**
-     * Get request instance.
-     */
-    protected function getRequest(): Request
-    {
-        return $this->request;
     }
 
     /**

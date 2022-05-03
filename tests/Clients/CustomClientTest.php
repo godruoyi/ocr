@@ -10,6 +10,9 @@
 
 namespace Test\Clients;
 
+use Test\Custom\HuaweiClient;
+use Test\TestCase;
+
 class CustomClientTest extends TestCase
 {
     public function testCustom()
@@ -19,6 +22,8 @@ class CustomClientTest extends TestCase
         });
 
         // Godruoyi\OCR\Support\Response
-        $response = $this->application->huawei->idcard();
+        $response = $this->application->huawei->idcard('', []);
+
+        $this->assertEquals('OK', $response->getBody()->getContents());
     }
 }

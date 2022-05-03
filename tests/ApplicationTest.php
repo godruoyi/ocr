@@ -17,6 +17,8 @@ use Godruoyi\OCR\Clients\BaiduClient;
 use Godruoyi\OCR\Clients\TencentClient;
 use Godruoyi\OCR\Config;
 use Godruoyi\OCR\Support\Response;
+use InvalidArgumentException;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 class ApplicationTest extends TestCase
 {
@@ -198,12 +200,35 @@ class ApplicationTest extends TestCase
 
     public function testCallMethod()
     {
-        $this->mockAliyunResponse(Response::createFromGuzzleHttpResponse(new \GuzzleHttp\Psr7\Response(
-            200,
-            [],
-            'OK1'
-        )));
+        $app = $this->application->getContainer();
 
-        $this->assertSame('OK1', $this->application->aliyun->idcard('image')->getBody()->getContents());
+        $http = $this->mockHttpWithResponse(new Response(200, [], 'OK1'), $app['http']);
+        $app['http'] = $http;
+
+        $this->assertSame('OK1', $this->application->aliyun->idcard(__DIR__ . '/stubs/common.png')->getBody()->getContents());
+    }
+
+    public function testCallNotExistsDriver()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->application->tencentAi->idcard();
+    }
+
+    public function testCallMethodWithDefault()
+    {
+        $app = $this->application->getContainer();
+
+        $http = $this->mockHttpWithResponse(new Response(200, [], 'OK1'), $app['http']);
+        $app['http'] = $http;
+
+        $this->assertSame('OK1', $this->application->idcard(__DIR__ . '/stubs/common.png')->getBody()->getContents());
+    }
+
+    public function testRebindCache()
+    {
+        $this->application->rebindCache(new NullAdapter());
+
+        $this->assertInstanceOf(NullAdapter::class, $this->application->getContainer()['cache']);
     }
 }

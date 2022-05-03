@@ -14,6 +14,7 @@ use Godruoyi\OCR\Clients\AliyunClient;
 use Godruoyi\OCR\Requests\AliyunRequest;
 use Godruoyi\OCR\Support\Http;
 use Godruoyi\OCR\Support\Response;
+use Mockery;
 use Psr\Http\Message\ResponseInterface;
 use Test\TestCase;
 
@@ -50,7 +51,16 @@ class AliyunClientTest extends TestCase
             'ecommerce',
         ];
 
-        $this->mockAliyunResponse(new Response(200, [], 'SUCCESS'), count($methods));
+        $times = count($methods);
+        $app = $this->application->getContainer();
+        $app->bind(AliyunRequest::class, function () use ($times) {
+            $mockRequest = Mockery::mock("Request, " . AliyunRequest::class);
+            $mockRequest->shouldReceive('send')
+                ->times($times)
+                ->andReturn(new Response(200, [], 'SUCCESS'));
+
+            return $mockRequest;
+        });
 
         foreach ($methods as $method) {
             $response = $this->application->aliyun->$method('img', ['a' => 1]);

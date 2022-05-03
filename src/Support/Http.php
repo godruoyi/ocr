@@ -108,12 +108,12 @@ class Http
         $options = array_merge_recursive(self::$defaults, ['headers' => $this->headers], $options);
         $handler = \GuzzleHttp\HandlerStack::create();
 
-        foreach ($this->middlewares as $m) {
-            $handler->push($m['middleware'], $m['name']);
-        }
-
         foreach ($this->handlerFun as $fn) {
             is_callable($fn) && $fn($handler);
+        }
+
+        foreach ($this->middlewares as $m) {
+            $handler->push($m['middleware'], $m['name']);
         }
 
         $options['handler'] = $handler;

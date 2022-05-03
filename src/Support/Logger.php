@@ -152,7 +152,7 @@ class Logger implements LoggerInterface
             return $this->callCustomCreator($config);
         }
 
-        $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
+        $driverMethod = 'create' . ucfirst($config['driver']) . 'Driver';
 
         if (method_exists($this, $driverMethod)) {
             return $this->{$driverMethod}($config);
@@ -169,7 +169,7 @@ class Logger implements LoggerInterface
     protected function createEmergencyLogger()
     {
         return new Monolog('OCR', $this->prepareHandlers([new StreamHandler(
-            \sys_get_temp_dir().'/ocr.log',
+            \sys_get_temp_dir() . '/ocr.log',
             $this->level(['level' => 'debug'])
         )]));
     }
@@ -197,7 +197,7 @@ class Logger implements LoggerInterface
             $handlers = \array_merge($handlers, $this->channel($channel)->getHandlers());
         }
 
-        return new Monolog($this->parseChannel($config), $handlers);
+        return new Monolog('OCR', $handlers);
     }
 
     /**
@@ -491,7 +491,7 @@ class Logger implements LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed  $level
+     * @param mixed $level
      * @param string $message
      *
      * @return mixed
@@ -505,7 +505,7 @@ class Logger implements LoggerInterface
      * Dynamically call the default driver instance.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */

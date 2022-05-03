@@ -16,6 +16,8 @@ use SplFileInfo;
 
 class FileConverter
 {
+    private static $http;
+
     /**
      * Converter Image To String.
      *
@@ -42,18 +44,16 @@ class FileConverter
     public static function getContent($image)
     {
         switch (true) {
+            case self::isFile($image):
+                return file_get_contents($image);
             case self::isUrl($image):
                 return self::getOnlineImageContent($image);
             case self::isImage($image):
-                return file_get_contents($image);
+                throw new RuntimeException('we can not support image resource, if you want to use image resource, please convert it to string.');
             case self::isResource($image):
                 return stream_get_contents($image);
             case self::isSplFileInfo($image):
                 return file_get_contents($image->getRealPath());
-            case self::isString($image):
-                // When the image was String type, We just think it's a local image
-                // And he does not exist
-                throw new RuntimeException("file {$image} has not exist.");
             default:
                 throw new RuntimeException('not support image type.');
         }
@@ -66,9 +66,13 @@ class FileConverter
         }
 
         try {
-            return (string) (new Http())->get($url)->getBody();
+            $http = self::$http ?? new Http();
+
+            $response = $http->get($url);
+
+            return $response->getBody()->getContents();
         } catch (Exception $e) {
-            return '';
+            throw new RuntimeException("get image content failed, url: {$url}, err: {$e->getMessage()}");
         }
     }
 
@@ -117,15 +121,7 @@ class FileConverter
      */
     public static function isImage($file)
     {
-        try {
-            $level = error_reporting(E_ERROR | E_PARSE);
-            $isImage = self::isFile($file) && false !== getimagesize($file);
-            error_reporting($level);
-
-            return $isImage;
-        } catch (Exception $e) {
-            return false;
-        }
+        return self::isResource($file) && get_resource_type($file) === 'gd';
     }
 
     /**
@@ -150,5 +146,16 @@ class FileConverter
     public static function isSplFileInfo($splFile)
     {
         return $splFile instanceof SplFileInfo;
+    }
+
+    /**
+     * Set http instance.
+     *
+     * @param Http $http
+     * @return void
+     */
+    public static function setHttp(Http $http)
+    {
+        self::$http = $http;
     }
 }

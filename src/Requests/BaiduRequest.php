@@ -75,4 +75,14 @@ class BaiduRequest extends Request
 
         return $options;
     }
+
+    public function setAccessToken(BaiduAccessToken $accessToken)
+    {
+        $this->accessToken = $accessToken;
+    }
+
+    public function getAccessToken(): BaiduAccessToken
+    {
+        return $this->accessToken;
+    }
 }

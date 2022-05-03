@@ -65,6 +65,10 @@ return [
                 'level' => 'debug',
                 'days' => 14,
             ],
+            'errorlog' => [
+                'name' => 'OCR',
+                'level' => 'debug',
+            ],
         ],
     ],
 ];

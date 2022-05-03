@@ -32,9 +32,9 @@ class Arr
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param array  $array
+     * @param array $array
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return array
      */
@@ -45,34 +45,6 @@ class Arr
         }
 
         return $array;
-    }
-
-    /**
-     * Cross join the given arrays, returning all possible permutations.
-     *
-     * @param iterable ...$arrays
-     *
-     * @return array
-     */
-    public static function crossJoin(...$arrays)
-    {
-        $results = [[]];
-
-        foreach ($arrays as $index => $array) {
-            $append = [];
-
-            foreach ($results as $product) {
-                foreach ($array as $item) {
-                    $product[$index] = $item;
-
-                    $append[] = $product;
-                }
-            }
-
-            $results = $append;
-        }
-
-        return $results;
     }
 
     /**
@@ -88,32 +60,9 @@ class Arr
     }
 
     /**
-     * Flatten a multi-dimensional associative array with dots.
-     *
-     * @param iterable $array
-     * @param string   $prepend
-     *
-     * @return array
-     */
-    public static function dot($array, $prepend = '')
-    {
-        $results = [];
-
-        foreach ($array as $key => $value) {
-            if (is_array($value) && !empty($value)) {
-                $results = array_merge($results, static::dot($value, $prepend.$key.'.'));
-            } else {
-                $results[$prepend.$key] = $value;
-            }
-        }
-
-        return $results;
-    }
-
-    /**
      * Get all of the given array except for a specified array of keys.
      *
-     * @param array        $array
+     * @param array $array
      * @param array|string $keys
      *
      * @return array
@@ -129,7 +78,7 @@ class Arr
      * Determine if the given key exists in the provided array.
      *
      * @param \ArrayAccess|array $array
-     * @param string|int         $key
+     * @param string|int $key
      *
      * @return bool
      */
@@ -145,9 +94,9 @@ class Arr
     /**
      * Return the first element in an array passing a given truth test.
      *
-     * @param iterable      $array
+     * @param iterable $array
      * @param callable|null $callback
-     * @param mixed         $default
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -175,9 +124,9 @@ class Arr
     /**
      * Return the last element in an array passing a given truth test.
      *
-     * @param array         $array
+     * @param array $array
      * @param callable|null $callback
-     * @param mixed         $default
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -193,14 +142,14 @@ class Arr
     /**
      * Remove one or many array items from a given array using "dot" notation.
      *
-     * @param array        $array
+     * @param array $array
      * @param array|string $keys
      */
     public static function forget(&$array, $keys)
     {
         $original = &$array;
 
-        $keys = (array) $keys;
+        $keys = (array)$keys;
 
         if (0 === count($keys)) {
             return;
@@ -237,8 +186,8 @@ class Arr
      * Get an item from an array using "dot" notation.
      *
      * @param \ArrayAccess|array $array
-     * @param string|int|null    $key
-     * @param mixed              $default
+     * @param string|int|null $key
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -275,13 +224,13 @@ class Arr
      * Check if an item or items exist in an array using "dot" notation.
      *
      * @param \ArrayAccess|array $array
-     * @param string|array       $keys
+     * @param string|array $keys
      *
      * @return bool
      */
     public static function has($array, $keys)
     {
-        $keys = (array) $keys;
+        $keys = (array)$keys;
 
         if (!$array || $keys === []) {
             return false;
@@ -310,7 +259,7 @@ class Arr
      * Determine if any of the keys exist in an array using "dot" notation.
      *
      * @param \ArrayAccess|array $array
-     * @param string|array       $keys
+     * @param string|array $keys
      *
      * @return bool
      */
@@ -320,7 +269,7 @@ class Arr
             return false;
         }
 
-        $keys = (array) $keys;
+        $keys = (array)$keys;
 
         if (!$array) {
             return false;
@@ -358,68 +307,14 @@ class Arr
     /**
      * Get a subset of the items from the given array.
      *
-     * @param array        $array
+     * @param array $array
      * @param array|string $keys
      *
      * @return array
      */
     public static function only($array, $keys)
     {
-        return array_intersect_key($array, array_flip((array) $keys));
-    }
-
-    /**
-     * Pluck an array of values from an array.
-     *
-     * @param iterable          $array
-     * @param string|array      $value
-     * @param string|array|null $key
-     *
-     * @return array
-     */
-    public static function pluck($array, $value, $key = null)
-    {
-        $results = [];
-
-        [$value, $key] = static::explodePluckParameters($value, $key);
-
-        foreach ($array as $item) {
-            $itemValue = data_get($item, $value);
-
-            // If the key is "null", we will just append the value to the array and keep
-            // looping. Otherwise we will key the array using the value of the key we
-            // received from the developer. Then we'll return the final array form.
-            if (is_null($key)) {
-                $results[] = $itemValue;
-            } else {
-                $itemKey = data_get($item, $key);
-
-                if (is_object($itemKey) && method_exists($itemKey, '__toString')) {
-                    $itemKey = (string) $itemKey;
-                }
-
-                $results[$itemKey] = $itemValue;
-            }
-        }
-
-        return $results;
-    }
-
-    /**
-     * Explode the "value" and "key" arguments passed to "pluck".
-     *
-     * @param string|array      $value
-     * @param string|array|null $key
-     *
-     * @return array
-     */
-    protected static function explodePluckParameters($value, $key)
-    {
-        $value = is_string($value) ? explode('.', $value) : $value;
-
-        $key = is_null($key) || is_array($key) ? $key : explode('.', $key);
-
-        return [$value, $key];
+        return array_intersect_key($array, array_flip((array)$keys));
     }
 
     /**
@@ -445,9 +340,9 @@ class Arr
     /**
      * Get a value from the array, and remove it.
      *
-     * @param array  $array
+     * @param array $array
      * @param string $key
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -463,7 +358,7 @@ class Arr
     /**
      * Get one or a specified number of random values from an array.
      *
-     * @param array    $array
+     * @param array $array
      * @param int|null $number
      *
      * @return mixed
@@ -486,7 +381,7 @@ class Arr
             return $array[array_rand($array)];
         }
 
-        if (0 === (int) $number) {
+        if (0 === (int)$number) {
             return [];
         }
 
@@ -494,7 +389,7 @@ class Arr
 
         $results = [];
 
-        foreach ((array) $keys as $key) {
+        foreach ((array)$keys as $key) {
             $results[] = $array[$key];
         }
 
@@ -506,9 +401,9 @@ class Arr
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param array       $array
+     * @param array $array
      * @param string|null $key
-     * @param mixed       $value
+     * @param mixed $value
      *
      * @return array
      */
@@ -545,7 +440,7 @@ class Arr
     /**
      * Shuffle the given array and return the result.
      *
-     * @param array    $array
+     * @param array $array
      * @param int|null $seed
      *
      * @return array
@@ -602,7 +497,7 @@ class Arr
     /**
      * Filter the array using the given callback.
      *
-     * @param array    $array
+     * @param array $array
      * @param callable $callback
      *
      * @return array
@@ -615,7 +510,7 @@ class Arr
     /**
      * Rewrite value.
      *
-     * @param mixed $value
+     * @param mixed|callable $value
      *
      * @return mixed
      */

@@ -2,8 +2,8 @@
 
 namespace Godruoyi\OCR\Support;
 
-use GuzzleHttp\Exception\RequestException;
 use Psr\Cache\CacheItemPoolInterface;
+use RuntimeException;
 
 class BaiduAccessToken
 {
@@ -19,7 +19,7 @@ class BaiduAccessToken
 
     protected $cache;
 
-    public function __construct(Http $http, CacheItemPoolInterface $cache, string $secretID, string $secretKey)
+    public function __construct(Http $http, CacheItemPoolInterface $cache, string $secretID = null, string $secretKey = null)
     {
         $this->secretID = $secretID;
         $this->secretKey = $secretKey;
@@ -52,7 +52,7 @@ class BaiduAccessToken
         ]);
 
         if ($response->getStatusCode() !== 200) {
-            throw new RequestException($response->getReasonPhrase(), null, $response);
+            throw new RuntimeException("Can't get access token from Baidu OCR API, status code: {$response->getStatusCode()}. error: {$response->getBody()}");
         }
 
         $data = json_decode($response->getBody()->getContents(), true);
