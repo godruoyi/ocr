@@ -30,6 +30,12 @@ jobs:
 
       - name: PHPUnit Test
         run: vendor/bin/phpunit --verbose
+        env:
+          BAIDU_ACCESS_KEY: ${{ env.BAIDU_ACCESS_KEY }}
+          BAIDU_SECRET_KEY: ${{ env.BAIDU_SECRET_KEY }}
+          ALIYUN_APPCODE: ${{ env.ALIYUN_APPCODE }}
+          TENCENT_SECRET_ID: ${{ env.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ env.TENCENT_SECRET_KEY }}
 
   code-coverage:
     name: Code Coverage
@@ -72,3 +78,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
+        env:
+          BAIDU_ACCESS_KEY: ${{ env.BAIDU_ACCESS_KEY }}
+          BAIDU_SECRET_KEY: ${{ env.BAIDU_SECRET_KEY }}
+          ALIYUN_APPCODE: ${{ env.ALIYUN_APPCODE }}
+          TENCENT_SECRET_ID: ${{ env.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ env.TENCENT_SECRET_KEY }}
