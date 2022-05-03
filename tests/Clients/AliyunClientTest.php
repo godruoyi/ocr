@@ -67,7 +67,7 @@ class AliyunClientTest extends TestCase
             $this->assertInstanceOf(ResponseInterface::class, $response);
             $response->getBody()->rewind();
 
-            $this->assertEquals('SUCCESS', $response->getBody()->getContents());
+            $this->assertSame('SUCCESS', $response->getBody()->getContents());
         }
     }
 
@@ -93,6 +93,6 @@ class AliyunClientTest extends TestCase
         $response = $this->application->aliyun->general([__DIR__ . '/../stubs/common.png', __DIR__ . '/stubs/common2.png', __DIR__ . '/stubs/common2.png']);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 }

@@ -97,7 +97,7 @@ class BaiduClientTest extends TestCase
 
             $this->assertInstanceOf(ResponseInterface::class, $response);
             $response->getBody()->rewind();
-            $this->assertEquals("OK", $response->getBody()->getContents());
+            $this->assertSame("OK", $response->getBody()->getContents());
         }
     }
 

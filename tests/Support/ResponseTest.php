@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
 use Godruoyi\OCR\Support\Response;
@@ -10,21 +18,21 @@ class ResponseTest extends TestCase
     public function testToArray()
     {
         $response = new Response(200, [], '');
-        $this->assertEquals([], $response->toArray());
+        $this->assertSame([], $response->toArray());
 
         $response = new Response(200, [], '{');
-        $this->assertEquals([], $response->toArray());
+        $this->assertSame([], $response->toArray());
 
         $response = new Response(200, [], '{"a":1}');
-        $this->assertEquals(['a' => 1], $response->toArray());
+        $this->assertSame(['a' => 1], $response->toArray());
     }
 
     public function testOfsetGet()
     {
         $response = new Response(200, [], '{"a":1}');
-        $this->assertEquals(1, $response['a']);
-        $this->assertEquals(1, $response->offsetGet('a'));
-        $this->assertEquals(null, $response->offsetGet('b'));
+        $this->assertSame(1, $response['a']);
+        $this->assertSame(1, $response->offsetGet('a'));
+        $this->assertNull($response->offsetGet('b'));
     }
 
     public function testOffsetExists()
@@ -38,6 +46,6 @@ class ResponseTest extends TestCase
     public function testToJson()
     {
         $response = new Response(200, [], '{"a":1}');
-        $this->assertEquals('{"a":1}', $response->toJson());
+        $this->assertSame('{"a":1}', $response->toJson());
     }
 }

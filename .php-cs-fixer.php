@@ -12,7 +12,7 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 return (new Config())->setRules([
-    '@Symfony' => true,
+    '@PSR2' => true,
     'header_comment' => ['header' => $header],
     'array_syntax' => ['syntax' => 'short'],
     'ordered_imports' => true,

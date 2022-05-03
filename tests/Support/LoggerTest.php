@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
 use Godruoyi\OCR\Support\Logger;
@@ -42,7 +50,7 @@ class LoggerTest extends TestCase
         ]);
         $log->setDefaultDriver('error_log');
 
-        $this->assertEquals('error_log', $log->getDefaultDriver());
+        $this->assertSame('error_log', $log->getDefaultDriver());
 
         $this->assertInstanceOf(MonoLogger::class, $log->driver());
         $this->assertInstanceOf(ErrorLogHandler::class, $log->driver()->getHandlers()[0]);
@@ -128,7 +136,7 @@ class LoggerTest extends TestCase
             return 1;
         });
 
-        $this->assertEquals(1, $log->driver());
+        $this->assertSame(1, $log->driver());
     }
 
     public function test__call()

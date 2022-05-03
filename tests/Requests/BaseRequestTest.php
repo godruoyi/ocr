@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Requests;
 
 use Godruoyi\Container\ContainerInterface;
@@ -50,7 +58,7 @@ class BaseRequestTest extends TestCase
             '_urlauto2base64' => true,
         ]);
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testSupportOnlineInamge()
@@ -83,7 +91,7 @@ class BaseRequestTest extends TestCase
 
         $response = $request->send('url', 'https://example.com/image.jpg');
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
 
         $this->assertInstanceOf(ContainerInterface::class, $request->getApp());
     }

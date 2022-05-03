@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
 use Godruoyi\OCR\Support\Encoder as EncoderAlias;
@@ -17,12 +25,12 @@ class EncoderTest extends TestCase
             '' => 'x',
         ];
 
-        $this->assertEquals(
+        $this->assertSame(
             "a:a\nc:c\nd:\ne:e",
             EncoderAlias::getCanonicalHeaders($headers)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             '',
             EncoderAlias::getCanonicalHeaders([])
         );

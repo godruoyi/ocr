@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Clients;
 
 use Godruoyi\OCR\Support\Response;
@@ -16,14 +24,14 @@ class RealRequestClientTest extends TestCase
 
         // If we get 403 error, it can be only that our quota is exhausted.
         if ($response->getStatusCode() == 403) {
-            $this->assertEquals("Api Market Subscription quota exhausted", $response->getHeader('X-Ca-Error-Message'));
+            $this->assertSame("Api Market Subscription quota exhausted", $response->getHeader('X-Ca-Error-Message'));
             return;
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
         $json = json_decode($response->getBody()->getContents(), true);
-        $this->assertEquals(JSON_ERROR_NONE, json_last_error());
+        $this->assertSame(JSON_ERROR_NONE, json_last_error());
         $this->assertIsArray($json);
     }
 
@@ -33,7 +41,7 @@ class RealRequestClientTest extends TestCase
         $response = $d->businessCard(__DIR__ . '/../stubs/common.png', []);
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
         $this->assertNotEmpty($response->toArray());
     }
@@ -46,7 +54,7 @@ class RealRequestClientTest extends TestCase
         ]);
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
         $this->assertNotEmpty($response->toArray());
     }

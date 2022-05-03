@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
 use Godruoyi\OCR\Support\BaiduAccessToken;
@@ -28,12 +36,12 @@ class BaiduAccessTokenTest extends TestCase
             'secretKey'
         );
 
-        $this->assertEquals('access_token1', $token->getAccessToken());
-        $this->assertEquals('access_token1', $token->getAccessToken());
+        $this->assertSame('access_token1', $token->getAccessToken());
+        $this->assertSame('access_token1', $token->getAccessToken());
 
         sleep(3);
 
-        $this->assertEquals('access_token2', $token->getAccessToken());
+        $this->assertSame('access_token2', $token->getAccessToken());
     }
 
     public function testGetAccessTokenFail()

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Clients;
 
 use BadMethodCallException;
@@ -16,7 +24,7 @@ class BaseClientTest extends TestCase
 
         $response = $this->application->aliyun->hello(1, 2);
 
-        $this->assertEquals(3, $response->getBody()->getContents());
+        $this->assertSame(3, $response->getBody()->getContents());
     }
 
     public function testCallNotExistsMethod()

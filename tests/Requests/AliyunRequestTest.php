@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Requests;
 
 use Exception;
@@ -31,7 +39,7 @@ class AliyunRequestTest extends TestCase
         $response = $request->send('url', __DIR__ . '/../stubs/common.png');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testBasicSendEnableLog()
@@ -56,7 +64,7 @@ class AliyunRequestTest extends TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $response->getBody()->rewind();
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testCanNotUseSecretIDAndSecret()
@@ -97,8 +105,8 @@ class AliyunRequestTest extends TestCase
 
         $response = $request->send('url', __DIR__ . '/../stubs/common.png');
 
-        $this->assertEquals('APPCODE appcode', $histories[0]['request']->getHeaderLine('Authorization'));
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('APPCODE appcode', $histories[0]['request']->getHeaderLine('Authorization'));
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testInvalidImagesShouldThrowAError()
@@ -129,7 +137,7 @@ class AliyunRequestTest extends TestCase
         $request = new AliyunRequest($http, $this->application->getContainer());
         $response = $request->send('url', 'https://example.com');
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testFormatInputs()
@@ -145,7 +153,7 @@ class AliyunRequestTest extends TestCase
         $request = new AliyunRequest($http, $this->application->getContainer());
         $response = $request->send('url', [__DIR__ . '/../stubs/common.png']);
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testFormatBasic()
@@ -161,7 +169,7 @@ class AliyunRequestTest extends TestCase
         $request = new AliyunRequest($http, $this->application->getContainer());
         $response = $request->send('url', [__DIR__ . '/../stubs/common.png'], ['_format' => 'basic']);
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testFormatBasicIsURLImage()
@@ -176,7 +184,7 @@ class AliyunRequestTest extends TestCase
         $request = new AliyunRequest($http, $this->application->getContainer());
         $response = $request->send('url', ['https://example.com'], ['_format' => 'basic']);
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 
     public function testFormatImgOrUrl()
@@ -199,9 +207,9 @@ class AliyunRequestTest extends TestCase
         $request = new AliyunRequest($http, $this->application->getContainer());
 
         $response = $request->send('url', ['https://example.com'], ['_format' => 'imgorurl']);
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
 
         $response = $request->send('url', [__DIR__ . '/../stubs/common.png'], ['_format' => 'imgorurl']);
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 }

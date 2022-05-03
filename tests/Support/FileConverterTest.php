@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
 use Godruoyi\OCR\Support\FileConverter;
@@ -11,7 +19,6 @@ use Test\TestCase;
 
 class FileConverterTest extends TestCase
 {
-
     public function testIsString()
     {
         $this->assertFalse(is_string(FileConverter::isString('test')));
@@ -87,8 +94,8 @@ class FileConverterTest extends TestCase
         $http = $this->mockHttpWithResponse(new Response(200, [], 'test'));
         FileConverter::setHttp($http);
 
-        $this->assertEquals('', FileConverter::getOnlineImageContent(''));
-        $this->assertEquals('test', FileConverter::getOnlineImageContent('https://example.com'));
+        $this->assertSame('', FileConverter::getOnlineImageContent(''));
+        $this->assertSame('test', FileConverter::getOnlineImageContent('https://example.com'));
     }
 
     public function testIsFile()
@@ -101,7 +108,7 @@ class FileConverterTest extends TestCase
         $http = $this->mockHttpWithResponse(new Response(200, [], 'test'));
         FileConverter::setHttp($http);
 
-        $this->assertEquals('', FileConverter::toBase64Encode(''));
-        $this->assertEquals(base64_encode('test'), FileConverter::toBase64Encode('https://example.com'));
+        $this->assertSame('', FileConverter::toBase64Encode(''));
+        $this->assertSame(base64_encode('test'), FileConverter::toBase64Encode('https://example.com'));
     }
 }

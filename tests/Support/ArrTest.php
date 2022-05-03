@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/ocr.
+ *
+ * (c) Godruoyi <gmail@godruoyi.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Test\Support;
 
 use BadMethodCallException;
@@ -8,7 +16,6 @@ use Test\TestCase;
 
 class ArrTest extends TestCase
 {
-
     public function testSortRecursive()
     {
         $array = [
@@ -27,7 +34,7 @@ class ArrTest extends TestCase
             'foo' => 'bar',
         ];
 
-        $this->assertEquals($expected, Arr::sortRecursive($array));
+        $this->assertSame($expected, Arr::sortRecursive($array));
     }
 
     public function testExcept()
@@ -47,7 +54,7 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($expected, Arr::except($array, ['bar.foo']));
+        $this->assertSame($expected, Arr::except($array, ['bar.foo']));
     }
 
     public function testFirst()
@@ -60,15 +67,15 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertEquals('default', Arr::first([], null, 'default'));
-        $this->assertEquals('bar', Arr::first($array, null, 'default'));
+        $this->assertSame('default', Arr::first([], null, 'default'));
+        $this->assertSame('bar', Arr::first($array, null, 'default'));
 
 
-        $this->assertEquals('bar', Arr::first($array, function ($v, $k) {
+        $this->assertSame('bar', Arr::first($array, function ($v, $k) {
             return $k === 'foo';
         }));
 
-        $this->assertEquals('default', Arr::first($array, function ($v, $k) {
+        $this->assertSame('default', Arr::first($array, function ($v, $k) {
             return $k === 'baz';
         }, 'default'));
     }
@@ -83,9 +90,9 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertEquals('bar', Arr::get($array, 'foo'));
-        $this->assertEquals('foo', Arr::get($array, 'bar.baz'));
-        $this->assertEquals('default', Arr::get($array, 'bar.baz.foo', 'default'));
+        $this->assertSame('bar', Arr::get($array, 'foo'));
+        $this->assertSame('foo', Arr::get($array, 'bar.baz'));
+        $this->assertSame('default', Arr::get($array, 'bar.baz.foo', 'default'));
     }
 
     public function testRandom()
@@ -94,7 +101,7 @@ class ArrTest extends TestCase
             'foo', 'bar', 'baz',
         ];
 
-        $this->assertEquals([], Arr::random($array, 0));
+        $this->assertSame([], Arr::random($array, 0));
         $this->assertTrue(is_string(Arr::random($array)));
         $this->assertTrue(count(Arr::random($array, 2)) === 2);
 
@@ -114,7 +121,7 @@ class ArrTest extends TestCase
             ['v1', 'v2'],
         ];
 
-        $this->assertEquals($expected, Arr::divide($array));
+        $this->assertSame($expected, Arr::divide($array));
     }
 
     public function testOnly()
@@ -131,7 +138,7 @@ class ArrTest extends TestCase
             'foo' => 'bar',
         ];
 
-        $this->assertEquals($expected, Arr::only($array, 'foo'));
+        $this->assertSame($expected, Arr::only($array, 'foo'));
     }
 
     public function testSet()
@@ -146,13 +153,13 @@ class ArrTest extends TestCase
 
         Arr::set($array, 'bar.foo', 'barbar');
 
-        $this->assertEquals('barbar', Arr::get($array, 'bar.foo'));
+        $this->assertSame('barbar', Arr::get($array, 'bar.foo'));
     }
 
     public function testVvalue()
     {
-        $this->assertEquals('foo', Arr::vvalue('foo'));
-        $this->assertEquals('foo', Arr::vvalue(function () {
+        $this->assertSame('foo', Arr::vvalue('foo'));
+        $this->assertSame('foo', Arr::vvalue(function () {
             return 'foo';
         })());
     }
@@ -182,7 +189,7 @@ class ArrTest extends TestCase
             'bar' => 'bar',
         ];
 
-        $this->assertEquals(['foo' => 'foo'], Arr::where($array, function ($v, $k) {
+        $this->assertSame(['foo' => 'foo'], Arr::where($array, function ($v, $k) {
             return $k === 'foo';
         }));
     }
@@ -205,8 +212,8 @@ class ArrTest extends TestCase
             'foo', 'bar', 'baz',
         ];
 
-        $this->assertEquals(count($array), count(Arr::shuffle($array)));
-        $this->assertEquals(count($array), count(Arr::shuffle($array, time())));
+        $this->assertSame(count($array), count(Arr::shuffle($array)));
+        $this->assertSame(count($array), count(Arr::shuffle($array, time())));
     }
 
     public function testPrepend()
@@ -215,9 +222,9 @@ class ArrTest extends TestCase
             'foo', 'bar', 'baz',
         ];
 
-        $this->assertEquals(['bar', 'foo', 'bar', 'baz'], Arr::prepend($array, 'bar'));
-        $this->assertEquals(['zoo', 'foo', 'bar', 'baz'], Arr::prepend($array, 'zoo'));
-        $this->assertEquals(['foo', 'bar', 'zoo'], Arr::prepend($array, 'zoo', 2));
+        $this->assertSame(['bar', 'foo', 'bar', 'baz'], Arr::prepend($array, 'bar'));
+        $this->assertSame(['zoo', 'foo', 'bar', 'baz'], Arr::prepend($array, 'zoo'));
+        $this->assertSame(['foo', 'bar', 'zoo'], Arr::prepend($array, 'zoo', 2));
     }
 
     public function testQuery()
@@ -227,7 +234,7 @@ class ArrTest extends TestCase
             'bar' => 'bar',
         ];
 
-        $this->assertEquals('foo=foo&bar=bar', Arr::query($array));
+        $this->assertSame('foo=foo&bar=bar', Arr::query($array));
     }
 
     public function testGet()
@@ -237,9 +244,9 @@ class ArrTest extends TestCase
             'bar' => 'bar',
         ];
 
-        $this->assertEquals('foo', Arr::get($array, 'foo'));
-        $this->assertEquals('bar', Arr::get($array, 'bar'));
-        $this->assertEquals('default', Arr::get($array, 'baz', 'default'));
+        $this->assertSame('foo', Arr::get($array, 'foo'));
+        $this->assertSame('bar', Arr::get($array, 'bar'));
+        $this->assertSame('default', Arr::get($array, 'baz', 'default'));
     }
 
     public function testPull()
@@ -249,10 +256,10 @@ class ArrTest extends TestCase
             'bar' => 'bar',
         ];
 
-        $this->assertEquals('foo', Arr::pull($array, 'foo'));
-        $this->assertEquals(null, Arr::pull($array, 'foo'));
-        $this->assertEquals('bar', Arr::pull($array, 'bar'));
-        $this->assertEquals('default', Arr::pull($array, 'baz', 'default'));
+        $this->assertSame('foo', Arr::pull($array, 'foo'));
+        $this->assertNull(Arr::pull($array, 'foo'));
+        $this->assertSame('bar', Arr::pull($array, 'bar'));
+        $this->assertSame('default', Arr::pull($array, 'baz', 'default'));
     }
 
     public function testAccessible()
@@ -282,7 +289,7 @@ class ArrTest extends TestCase
             'bar' => 'bar',
         ];
 
-        $this->assertEquals(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], Arr::add($array, 'baz', 'baz'));
+        $this->assertSame(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], Arr::add($array, 'baz', 'baz'));
     }
 
     public function testLast()
@@ -292,7 +299,7 @@ class ArrTest extends TestCase
             'bar' => 'bar',
         ];
 
-        $this->assertEquals('bar', Arr::last($array));
+        $this->assertSame('bar', Arr::last($array));
     }
 
     public function testHas()
@@ -309,10 +316,9 @@ class ArrTest extends TestCase
 
     public function testWrap()
     {
-
-        $this->assertEquals([1], Arr::wrap(1));
-        $this->assertEquals([1, 2], Arr::wrap([1, 2]));
-        $this->assertEquals([], Arr::wrap(null));
+        $this->assertSame([1], Arr::wrap(1));
+        $this->assertSame([1, 2], Arr::wrap([1, 2]));
+        $this->assertSame([], Arr::wrap(null));
     }
 
     public function testForget()
@@ -345,8 +351,8 @@ class ArrTest extends TestCase
         $arr = new Arr();
 
         $this->assertTrue(Arr::hasMacro('test'));
-        $this->assertEquals('test', Arr::test());
-        $this->assertEquals('test', $arr->test());
+        $this->assertSame('test', Arr::test());
+        $this->assertSame('test', $arr->test());
 
         $this->expectException(BadMethodCallException::class);
         Arr::test1();

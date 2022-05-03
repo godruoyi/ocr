@@ -24,6 +24,6 @@ class CustomClientTest extends TestCase
         // Godruoyi\OCR\Support\Response
         $response = $this->application->huawei->idcard('', []);
 
-        $this->assertEquals('OK', $response->getBody()->getContents());
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 }
