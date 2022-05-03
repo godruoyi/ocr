@@ -8,14 +8,15 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Test;
+namespace Test\Custom;
 
 use Godruoyi\OCR\Contracts\Client;
 use Godruoyi\OCR\Support\Response;
+use Psr\Http\Message\ResponseInterface;
 
 class HuaweiClient implements Client
 {
-    public function idcard($url, $images, array $options = [])
+    public function idcard($url, $images, array $options = []): ResponseInterface
     {
         // 做你自己的业务逻辑
 
@@ -26,17 +27,13 @@ class HuaweiClient implements Client
      * Fire a ocr http request.
      *
      * @param string $url
-     * @param mixed  $images
-     * @param array  $options
-     *
-     * @throws \GuzzleHttp\Exception\RequestException
-     *
-     * @return array
+     * @param mixed $images
+     * @param array $options
+     * @return ResponseInterface
      */
-    public function request($url, $images, array $options = []): Response
+    public function request($url, $images, array $options = []): ResponseInterface
     {
-        $psrResponse = (new Http())->post();
-
-        return Response::createFromGuzzleHttpResponse($psrResponse);
+        // mock response, change to your own response
+        return new Response(200, [], 'OK');
     }
 }

@@ -8,9 +8,9 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Test;
+namespace Test\Custom;
 
-use Godruoyi\OCR\Contracts\Client;
+use Godruoyi\OCR\Clients\Client;
 
 class HuaweiClient2 extends Client
 {

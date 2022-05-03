@@ -8,7 +8,10 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Test;
+namespace Test\Clients;
+
+use Test\Custom\HuaweiClient;
+use Test\TestCase;
 
 class CustomClientTest extends TestCase
 {
@@ -19,6 +22,8 @@ class CustomClientTest extends TestCase
         });
 
         // Godruoyi\OCR\Support\Response
-        $response = $this->application->huawei->idcard();
+        $response = $this->application->huawei->idcard('', []);
+
+        $this->assertSame('OK', $response->getBody()->getContents());
     }
 }

@@ -10,7 +10,8 @@
 
 namespace Godruoyi\OCR\Contracts;
 
-use Godruoyi\OCR\Support\Response;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 
 interface Client
 {
@@ -18,12 +19,9 @@ interface Client
      * Fire a ocr http request.
      *
      * @param string $url
-     * @param mixed  $images
-     * @param array  $options
+     * @param mixed $images
      *
-     * @throws \GuzzleHttp\Exception\RequestException
-     *
-     * @return array
+     * @throws RequestException
      */
-    public function request($url, $images, array $options = []): Response;
+    public function request($url, $images, array $options = []): ResponseInterface;
 }

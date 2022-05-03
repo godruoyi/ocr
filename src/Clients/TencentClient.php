@@ -39,7 +39,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/33526
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -54,7 +53,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/49524
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -69,7 +67,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/34937
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -84,7 +81,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37831
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -99,7 +95,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/33525
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -114,7 +109,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/34938
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -129,7 +123,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/36212
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -144,7 +137,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37830
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -159,7 +151,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/33524
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -174,7 +165,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/36214
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -189,7 +179,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/36215
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -204,7 +193,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/36216
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -219,7 +207,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/37074
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -234,7 +221,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/37656
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -249,7 +235,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/37657
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -264,7 +249,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/37840
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -279,7 +263,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/38298
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -294,7 +277,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/38299
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -309,7 +291,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/38300
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -324,7 +305,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/38849
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -339,7 +319,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/40036
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -354,7 +333,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/40037
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -369,7 +347,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/43105
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -384,7 +361,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/43106
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -399,7 +375,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/46770
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -414,7 +389,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/46919
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -429,7 +403,6 @@ class TencentClient extends Client
      * @see @see https://cloud.tencent.com/document/product/866/48475
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -444,7 +417,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/34934
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -459,7 +431,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/36210
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -474,7 +445,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37071
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -489,7 +459,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37072
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -504,7 +473,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37073
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -519,7 +487,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37075
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -534,7 +501,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37076
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -549,7 +515,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37832
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -564,7 +529,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37833
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -579,7 +543,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37834
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -594,7 +557,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37835
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -609,7 +571,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37836
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -624,7 +585,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37837
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -639,7 +599,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37838
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -654,7 +613,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/37839
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -669,7 +627,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38295
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -684,7 +641,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38296
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -699,7 +655,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/34935
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -714,7 +669,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/36209
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -729,7 +683,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/36211
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -744,7 +697,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/36213
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -759,7 +711,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38297
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -774,7 +725,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/47165
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -789,7 +739,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/47325
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -806,7 +755,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/49525
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -823,7 +771,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/34936
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -838,7 +785,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/34939
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -853,7 +799,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38293
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -868,7 +813,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38294
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -883,7 +827,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38848
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -898,7 +841,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/45807
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -915,7 +857,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/45513
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -930,7 +871,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/38292
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -947,7 +887,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/47278
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -962,7 +901,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/47279
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */
@@ -979,7 +917,6 @@ class TencentClient extends Client
      * @see https://cloud.tencent.com/document/product/866/47324
      *
      * @param mixed $images
-     * @param array $options
      *
      * @return mixed
      */

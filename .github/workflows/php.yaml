@@ -1,0 +1,95 @@
+name: php
+on:
+  pull_request:
+  push:
+jobs:
+  phptests:
+    runs-on: ${{ matrix.operating-system }}
+    environment: OCR
+    strategy:
+      matrix:
+        operating-system: ['ubuntu-latest']
+        php-versions: ['7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: composer:v2
+          extensions: gd
+          coverage: none
+
+      - name: Install dependencies
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+      - name: PHPUnit Test
+        run: vendor/bin/phpunit --verbose
+        env:
+          BAIDU_ACCESS_KEY: ${{ secrets.BAIDU_ACCESS_KEY }}
+          BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+          ALIYUN_APPCODE: ${{ secrets.ALIYUN_APPCODE }}
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+
+  code-coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    environment: OCR
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - 8.0
+        dependencies:
+          - highest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+          extensions: gd
+          tools: composer:v2, php-cs-fixer
+
+      - name: Coding Guidelines
+        run: php-cs-fixer fix --config=.php-cs-fixer.php
+
+      - name: Install lowest dependencies with composer
+        if: matrix.dependencies == 'lowest'
+        run: composer update --no-ansi --no-interaction --no-progress --prefer-lowest
+
+      - name: Install highest dependencies with composer
+        if: matrix.dependencies == 'highest'
+        run: composer update --no-ansi --no-interaction --no-progress
+
+      - name: Collect code coverage with phpunit
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        env:
+          BAIDU_ACCESS_KEY: ${{ secrets.BAIDU_ACCESS_KEY }}
+          BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+          ALIYUN_APPCODE: ${{ secrets.ALIYUN_APPCODE }}
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+
+      - name: Send code coverage report to Codecov.io
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          version: "v0.1.15"
+        env:
+          BAIDU_ACCESS_KEY: ${{ secrets.BAIDU_ACCESS_KEY }}
+          BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+          ALIYUN_APPCODE: ${{ secrets.ALIYUN_APPCODE }}
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}

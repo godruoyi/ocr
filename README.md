@@ -1,14 +1,20 @@
 <div>
   <p align="center">The Best Image Ocr SDK For BAT.</p>
   <p align="center">
+    <a href="https://github.com/godruoyi/ocr/actions/workflows/php.yml">
+      <image src="https://github.com/godruoyi/ocr/actions/workflows/php.yaml/badge.svg" alt="build passed" />
+    </a>
+    <a href="https://codecov.io/gh/godruoyi/ocr">
+      <img src="https://codecov.io/gh/godruoyi/ocr/branch/master/graph/badge.svg?token=7AAOYCJK97"/>
+    </a>
     <a href="https://github.com/godruoyi/ocr">
-      <image src="https://poser.pugx.org/godruoyi/ocr/license" alt="License">
+      <image src="https://poser.pugx.org/godruoyi/ocr/license" alt="License" />
     </a>
     <a href="https://packagist.org/packages/godruoyi/ocr">
-      <image src="https://poser.pugx.org/godruoyi/ocr/v/stable" alt="Packagist Version">
+      <image src="https://poser.pugx.org/godruoyi/ocr/v/stable" alt="Packagist Version" />
     </a>
     <a href="https://github.com/godruoyi/ocr">
-      <image src="https://poser.pugx.org/godruoyi/ocr/downloads" alt="Total Downloads">
+      <image src="https://poser.pugx.org/godruoyi/ocr/downloads" alt="Total Downloads" />
     </a>
   </p>
 </div>
@@ -31,7 +37,7 @@
 
 ## Requirement
 
-- PHP >= 7.0
+- PHP >= 7.1
 - composer
 
 ## Installation
@@ -39,7 +45,7 @@
 > 注意此版本**不兼容** 1.x 版本，若你在寻在 1.x 版本，请查看 [这里](https://github.com/godruoyi/ocr/tree/1.1.4)。
 
 ```
-composer require "godruoyi/ocr:^2.0"
+composer require "godruoyi/ocr:^2.1"
 ```
 
 ## Document

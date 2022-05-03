@@ -50,7 +50,6 @@ class HttpServiceProvider implements ServiceProviderInterface
                         if ($e instanceof GuzzleRequestException && $e->hasResponse()) {
                             return Response::createFromGuzzleHttpResponse($e->getResponse());
                         }
-
                         throw $e;
                     });
                 };

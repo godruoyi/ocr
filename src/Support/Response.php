@@ -17,30 +17,30 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
     /**
      * Create response from psr response.
      *
-     * @param GuzzleHttpResponse $response
-     *
      * @return self
      */
     public static function createFromGuzzleHttpResponse(GuzzleHttpResponse $response)
     {
-        return new static(
+        $response = new static(
             $response->getStatusCode(),
             $response->getHeaders(),
             $response->getBody(),
             $response->getProtocolVersion(),
             $response->getReasonPhrase()
         );
+        
+        $response->getBody()->rewind();
+
+        return $response;
     }
 
     /**
      * Response to array.
-     *
-     * @return array
      */
     public function toArray(): array
     {
         $this->getBody()->rewind();
-        $body = (string) $this->getBody();
+        $body = (string)$this->getBody();
 
         if (empty($body)) {
             return [];
@@ -64,15 +64,13 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
     {
         $this->getBody()->rewind();
 
-        return (string) $this->getBody();
+        return (string)$this->getBody();
     }
 
     /**
      * @param int $offset
-     *
-     * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         $item = $this->toArray();
 
@@ -101,7 +99,7 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
      *
      * @return mixed
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
     }
 
@@ -110,7 +108,7 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
      *
      * @return mixed
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
     }
 }
