@@ -18,7 +18,9 @@ use Godruoyi\OCR\Clients\TencentClient;
 use Godruoyi\OCR\Config;
 use Godruoyi\OCR\Support\Response;
 use InvalidArgumentException;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Adapter\NullAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 
 class ApplicationTest extends TestCase
 {
@@ -111,7 +113,7 @@ class ApplicationTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Driver [foo] not supported.');
 
-        $this->application->foo;
+        $this->application->foo->x();
     }
 
     public function testGetDefaultDriver()
@@ -227,8 +229,8 @@ class ApplicationTest extends TestCase
 
     public function testRebindCache()
     {
-        $this->application->rebindCache(new NullAdapter());
+        $this->application->rebindCache(new Psr16Cache(new NullAdapter()));
 
-        $this->assertInstanceOf(NullAdapter::class, $this->application->getContainer()['cache']);
+        $this->assertInstanceOf(CacheInterface::class, $this->application->getContainer()['cache']);
     }
 }

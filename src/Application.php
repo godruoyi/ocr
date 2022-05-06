@@ -16,7 +16,7 @@ use Godruoyi\Container\Container;
 use Godruoyi\Container\ServiceProviderInterface;
 use Godruoyi\OCR\Contracts\Client;
 use InvalidArgumentException;
-use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 
 class Application extends Manager
 {
@@ -150,10 +150,10 @@ class Application extends Manager
     /**
      * RebindCache cache support.
      *
-     * @param CacheItemPoolInterface $cache
+     * @param CacheInterface $cache
      * @return Application
      */
-    public function rebindCache(CacheItemPoolInterface $cache): self
+    public function rebindCache(CacheInterface $cache): self
     {
         $this->container->instance('cache', $cache);
 

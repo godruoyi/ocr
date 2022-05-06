@@ -14,6 +14,7 @@ use Godruoyi\OCR\Support\BaiduAccessToken;
 use Godruoyi\OCR\Support\Response;
 use RuntimeException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 use Test\TestCase;
 
 class BaiduAccessTokenTest extends TestCase
@@ -31,7 +32,7 @@ class BaiduAccessTokenTest extends TestCase
 
         $token = new BaiduAccessToken(
             $http,
-            new FilesystemAdapter(time() . '_' . uniqid()),
+            new Psr16Cache(new FilesystemAdapter(time() . '_' . uniqid())),
             'secretID',
             'secretKey'
         );
@@ -53,7 +54,7 @@ class BaiduAccessTokenTest extends TestCase
 
         $token = new BaiduAccessToken(
             $http,
-            new FilesystemAdapter(time() . '_' . uniqid()),
+            new Psr16Cache(new FilesystemAdapter(time() . '_' . uniqid())),
             'secretID',
             'secretKey'
         );
