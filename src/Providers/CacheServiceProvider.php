@@ -12,17 +12,18 @@ namespace Godruoyi\OCR\Providers;
 
 use Godruoyi\Container\ContainerInterface;
 use Godruoyi\Container\ServiceProviderInterface;
-use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 
 class CacheServiceProvider implements ServiceProviderInterface
 {
     public function register(ContainerInterface $container)
     {
         $container->singleton('cache', function ($container) {
-            return new FilesystemAdapter('ocr.cache');
+            return new Psr16Cache(new FilesystemAdapter('ocr.cache'));
         });
 
-        $container->alias('cache', CacheItemPoolInterface::class);
+        $container->alias('cache', CacheInterface::class);
     }
 }

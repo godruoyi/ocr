@@ -10,7 +10,8 @@
 
 namespace Godruoyi\OCR\Support;
 
-use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 use RuntimeException;
 
 class BaiduAccessToken
@@ -27,7 +28,7 @@ class BaiduAccessToken
 
     protected $cache;
 
-    public function __construct(Http $http, CacheItemPoolInterface $cache, string $secretID = null, string $secretKey = null)
+    public function __construct(Http $http, CacheInterface $cache, string $secretID = null, string $secretKey = null)
     {
         $this->secretID = $secretID;
         $this->secretKey = $secretKey;
@@ -37,16 +38,15 @@ class BaiduAccessToken
 
     public function getAccessToken(): string
     {
-        $cacheItem = $this->cache->getItem(self::CACHE_KEY);
+        $accessToken = $this->cache->get(self::CACHE_KEY);
 
-        if ($cacheItem->isHit()) {
-            return $cacheItem->get();
+        if ($accessToken) {
+            return $accessToken;
         }
 
         [$accessToken, $expiresIn] = $this->requestAccessToken();
 
-        $cacheItem->set($accessToken)->expiresAfter($expiresIn - 10);
-        $this->cache->save($cacheItem);
+        $this->cache->set(self::CACHE_KEY, $accessToken, $expiresIn - 10);
 
         return $accessToken;
     }

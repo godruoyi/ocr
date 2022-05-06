@@ -103,6 +103,13 @@ class BaiduClientTest extends TestCase
 
     public function testGeneralBasic()
     {
+        $http = $this->application->getContainer()['http'];
+        $http = $this->mockHttpWithResponse([
+            new Response(200, [], '{"access_token":"123456","expires_in":7200}'),
+            new Response(200, [], 'OK'),
+        ], $http);
+        $this->application->getContainer()['http'] = $http;
+
         $response = $this->application->baidu->generalBasic(__DIR__ . '/../stubs/common.png', [
             'language_type' => 'ENG',
         ]);

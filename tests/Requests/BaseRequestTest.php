@@ -16,6 +16,7 @@ use Godruoyi\OCR\Support\BaiduAccessToken;
 use Godruoyi\OCR\Support\FileConverter;
 use Godruoyi\OCR\Support\Response;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 use Test\TestCase;
 
 class BaseRequestTest extends TestCase
@@ -46,7 +47,7 @@ class BaseRequestTest extends TestCase
 
         $accessToken = new BaiduAccessToken(
             $http,
-            new FilesystemAdapter(time()), // set random cache dir
+            new Psr16Cache(new FilesystemAdapter(time())), // set random cache dir
             'access_key',
             'secret_key'
         );
@@ -80,7 +81,7 @@ class BaseRequestTest extends TestCase
 
         $accessToken = new BaiduAccessToken(
             $http,
-            new FilesystemAdapter(time() . '_' . uniqid()), // set random cache dir
+            new Psr16Cache(new FilesystemAdapter(time() . '_' . uniqid())), // set random cache dir
             'access_key',
             'secret_key'
         );
