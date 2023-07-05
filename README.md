@@ -37,15 +37,16 @@
 
 ## Requirement
 
-- PHP >= 7.2
+- PHP >= 8.0
 - composer
 
 ## Installation
 
-> 注意此版本**不兼容** 1.x 版本，若你在寻在 1.x 版本，请查看 [这里](https://github.com/godruoyi/ocr/tree/1.1.4)。
+1. 注意此版本**不兼容** 1.x 版本，若你在寻在 1.x 版本，请查看 [这里](https://github.com/godruoyi/ocr/tree/1.1.4)
+2. 3.0 版本开始，不再支持 PHP 8.0 以下版本，如果你的 PHP 版本低于 8.0，请使用 2.x 版本，查看 [这里](https://github.com/godruoyi/ocr/tree/v2.1.1)
 
 ```
-composer require "godruoyi/ocr:^2.2"
+composer require "godruoyi/ocr:^3.0"
 ```
 
 ## Document
