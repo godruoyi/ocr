@@ -30,7 +30,7 @@ class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
-        $this->config = require __DIR__ . '/stubs/config.php';
+        $this->config = require __DIR__.'/stubs/config.php';
         $this->application = new Application($this->config);
     }
 
@@ -56,7 +56,7 @@ class TestCase extends BaseTestCase
 
     protected function mockHttpWithResponse($response, $http = null): Http
     {
-        if (!$http) {
+        if (! $http) {
             $http = new Http();
         }
 
@@ -74,7 +74,7 @@ class TestCase extends BaseTestCase
 
     protected function mockeryHttp()
     {
-        $http = Mockery::mock('HTTP, ' . Http::class);
+        $http = Mockery::mock('HTTP, '.Http::class);
         $http->shouldReceive('middlewares')
             ->andReturnNull();
 

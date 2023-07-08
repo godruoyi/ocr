@@ -61,7 +61,7 @@ return [
             'daily' => [
                 'name' => 'OCR',
                 'driver' => 'daily',
-                'path' => __DIR__ . '/ocr.log',
+                'path' => __DIR__.'/ocr.log',
                 'level' => 'debug',
                 'days' => 14,
             ],

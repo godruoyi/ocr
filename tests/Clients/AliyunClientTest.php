@@ -54,7 +54,7 @@ class AliyunClientTest extends TestCase
         $times = count($methods);
         $app = $this->application->getContainer();
         $app->bind(AliyunRequest::class, function () use ($times) {
-            $mockRequest = Mockery::mock("Request, " . AliyunRequest::class);
+            $mockRequest = Mockery::mock('Request, '.AliyunRequest::class);
             $mockRequest->shouldReceive('send')
                 ->times($times)
                 ->andReturn(new Response(200, [], 'SUCCESS'));
@@ -76,7 +76,7 @@ class AliyunClientTest extends TestCase
         $app = $this->application->getContainer();
 
         $app->bind(AliyunRequest::class, function ($app) {
-            $http = \Mockery::mock("http, " . Http::class);
+            $http = \Mockery::mock('http, '.Http::class);
             $http->shouldReceive('middlewares')->andReturn(null);
             $http->shouldReceive('json')
                 ->once()
@@ -85,12 +85,12 @@ class AliyunClientTest extends TestCase
                         && array_key_exists('image', $data)
                         && array_key_exists('configure', $data);
                 }))
-                ->andReturn(new \GuzzleHttp\Psr7\Response(200, [], "OK"));
+                ->andReturn(new \GuzzleHttp\Psr7\Response(200, [], 'OK'));
 
             return new AliyunRequest($http, $app);
         });
 
-        $response = $this->application->aliyun->general([__DIR__ . '/../stubs/common.png', __DIR__ . '/stubs/common2.png', __DIR__ . '/stubs/common2.png']);
+        $response = $this->application->aliyun->general([__DIR__.'/../stubs/common.png', __DIR__.'/stubs/common2.png', __DIR__.'/stubs/common2.png']);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertSame('OK', $response->getBody()->getContents());

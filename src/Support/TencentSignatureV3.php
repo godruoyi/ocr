@@ -41,7 +41,7 @@ class TencentSignatureV3
     /**
      * Registe config.
      *
-     * @param array $configs
+     * @param  array  $configs
      */
     public function __construct(string $secretId, string $secretKey)
     {
@@ -77,11 +77,11 @@ class TencentSignatureV3
         $signedHeaders = $this->getSignatureHeadersToString();
         $hashedRequestPayload = $this->hashedRequestPayload($request->getBody()->getContents());
 
-        return $httpRequestMethod . "\n" .
-            $canonicalURI . "\n" .
-            $canonicalQueryString . "\n" .
-            $canonicalHeaders . "\n\n" .
-            $signedHeaders . "\n" .
+        return $httpRequestMethod."\n".
+            $canonicalURI."\n".
+            $canonicalQueryString."\n".
+            $canonicalHeaders."\n\n".
+            $signedHeaders."\n".
             $hashedRequestPayload;
     }
 
@@ -104,7 +104,7 @@ class TencentSignatureV3
         $credentialScope = sprintf('%s/%s/%s', $date, $service, self::TC3_REQUEST);
         $str2sign = sprintf("%s\n%s\n%s\n%s", self::TC3_ALGORITHM, $xTcTimestamp, $credentialScope, hash('SHA256', $this->canonicalRequest($request)));
 
-        $dateKey = hash_hmac('SHA256', $date, 'TC3' . $this->secretKey, true);
+        $dateKey = hash_hmac('SHA256', $date, 'TC3'.$this->secretKey, true);
         $serviceKey = hash_hmac('SHA256', $service, $dateKey, true);
         $reqKey = hash_hmac('SHA256', self::TC3_REQUEST, $serviceKey, true);
 
@@ -127,7 +127,7 @@ class TencentSignatureV3
      */
     public function getSignatureHeadersToString()
     {
-        return join(';', array_map(function ($h) {
+        return implode(';', array_map(function ($h) {
             return strtolower($h);
         }, $this->signatureHeaders));
     }

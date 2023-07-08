@@ -81,7 +81,7 @@ class BaseRequestTest extends TestCase
 
         $accessToken = new BaiduAccessToken(
             $http,
-            new Psr16Cache(new FilesystemAdapter(time() . '_' . uniqid())), // set random cache dir
+            new Psr16Cache(new FilesystemAdapter(time().'_'.uniqid())), // set random cache dir
             'access_key',
             'secret_key'
         );

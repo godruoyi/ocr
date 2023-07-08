@@ -1,0 +1,14 @@
+{
+    "rules": {
+        "header_comment": {
+            "header": "This file is part of the godruoyi/ocr.\n \n(c) Godruoyi <gmail@godruoyi.com> \n \nThis source file is subject to the MIT license that is bundled."
+        },
+        "no_superfluous_phpdoc_tags": false,
+        "array_syntax" : {
+            "syntax" : "short"
+        },
+        "ordered_imports" : true,
+        "no_useless_else" : true,
+        "no_useless_return" : true
+    }
+}

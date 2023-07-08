@@ -10,6 +10,7 @@
 
 namespace Godruoyi\OCR\Support;
 
+use function implode;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\HandlerInterface;
@@ -19,6 +20,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogHandler;
 use Monolog\Logger as Monolog;
 use Psr\Log\LoggerInterface;
+use function sprintf;
 
 class Logger implements LoggerInterface
 {
@@ -70,8 +72,7 @@ class Logger implements LoggerInterface
     /**
      * Create a new, on-demand aggregate logger instance.
      *
-     * @param string|null $channel
-     *
+     * @param  string|null  $channel
      * @return \Psr\Log\LoggerInterface
      */
     public function stack(array $channels, $channel = null)
@@ -82,8 +83,7 @@ class Logger implements LoggerInterface
     /**
      * Get a log channel instance.
      *
-     * @param string|null $channel
-     *
+     * @param  string|null  $channel
      * @return mixed
      */
     public function channel($channel = null)
@@ -94,8 +94,7 @@ class Logger implements LoggerInterface
     /**
      * Get a log driver instance.
      *
-     * @param string|null $driver
-     *
+     * @param  string|null  $driver
      * @return mixed
      */
     public function driver($driver = null)
@@ -106,8 +105,7 @@ class Logger implements LoggerInterface
     /**
      * Attempt to get the log from the local cache.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return \Psr\Log\LoggerInterface
      */
     protected function get($name)
@@ -132,8 +130,7 @@ class Logger implements LoggerInterface
     /**
      * Resolve the given log instance by name.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return \Psr\Log\LoggerInterface
      *
      * @throws \InvalidArgumentException
@@ -142,23 +139,29 @@ class Logger implements LoggerInterface
     {
         $channels = Arr::get($this->config, 'channels', []);
 
-        if (empty($channels) || !isset($channels[$name])) {
-            throw new \InvalidArgumentException(\sprintf('Log [%s] is not defined.', $name));
+        if (empty($channels) || ! isset($channels[$name])) {
+            throw new \InvalidArgumentException(sprintf('Log [%s] is not defined.', $name));
         }
 
         $config = $channels[$name];
 
-        if (isset($this->customCreators[$config['driver']])) {
+        if (isset($config['driver']) && isset($this->customCreators[$config['driver']])) {
             return $this->callCustomCreator($config);
         }
 
-        $driverMethod = 'create' . ucfirst($config['driver']) . 'Driver';
-
-        if (method_exists($this, $driverMethod)) {
-            return $this->{$driverMethod}($config);
+        $supportDrivers = ['stack', 'single', 'daily', 'slack', 'syslog', 'errorlog', 'monolog'];
+        if (! isset($config['driver']) || ! in_array($config['driver'], $supportDrivers)) {
+            throw new \InvalidArgumentException(
+                sprintf('Driver [%s] is not supported, only support [%s].',
+                    $config['driver'] ?? '',
+                    implode(',', $supportDrivers),
+                )
+            );
         }
 
-        throw new \InvalidArgumentException(\sprintf('Driver [%s] is not supported.', $config['driver']));
+        $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
+
+        return $this->{$driverMethod}($config);
     }
 
     /**
@@ -169,7 +172,7 @@ class Logger implements LoggerInterface
     protected function createEmergencyLogger()
     {
         return new Monolog('OCR', $this->prepareHandlers([new StreamHandler(
-            \sys_get_temp_dir() . '/ocr.log',
+            \sys_get_temp_dir().'/ocr.log',
             $this->level(['level' => 'debug'])
         )]));
     }
@@ -360,7 +363,7 @@ class Logger implements LoggerInterface
     /**
      * Set the default log driver name.
      *
-     * @param string $name
+     * @param  string  $name
      */
     public function setDefaultDriver($name)
     {
@@ -370,8 +373,7 @@ class Logger implements LoggerInterface
     /**
      * Register a custom driver creator Closure.
      *
-     * @param string $driver
-     *
+     * @param  string  $driver
      * @return $this
      */
     public function extend($driver, \Closure $callback)
@@ -384,13 +386,11 @@ class Logger implements LoggerInterface
     /**
      * System is unusable.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function emergency($message, array $context = [])
+    public function emergency($message, array $context = []): void
     {
-        return $this->driver()->emergency($message, $context);
+        $this->driver()->emergency($message, $context);
     }
 
     /**
@@ -399,13 +399,11 @@ class Logger implements LoggerInterface
      * Example: Entire website down, database unavailable, etc. This should
      * trigger the SMS alerts and wake you up.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function alert($message, array $context = [])
+    public function alert($message, array $context = []): void
     {
-        return $this->driver()->alert($message, $context);
+        $this->driver()->alert($message, $context);
     }
 
     /**
@@ -413,26 +411,22 @@ class Logger implements LoggerInterface
      *
      * Example: Application component unavailable, unexpected exception.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function critical($message, array $context = [])
+    public function critical($message, array $context = []): void
     {
-        return $this->driver()->critical($message, $context);
+        $this->driver()->critical($message, $context);
     }
 
     /**
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function error($message, array $context = [])
+    public function error($message, array $context = []): void
     {
-        return $this->driver()->error($message, $context);
+        $this->driver()->error($message, $context);
     }
 
     /**
@@ -441,25 +435,21 @@ class Logger implements LoggerInterface
      * Example: Use of deprecated APIs, poor use of an API, undesirable things
      * that are not necessarily wrong.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function warning($message, array $context = [])
+    public function warning($message, array $context = []): void
     {
-        return $this->driver()->warning($message, $context);
+        $this->driver()->warning($message, $context);
     }
 
     /**
      * Normal but significant events.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function notice($message, array $context = [])
+    public function notice($message, array $context = []): void
     {
-        return $this->driver()->notice($message, $context);
+        $this->driver()->notice($message, $context);
     }
 
     /**
@@ -467,46 +457,39 @@ class Logger implements LoggerInterface
      *
      * Example: User logs in, SQL logs.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function info($message, array $context = [])
+    public function info($message, array $context = []): void
     {
-        return $this->driver()->info($message, $context);
+        $this->driver()->info($message, $context);
     }
 
     /**
      * Detailed debug information.
      *
-     * @param string $message
-     *
-     * @return mixed
+     * @param  string  $message
      */
-    public function debug($message, array $context = [])
+    public function debug($message, array $context = []): void
     {
-        return $this->driver()->debug($message, $context);
+        $this->driver()->debug($message, $context);
     }
 
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed $level
-     * @param string $message
-     *
-     * @return mixed
+     * @param  mixed  $level
+     * @param  string  $message
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
-        return $this->driver()->log($level, $message, $context);
+        $this->driver()->log($level, $message, $context);
     }
 
     /**
      * Dynamically call the default driver instance.
      *
-     * @param string $method
-     * @param array $parameters
-     *
+     * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

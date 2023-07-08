@@ -34,11 +34,9 @@ class Client implements ClientInterface
     /**
      * Register a custom method Closure.
      *
-     * @param \Closure $callback
-     *
      * @return $this
      */
-    public function extend(string $method, Closure $fn)
+    public function extend(string $method, Closure $fn): static
     {
         $this->customMethods[$method] = $fn;
 
@@ -48,14 +46,13 @@ class Client implements ClientInterface
     /**
      * Dynamically call the default driver instance.
      *
-     * @param string $method
-     * @param array $parameters
-     *
+     * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
     {
-        if (!isset($this->customMethods[$method])) {
+        if (! isset($this->customMethods[$method])) {
             throw new BadMethodCallException(sprintf('Method %s::%s does not exist.', static::class, $method));
         }
 
@@ -67,9 +64,8 @@ class Client implements ClientInterface
     /**
      * Request.
      *
-     * @param string $url
-     * @param mixed $images
-     *
+     * @param  string  $url
+     * @param  mixed  $images
      * @return array
      */
     public function request($url, $images, array $options = []): ResponseInterface

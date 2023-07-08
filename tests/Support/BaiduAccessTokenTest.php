@@ -32,7 +32,7 @@ class BaiduAccessTokenTest extends TestCase
 
         $token = new BaiduAccessToken(
             $http,
-            new Psr16Cache(new FilesystemAdapter(time() . '_' . uniqid())),
+            new Psr16Cache(new FilesystemAdapter(time().'_'.uniqid())),
             'secretID',
             'secretKey'
         );
@@ -54,7 +54,7 @@ class BaiduAccessTokenTest extends TestCase
 
         $token = new BaiduAccessToken(
             $http,
-            new Psr16Cache(new FilesystemAdapter(time() . '_' . uniqid())),
+            new Psr16Cache(new FilesystemAdapter(time().'_'.uniqid())),
             'secretID',
             'secretKey'
         );

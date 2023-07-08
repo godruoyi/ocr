@@ -207,7 +207,7 @@ class ApplicationTest extends TestCase
         $http = $this->mockHttpWithResponse(new Response(200, [], 'OK1'), $app['http']);
         $app['http'] = $http;
 
-        $this->assertSame('OK1', $this->application->aliyun->idcard(__DIR__ . '/stubs/common.png')->getBody()->getContents());
+        $this->assertSame('OK1', $this->application->aliyun->idcard(__DIR__.'/stubs/common.png')->getBody()->getContents());
     }
 
     public function testCallNotExistsDriver()
@@ -224,7 +224,7 @@ class ApplicationTest extends TestCase
         $http = $this->mockHttpWithResponse(new Response(200, [], 'OK1'), $app['http']);
         $app['http'] = $http;
 
-        $this->assertSame('OK1', $this->application->idcard(__DIR__ . '/stubs/common.png')->getBody()->getContents());
+        $this->assertSame('OK1', $this->application->idcard(__DIR__.'/stubs/common.png')->getBody()->getContents());
     }
 
     public function testRebindCache()

@@ -26,7 +26,7 @@ class TencentClient extends Client
     /**
      * Register request.
      *
-     * @param TencentClient $request
+     * @param  TencentClient  $request
      */
     public function __construct(TencentRequest $request)
     {
@@ -38,8 +38,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/33526
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function generalBasic($images, array $options = [])
@@ -52,8 +51,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/49524
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function advertise($images, array $options = [])
@@ -66,8 +64,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/34937
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function generalAccurate($images, array $options = [])
@@ -80,8 +77,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37831
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function generalEfficient($images, array $options = [])
@@ -94,8 +90,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/33525
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function generalFast($images, array $options = [])
@@ -108,8 +103,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/34938
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function english($images, array $options = [])
@@ -122,8 +116,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/36212
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function generalHandwriting($images, array $options = [])
@@ -136,8 +129,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37830
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function textDetect($images, array $options = [])
@@ -150,8 +142,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/33524
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function idCard($images, array $options = [])
@@ -164,8 +155,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/36214
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function businessCard($images, array $options = [])
@@ -178,8 +168,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/36215
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function bizLicense($images, array $options = [])
@@ -192,8 +181,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/36216
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function bankCard($images, array $options = [])
@@ -206,8 +194,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/37074
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function permit($images, array $options = [])
@@ -220,8 +207,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/37656
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function mlidCard($images, array $options = [])
@@ -234,8 +220,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/37657
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function mlidPassport($images, array $options = [])
@@ -248,8 +233,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/37840
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function passport($images, array $options = [])
@@ -262,8 +246,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/38298
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function orgCodeCert($images, array $options = [])
@@ -276,8 +259,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/38299
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function institution($images, array $options = [])
@@ -290,8 +272,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/38300
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function estateCert($images, array $options = [])
@@ -304,8 +285,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/38849
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function enterpriseLicense($images, array $options = [])
@@ -318,8 +298,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/40036
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function residenceBooklet($images, array $options = [])
@@ -332,8 +311,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/40037
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function propOwnerCert($images, array $options = [])
@@ -346,8 +324,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/43105
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function mainlandPermit($images, array $options = [])
@@ -360,8 +337,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/43106
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function hmtResidentPermitOCR($images, array $options = [])
@@ -374,8 +350,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/46770
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function classifyDetect($images, array $options = [])
@@ -388,8 +363,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/46919
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function hkIDCard($images, array $options = [])
@@ -402,8 +376,7 @@ class TencentClient extends Client
      *
      * @see @see https://cloud.tencent.com/document/product/866/48475
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function recognizeThaiIDCard($images, array $options = [])
@@ -416,8 +389,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/34934
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function waybill($images, array $options = [])
@@ -430,8 +402,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/36210
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function vatInvoice($images, array $options = [])
@@ -444,8 +415,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37071
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function trainTicket($images, array $options = [])
@@ -458,8 +428,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37072
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function taxiInvoice($images, array $options = [])
@@ -472,8 +441,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37073
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function quotaInvoice($images, array $options = [])
@@ -486,8 +454,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37075
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function flightInvoice($images, array $options = [])
@@ -500,8 +467,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37076
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function carInvoice($images, array $options = [])
@@ -514,8 +480,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37832
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function vatRollInvoice($images, array $options = [])
@@ -528,8 +493,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37833
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function tollInvoice($images, array $options = [])
@@ -542,8 +506,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37834
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function shipInvoice($images, array $options = [])
@@ -556,8 +519,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37835
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function mixedInvoice($images, array $options = [])
@@ -570,8 +532,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37836
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function mixedInvoiceDetect($images, array $options = [])
@@ -584,8 +545,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37837
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function invoiceGeneral($images, array $options = [])
@@ -598,8 +558,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37838
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function busInvoice($images, array $options = [])
@@ -612,8 +571,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/37839
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function dutyPaidProof($images, array $options = [])
@@ -626,8 +584,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38295
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function finanBillSlice($images, array $options = [])
@@ -640,8 +597,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38296
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function finanBill($images, array $options = [])
@@ -654,8 +610,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/34935
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function vin($images, array $options = [])
@@ -668,8 +623,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/36209
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function vehicleLicense($images, array $options = [])
@@ -682,8 +636,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/36211
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function licensePlate($images, array $options = [])
@@ -696,8 +649,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/36213
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function driverLicense($images, array $options = [])
@@ -710,8 +662,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38297
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function vehicleRegCert($images, array $options = [])
@@ -724,8 +675,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/47165
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function rideHailingDriverLicense($images, array $options = [])
@@ -738,8 +688,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/47325
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function rideHailingTransportLicense($images, array $options = [])
@@ -754,8 +703,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/49525
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function recognizeTable($images, array $options = [])
@@ -770,8 +718,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/34936
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function table($images, array $options = [])
@@ -784,8 +731,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/34939
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function arithmetic($images, array $options = [])
@@ -798,8 +744,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38293
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function formula($images, array $options = [])
@@ -812,8 +757,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38294
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function eduPaper($images, array $options = [])
@@ -826,8 +770,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38848
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function insuranceBill($images, array $options = [])
@@ -840,8 +783,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/45807
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function seal($images, array $options = [])
@@ -856,8 +798,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/45513
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function queryBarCode($images, array $options = [])
@@ -870,8 +811,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/38292
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function qrcode($images, array $options = [])
@@ -886,8 +826,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/47278
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function verifyBizLicense($images, array $options = [])
@@ -900,8 +839,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/47279
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function verifyBasicBizLicense($images, array $options = [])
@@ -916,8 +854,7 @@ class TencentClient extends Client
      *
      * @see https://cloud.tencent.com/document/product/866/47324
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     public function vatInvoiceVerify($images, array $options = [])

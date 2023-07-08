@@ -17,8 +17,8 @@ interface Request
     /**
      * Fire a ocr http request.
      *
-     * @param string $url
-     * @param mixed $images
+     * @param  string  $url
+     * @param  mixed  $images
      *
      * @throws \GuzzleHttp\Exception\RequestException
      */
