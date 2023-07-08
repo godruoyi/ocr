@@ -30,9 +30,8 @@ class Config
     /**
      * Get config item.
      *
-     * @param mixed $key
-     * @param mixed $default
-     *
+     * @param  mixed  $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function get($key, $default = null)

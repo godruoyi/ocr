@@ -11,7 +11,6 @@
 namespace Godruoyi\OCR\Support;
 
 use Psr\SimpleCache\CacheInterface;
-use Psr\SimpleCache\InvalidArgumentException;
 use RuntimeException;
 
 class BaiduAccessToken

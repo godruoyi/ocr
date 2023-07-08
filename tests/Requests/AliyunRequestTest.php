@@ -36,7 +36,7 @@ class AliyunRequestTest extends TestCase
         $http = $this->mockHttpWithResponse($this->createSuccessResponse());
         $request = new AliyunRequest($http, $app->getContainer());
 
-        $response = $request->send('url', __DIR__ . '/../stubs/common.png');
+        $response = $request->send('url', __DIR__.'/../stubs/common.png');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertSame('OK', $response->getBody()->getContents());
@@ -60,7 +60,7 @@ class AliyunRequestTest extends TestCase
         $http = $this->mockHttpWithResponse($this->createSuccessResponse());
 
         $request = new AliyunRequest($http, $app->getContainer());
-        $response = $request->send('url', __DIR__ . '/../stubs/common.png');
+        $response = $request->send('url', __DIR__.'/../stubs/common.png');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $response->getBody()->rewind();
@@ -86,7 +86,7 @@ class AliyunRequestTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Aliyun AppKey and AppSecret has not be completed');
 
-        $request->send('url', __DIR__ . '/../stubs/common.png');
+        $request->send('url', __DIR__.'/../stubs/common.png');
     }
 
     public function testUseAppCode()
@@ -103,7 +103,7 @@ class AliyunRequestTest extends TestCase
         $request = new AliyunRequest($app->getContainer()['http'], $app->getContainer());
         $this->mockHttpWithResponseAndHistory($request->getHttp(), $this->createSuccessResponse(), $histories);
 
-        $response = $request->send('url', __DIR__ . '/../stubs/common.png');
+        $response = $request->send('url', __DIR__.'/../stubs/common.png');
 
         $this->assertSame('APPCODE appcode', $histories[0]['request']->getHeaderLine('Authorization'));
         $this->assertSame('OK', $response->getBody()->getContents());
@@ -146,12 +146,13 @@ class AliyunRequestTest extends TestCase
         $http->shouldReceive('json')
             ->withArgs(function ($url, $options) {
                 $image = $options['inputs'][0]['image']['dataValue'];
-                return $url == 'url' && is_string($image) && !empty($image);
+
+                return $url == 'url' && is_string($image) && ! empty($image);
             })
             ->andReturn(new Response(200, [], 'OK'));
 
         $request = new AliyunRequest($http, $this->application->getContainer());
-        $response = $request->send('url', [__DIR__ . '/../stubs/common.png']);
+        $response = $request->send('url', [__DIR__.'/../stubs/common.png']);
 
         $this->assertSame('OK', $response->getBody()->getContents());
     }
@@ -162,12 +163,13 @@ class AliyunRequestTest extends TestCase
         $http->shouldReceive('json')
             ->withArgs(function ($url, $options) {
                 $image = $options['image'];
-                return $url == 'url' && is_string($image) && !empty($image);
+
+                return $url == 'url' && is_string($image) && ! empty($image);
             })
             ->andReturn(new Response(200, [], 'OK'));
 
         $request = new AliyunRequest($http, $this->application->getContainer());
-        $response = $request->send('url', [__DIR__ . '/../stubs/common.png'], ['_format' => 'basic']);
+        $response = $request->send('url', [__DIR__.'/../stubs/common.png'], ['_format' => 'basic']);
 
         $this->assertSame('OK', $response->getBody()->getContents());
     }
@@ -199,7 +201,7 @@ class AliyunRequestTest extends TestCase
 
         $http->shouldReceive('json')
             ->withArgs(function ($url, $options) {
-                return $url == 'url' && is_string($options['img']) && !empty($options['img']);
+                return $url == 'url' && is_string($options['img']) && ! empty($options['img']);
             })
             ->once()
             ->andReturn(new Response(200, [], 'OK'));
@@ -209,7 +211,7 @@ class AliyunRequestTest extends TestCase
         $response = $request->send('url', ['https://example.com'], ['_format' => 'imgorurl']);
         $this->assertSame('OK', $response->getBody()->getContents());
 
-        $response = $request->send('url', [__DIR__ . '/../stubs/common.png'], ['_format' => 'imgorurl']);
+        $response = $request->send('url', [__DIR__.'/../stubs/common.png'], ['_format' => 'imgorurl']);
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 }

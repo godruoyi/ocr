@@ -21,8 +21,7 @@ class FileConverter
     /**
      * Converter Image To String.
      *
-     * @param string|object|resource $image
-     *
+     * @param  string|object|resource  $image
      * @return string
      */
     public static function toBase64Encode($image)
@@ -37,8 +36,7 @@ class FileConverter
     /**
      * Get image Content, support url/file/SplFileInfo.
      *
-     * @param string|\SplFileInfo|resource $image
-     *
+     * @param  string|\SplFileInfo|resource  $image
      * @return string
      */
     public static function getContent($image)
@@ -79,20 +77,18 @@ class FileConverter
     /**
      * Determine the given file has a file.
      *
-     * @param mixed $file
-     *
+     * @param  mixed  $file
      * @return bool
      */
     public static function isString($file)
     {
-        return is_string($file) && (!self::isUrl($file));
+        return is_string($file) && (! self::isUrl($file));
     }
 
     /**
      * Determine the given file has a active url.
      *
-     * @param mixed $file
-     *
+     * @param  mixed  $file
      * @return bool
      */
     public static function isUrl($file)
@@ -103,8 +99,7 @@ class FileConverter
     /**
      * Determine the given file has a active url.
      *
-     * @param mixed $file
-     *
+     * @param  mixed  $file
      * @return bool
      */
     public static function isFile($file)
@@ -115,8 +110,7 @@ class FileConverter
     /**
      * Determine the given file has a image type.
      *
-     * @param mixed $file
-     *
+     * @param  mixed  $file
      * @return bool
      */
     public static function isImage($file)
@@ -131,8 +125,7 @@ class FileConverter
     /**
      * Determine the given file has Rescouve stream.
      *
-     * @param mixed $resource
-     *
+     * @param  mixed  $resource
      * @return bool
      */
     public static function isResource($resource)
@@ -143,8 +136,7 @@ class FileConverter
     /**
      * Determine the given file has SplFileInfo instance.
      *
-     * @param mixed $splFile
-     *
+     * @param  mixed  $splFile
      * @return bool
      */
     public static function isSplFileInfo($splFile)
@@ -155,7 +147,6 @@ class FileConverter
     /**
      * Set http instance.
      *
-     * @param Http $http
      * @return void
      */
     public static function setHttp(Http $http)

@@ -33,18 +33,18 @@ class AliyunRequest extends Request
     }
 
     /**
-     * @param mixed $images
+     * @param  mixed  $images
      */
     protected function mergeOptions($images, array $options): array
     {
         $images = $this->filterOneImage($images, 'Aliyun ocr only one image can be identified at a time, default to array[0].');
         $format = $options['_format'] ?? 'inputs';
 
-        if (!in_array($format, $this->requestFormats, true)) {
-            throw new InvalidArgumentException(sprintf('Unallowed format type, only [%s]', join($this->requestFormats, ',')));
+        if (! in_array($format, $this->requestFormats, true)) {
+            throw new InvalidArgumentException(sprintf('Unallowed format type, only [%s]', implode($this->requestFormats, ',')));
         }
 
-        $format = 'format' . ucfirst($format);
+        $format = 'format'.ucfirst($format);
 
         return $this->{$format}($images, $options);
     }
@@ -52,13 +52,13 @@ class AliyunRequest extends Request
     /**
      * Basic request format.
      *
-     * @param mixed $images
+     * @param  mixed  $images
      */
     protected function formatBasic($images, array $options): array
     {
         // If gieved image is not url, try get image content to base64 encode.
         // Be careful, some methods do not support online images.
-        if (!FileConverter::isUrl($images)) {
+        if (! FileConverter::isUrl($images)) {
             $images = FileConverter::toBase64Encode($images);
         }
 
@@ -71,11 +71,11 @@ class AliyunRequest extends Request
     /**
      * Use inputs warp request data.
      *
-     * @param mixed $images
+     * @param  mixed  $images
      */
     protected function formatInputs($images, array $options): array
     {
-        if (!FileConverter::isUrl($images)) {
+        if (! FileConverter::isUrl($images)) {
             $images = FileConverter::toBase64Encode($images);
         }
 
@@ -98,15 +98,14 @@ class AliyunRequest extends Request
     /**
      * support online image.
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return array
      */
     protected function formatImgorurl($images, array $options)
     {
         $datas = [];
 
-        if (!FileConverter::isUrl($images)) {
+        if (! FileConverter::isUrl($images)) {
             $datas['img'] = FileConverter::toBase64Encode($images);
         } else {
             $datas['url'] = $images;
@@ -145,8 +144,7 @@ class AliyunRequest extends Request
     /**
      * AppKey And AppSecret signature.
      *
-     * @param mixed $request
-     *
+     * @param  mixed  $request
      * @return mixed
      */
     protected function signatureRequestUseAppSecret($request)
@@ -158,15 +156,14 @@ class AliyunRequest extends Request
     /**
      * Signature Request Use AppCode.
      *
-     * @param mixed $request
-     *
+     * @param  mixed  $request
      * @return mixed
      */
     public function signatureRequestUseAppCode($request)
     {
         $appcode = $this->app['config']->get('drivers.aliyun.appcode');
 
-        return $request->withHeader('Authorization', 'APPCODE ' . $appcode);
+        return $request->withHeader('Authorization', 'APPCODE '.$appcode);
     }
 
     protected function canUseSignatureWay(): bool
@@ -174,6 +171,6 @@ class AliyunRequest extends Request
         $id = $this->app['config']->get('drivers.aliyun.secret_id');
         $key = $this->app['config']->get('drivers.aliyun.secret_key');
 
-        return !empty($id) && !empty($key);
+        return ! empty($id) && ! empty($key);
     }
 }

@@ -39,7 +39,7 @@ abstract class Request implements RequestInterface
     /**
      * Auto regist http and container instance.
      *
-     * @param ContainerInterface $container
+     * @param  ContainerInterface  $container
      */
     public function __construct(Http $http, ContainerInterface $app)
     {
@@ -68,14 +68,13 @@ abstract class Request implements RequestInterface
     /**
      * Register global http log middleware.
      *
-     * @param ContainerInterface $app
-     *
+     * @param  ContainerInterface  $app
      * @return callable
      */
     protected function logMiddleware()
     {
         $driver = $this->app['config']->get('log.default');
-        $config = $this->app['config']->get('log.channels.' . $driver);
+        $config = $this->app['config']->get('log.channels.'.$driver);
         $logger = $this->app['logger'];
 
         // because base64 image is very big, we just record request header if you not set formater in you log configurage.
@@ -108,8 +107,7 @@ abstract class Request implements RequestInterface
     /**
      * Translation $images and $options to guzzle http options.
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return array
      */
     abstract public function send($url, $images, array $options = []): ResponseInterface;
@@ -137,8 +135,7 @@ abstract class Request implements RequestInterface
     /**
      * Filter images to one.
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return mixed
      */
     protected function filterOneImage($images, $message = 'Only one image can be operated at a time.')

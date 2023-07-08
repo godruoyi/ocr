@@ -26,7 +26,7 @@ class CustomServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param ContainerInterface $container A container instance
+     * @param  ContainerInterface  $container A container instance
      */
     public function register(ContainerInterface $container)
     {

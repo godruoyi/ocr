@@ -70,7 +70,6 @@ class ArrTest extends TestCase
         $this->assertSame('default', Arr::first([], null, 'default'));
         $this->assertSame('bar', Arr::first($array, null, 'default'));
 
-
         $this->assertSame('bar', Arr::first($array, function ($v, $k) {
             return $k === 'foo';
         }));

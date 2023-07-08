@@ -26,10 +26,8 @@ class HuaweiClient implements Client
     /**
      * Fire a ocr http request.
      *
-     * @param string $url
-     * @param mixed $images
-     * @param array $options
-     * @return ResponseInterface
+     * @param  string  $url
+     * @param  mixed  $images
      */
     public function request($url, $images, array $options = []): ResponseInterface
     {

@@ -79,7 +79,7 @@ class BaiduClientTest extends TestCase
         ];
 
         $this->application->getContainer()->bind(BaiduRequest::class, function () use ($methods) {
-            $request = \Mockery::mock('Request, ' . BaiduRequest::class);
+            $request = \Mockery::mock('Request, '.BaiduRequest::class);
             $request->shouldReceive('send')
                 ->times(count($methods))
                 ->andReturn(new Response(200, [], 'OK'));
@@ -90,14 +90,14 @@ class BaiduClientTest extends TestCase
             if ($method == 'asynTableInfo') {
                 $response = $this->application->baidu->$method('a', 'b');
             } else {
-                $response = $this->application->baidu->$method(__DIR__ . '/../stubs/common.png', [
+                $response = $this->application->baidu->$method(__DIR__.'/../stubs/common.png', [
                     'language_type' => 'ENG',
                 ]);
             }
 
             $this->assertInstanceOf(ResponseInterface::class, $response);
             $response->getBody()->rewind();
-            $this->assertSame("OK", $response->getBody()->getContents());
+            $this->assertSame('OK', $response->getBody()->getContents());
         }
     }
 
@@ -110,7 +110,7 @@ class BaiduClientTest extends TestCase
         ], $http);
         $this->application->getContainer()['http'] = $http;
 
-        $response = $this->application->baidu->generalBasic(__DIR__ . '/../stubs/common.png', [
+        $response = $this->application->baidu->generalBasic(__DIR__.'/../stubs/common.png', [
             'language_type' => 'ENG',
         ]);
 

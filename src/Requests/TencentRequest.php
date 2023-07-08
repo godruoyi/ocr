@@ -41,11 +41,6 @@ class TencentRequest extends Request
 
     /**
      * sdk default options.
-     *
-     * @param string $action
-     * @param string $region
-     * @param string $apiVersion
-     * @return array
      */
     protected function requestOptions(string $action, string $region = '', string $apiVersion = '2018-11-19'): array
     {
@@ -58,7 +53,7 @@ class TencentRequest extends Request
             'X-TC-Version' => $apiVersion,
         ];
 
-        if (!empty($region)) {
+        if (! empty($region)) {
             $headers['X-TC-Region'] = $region;
         }
 
@@ -94,8 +89,7 @@ class TencentRequest extends Request
     /**
      * Format reqyest body.
      *
-     * @param mixed $images
-     *
+     * @param  mixed  $images
      * @return array
      */
     protected function formatRequestBody($images, array $options = [])

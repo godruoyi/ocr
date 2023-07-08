@@ -67,9 +67,8 @@ class Http
     /**
      * Send A Http Get Request.
      *
-     * @param string $url
-     * @param array $params
-     *
+     * @param  string  $url
+     * @param  array  $params
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function get($url, $params = [], array $options = [])
@@ -80,9 +79,8 @@ class Http
     /**
      * Send A Http POST Request.
      *
-     * @param string $url
-     * @param array $params
-     *
+     * @param  string  $url
+     * @param  array  $params
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function post($url, $params = [], array $options = [])
@@ -95,10 +93,9 @@ class Http
     /**
      * Send A Http Request For GuzzleHttp Http Client.
      *
-     * @param string $method
-     * @param string $url
-     * @param array $options
-     *
+     * @param  string  $method
+     * @param  string  $url
+     * @param  array  $options
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function request($method, $url, $options = [])
@@ -124,11 +121,10 @@ class Http
     /**
      * JSON request.
      *
-     * @param string $url
-     * @param string|array $data
-     * @param array $queries
-     * @param int $encodeOption
-     *
+     * @param  string  $url
+     * @param  string|array  $data
+     * @param  array  $queries
+     * @param  int  $encodeOption
      * @return ResponseInterface
      *
      * @throws HttpException
@@ -174,7 +170,7 @@ class Http
      */
     public function getClient()
     {
-        if (empty($this->client) || !($this->client instanceof HttpClient)) {
+        if (empty($this->client) || ! ($this->client instanceof HttpClient)) {
             $this->client = new HttpClient();
         }
 

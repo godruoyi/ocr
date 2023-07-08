@@ -47,6 +47,7 @@ class Application extends Manager
 
     /**
      * Create application instance.
+     *
      * @throws Exception
      */
     public function __construct(array $config = [])
@@ -69,6 +70,7 @@ class Application extends Manager
 
     /**
      * Boot application for ocr.
+     *
      * @throws Exception
      */
     protected function boot()
@@ -81,6 +83,7 @@ class Application extends Manager
      * Registe core alias and service.
      *
      * @return void
+     *
      * @throws Exception
      */
     protected function registerCore()
@@ -114,7 +117,7 @@ class Application extends Manager
     /**
      * Register a service to container.
      *
-     * @param mixed $service
+     * @param  mixed  $service
      */
     public function register($service)
     {
@@ -138,8 +141,7 @@ class Application extends Manager
     /**
      * Recover __get method.
      *
-     * @param mixed $key
-     *
+     * @param  mixed  $key
      * @return mixed
      */
     public function __get($key)
@@ -149,9 +151,6 @@ class Application extends Manager
 
     /**
      * RebindCache cache support.
-     *
-     * @param CacheInterface $cache
-     * @return Application
      */
     public function rebindCache(CacheInterface $cache): self
     {

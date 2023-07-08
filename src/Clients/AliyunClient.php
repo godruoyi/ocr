@@ -26,23 +26,41 @@ use Godruoyi\OCR\Requests\AliyunRequest;
 class AliyunClient extends Client
 {
     public const OCR_IDCARD = 'https://dm-51.data.aliyun.com/rest/160601/ocr/ocr_idcard.json';
+
     public const OCR_VEHICLE = 'https://dm-53.data.aliyun.com/rest/160601/ocr/ocr_vehicle.json';
+
     public const OCR_DRIVER_LICENSE = 'https://dm-52.data.aliyun.com/rest/160601/ocr/ocr_driver_license.json';
+
     public const OCR_BUSINESS_LICENSE = 'https://dm-58.data.aliyun.com/rest/160601/ocr/ocr_business_license.json';
+
     public const OCR_BANK_CARD = 'http://yhk.market.alicloudapi.com/rest/160601/ocr/ocr_bank_card.json';
+
     public const OCR_BUSINESS_CARD = 'https://dm-57.data.aliyun.com/rest/160601/ocr/ocr_business_card.json';
+
     public const OCR_TRAIN_TICKET = 'http://ocrhcp.market.alicloudapi.com/api/predict/ocr_train_ticket';
+
     public const OCR_VEHICLE_PLATE = 'http://ocrcp.market.alicloudapi.com/rest/160601/ocr/ocr_vehicle_plate.json';
+
     public const OCR_GENERAL = 'http://tysbgpu.market.alicloudapi.com/api/predict/ocr_general';
+
     public const OCR_PASSPORT = 'https://ocrhz.market.alicloudapi.com/rest/160601/ocr/ocr_passport.json';
+
     public const TABLE_PARSE = 'https://form.market.alicloudapi.com/api/predict/ocr_table_parse';
+
     public const OCR_VIN = 'https://vin.market.alicloudapi.com/api/predict/ocr_vin';
+
     public const OCR_INVOICE = 'https://ocrapi-invoice.taobao.com/ocrservice/invoice';
+
     public const OCR_GENERAL_ADVANCED = 'https://ocrapi-advanced.taobao.com/ocrservice/advanced';
+
     public const OCR_HOUSECERT = 'https://ocrapi-house-cert.taobao.com/ocrservice/houseCert';
+
     public const OCR_DOCUMENT = 'https://ocrapi-document.taobao.com/ocrservice/document';
+
     public const OCR_ECOMMERCE = 'https://ocrapi-ecommerce.taobao.com/ocrservice/ecommerce';
+
     public const OCR_UGC = 'https://ocrapi-ugc.taobao.com/ocrservice/ugc';
+
     public const OCR_CUSTOM = 'https://ocrdiy.market.alicloudapi.com/api/predict/ocr_sdt';
 
     /**
@@ -58,11 +76,10 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi010401.html#sku=yuncode440100000
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    side              N            string      默认face，身份证正反面类型:face/back
-     *
      * @return array
      */
     public function idcard($images, array $options = [])
@@ -77,10 +94,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57002003/cmapi011791.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    side              N            string      默认face，行驶证正反面类型:face/back
-     *
      * @return array
      */
     public function vehicle($images, array $options = [])
@@ -95,11 +111,10 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57002002/cmapi010402.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    side              N            string      默认face，驾驶证首页/副页:face/back
-     *
      * @return array
      */
     public function driverLicense($images, array $options = [])
@@ -114,10 +129,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi013592.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    null
-     *
      * @return array
      */
     public function businessLicense($images, array $options = [])
@@ -130,10 +144,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi016870.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    null
-     *
      * @return array
      */
     public function bankCard($images, array $options = [])
@@ -146,10 +159,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi013591.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    null
-     *
      * @return array
      */
     public function businessCard($images, array $options = [])
@@ -162,10 +174,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi016682.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    null
-     *
      * @return array
      */
     public function passport($images, array $options = [])
@@ -178,14 +189,13 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi024968.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    format             N          string      format 输出格式html/json/xlsx
      *                                    dir_assure         N          bool        图片方向是否确定是正向的: true(确定)/false(不确定)
      *                                    line_less          N          bool        是否无线条: true(无线条,或者只有横线没有竖线)/false(有线条)
      *                                    skip_detection     N          bool        是否跳过检测，如果没有检测到表格，可以设置"skip_detection":true
-     *
      * @return array
      */
     public function tableParse($images, array $options = [])
@@ -200,10 +210,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi023049.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
-     *
      * @return array
      */
     public function vin($images, array $options = [])
@@ -216,10 +225,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi020096.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    null
-     *
      * @return array
      */
     public function trainTicket($images, array $options = [])
@@ -234,12 +242,11 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi020094.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    multi_crop       N           boolean    当设成true时,会做多crop预测，只有当多crop返回的结果一致，
      *                                    并且置信度>0.9时，才返回结果
-     *
      * @return array
      */
     public function vehiclePlate($images, array $options = [])
@@ -254,15 +261,14 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi020020.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    min_size  16,                           图片中文字的最小高度，单位像素
      *                                    output_prob  true,                      是否输出文字框的概率
      *                                    output_keypoints false,                 是否输出文字框角点
      *                                    skip_detection false                    是否跳过文字检测步骤直接进行文字识别
      *                                    without_predicting_direction false      是否关闭文字行方向预测
-     *
      * @return array
      */
     public function general($images, array $options = [])
@@ -278,15 +284,14 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi028554.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    prob              N           bool        是否需要识别结果中每一行的置信度，默认不需要。 true：需要 false：不需要
      *                                    charInfo          N           bool        是否需要单字识别功能，默认不需要。 true：需要 false：不需要
      *                                    rotate            N           bool        是否需要自动旋转功能，默认不需要。 true：需要 false：不需要
      *                                    table             N           bool        是否需要表格识别功能，默认不需要。 true：需要 false：不需要
      *                                    sortPage          N           bool        字块返回顺序，false表示从左往右，从上到下的顺序，true表示从上到下，从左往右的顺序，默认false
-     *
      * @return array
      */
     public function generalAdvanced($images, array $options = [])
@@ -309,10 +314,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi027758.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
-     *
      * @return array
      */
     public function invoice($images, array $options = [])
@@ -327,10 +331,9 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi028523.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
-     *
      * @return array
      */
     public function houseCert($images, array $options = [])
@@ -345,11 +348,10 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi023866.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    prob              N           bool        是否需要识别结果中每一行的置信度，默认不需要。 true：需要 false：不需要
-     *
      * @return array
      */
     public function document($images, array $options = [])
@@ -364,11 +366,10 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi023869.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    prob              N           bool        是否需要识别结果中每一行的置信度，默认不需要。 true：需要 false：不需要
-     *
      * @return array
      */
     public function ugc($images, array $options = [])
@@ -383,11 +384,10 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi029975.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    prob              N           bool        是否需要识别结果中每一行的置信度，默认不需要。 true：需要 false：不需要
-     *
      * @return array
      */
     public function custom($images, array $options = [])
@@ -402,11 +402,10 @@ class AliyunClient extends Client
      *
      * @see https://market.aliyun.com/products/57124001/cmapi023866.html
      *
-     * @param string|SplFIleInfo $images
-     * @param array $options
+     * @param  string|SplFIleInfo  $images
+     * @param  array  $options
      *                                    参数              是否可选     类型        可选范围/说明
      *                                    prob              N           bool        是否需要识别结果中每一行的置信度，默认不需要。 true：需要 false：不需要
-     *
      * @return array
      */
     public function ecommerce($images, array $options = [])

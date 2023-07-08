@@ -49,14 +49,15 @@ class BaiduRequest extends Request
      */
     public function send($url, $images, array $options = []): ResponseInterface
     {
-        $url = $url . '?access_token=' . $this->accessToken->getAccessToken();
+        $url = $url.'?access_token='.$this->accessToken->getAccessToken();
+
         return $this->http->post($url, $this->mergeOptions($images, $options), [
             'base_uri' => self::BASEURL,
         ]);
     }
 
     /**
-     * @param mixed $images
+     * @param  mixed  $images
      */
     public function mergeOptions($images, array $options): array
     {

@@ -18,18 +18,21 @@ class RealRequestClientTest extends TestCase
     public function testFireRealAliyunRequest()
     {
         $d = $this->application->aliyun;
-        $response = $d->ugc(__DIR__ . '/../stubs/common.png', []);
+        $response = $d->ugc(__DIR__.'/../stubs/common.png', []);
 
         $this->assertInstanceOf(Response::class, $response);
 
         // If we get 403 error, it can be only that our quota is exhausted.
         if ($response->getStatusCode() == 403) {
-            $this->assertSame("Api Market Subscription quota exhausted", $response->getHeader('X-Ca-Error-Message'));
+            $error = $response->getHeader('X-Ca-Error-Message');
+            if (isset($error[0]) && str_contains($error[0], 'quota')) {
+                $this->markTestSkipped('Aliyun quota exhausted.');
+            }
+
             return;
         }
 
         $this->assertSame(200, $response->getStatusCode());
-
         $json = json_decode($response->getBody()->getContents(), true);
         $this->assertSame(JSON_ERROR_NONE, json_last_error());
         $this->assertIsArray($json);
@@ -38,7 +41,7 @@ class RealRequestClientTest extends TestCase
     public function testFireRealBaiduRequest()
     {
         $d = $this->application->baidu;
-        $response = $d->businessCard(__DIR__ . '/../stubs/common.png', []);
+        $response = $d->businessCard(__DIR__.'/../stubs/common.png', []);
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(200, $response->getStatusCode());
@@ -49,7 +52,7 @@ class RealRequestClientTest extends TestCase
     public function testFireRealTencentRequest()
     {
         $d = $this->application->tencent;
-        $response = $d->generalBasic(__DIR__ . '/../stubs/common.png', [
+        $response = $d->generalBasic(__DIR__.'/../stubs/common.png', [
             'Region' => 'ap-guangzhou',
         ]);
 

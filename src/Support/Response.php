@@ -11,6 +11,7 @@
 namespace Godruoyi\OCR\Support;
 
 use GuzzleHttp\Psr7\Response as GuzzleHttpResponse;
+use ReturnTypeWillChange;
 
 class Response extends GuzzleHttpResponse implements \ArrayAccess
 {
@@ -28,7 +29,7 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
             $response->getProtocolVersion(),
             $response->getReasonPhrase()
         );
-        
+
         $response->getBody()->rewind();
 
         return $response;
@@ -40,7 +41,7 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
     public function toArray(): array
     {
         $this->getBody()->rewind();
-        $body = (string)$this->getBody();
+        $body = (string) $this->getBody();
 
         if (empty($body)) {
             return [];
@@ -64,11 +65,11 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
     {
         $this->getBody()->rewind();
 
-        return (string)$this->getBody();
+        return (string) $this->getBody();
     }
 
     /**
-     * @param int $offset
+     * @param  int  $offset
      */
     public function offsetExists($offset): bool
     {
@@ -77,12 +78,8 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
         return isset($item[$offset]);
     }
 
-    /**
-     * @param mixed $offset
-     *
-     * @return mixed
-     */
-    public function offsetGet($offset)
+    #[ReturnTypeWillChange]
+    public function offsetGet(mixed $offset): mixed
     {
         $item = $this->toArray();
 
@@ -93,22 +90,11 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
         return null;
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
     }
 
-    /**
-     * @param mixed $offset
-     *
-     * @return mixed
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
     }
 }

@@ -46,12 +46,12 @@ class FileConverterTest extends TestCase
             ],
             [
                 'name' => 'test isResource',
-                'file' => @fopen(__DIR__ . '/../stubs/config.php', 'r'),
+                'file' => @fopen(__DIR__.'/../stubs/config.php', 'r'),
             ],
             [
                 'name' => 'test isSplFileInfo',
-                'file' => new SplFileInfo(__DIR__ . '/../stubs/config.php'),
-            ]
+                'file' => new SplFileInfo(__DIR__.'/../stubs/config.php'),
+            ],
         ];
 
         foreach ($tests as $t) {
@@ -86,7 +86,7 @@ class FileConverterTest extends TestCase
 
     public function testIsSplFileInfo()
     {
-        $this->assertTrue(FileConverter::isSplFileInfo(new SplFileInfo(__DIR__ . '/../stubs/config.php')));
+        $this->assertTrue(FileConverter::isSplFileInfo(new SplFileInfo(__DIR__.'/../stubs/config.php')));
     }
 
     public function testGetOnlineImageContent()
@@ -100,7 +100,7 @@ class FileConverterTest extends TestCase
 
     public function testIsFile()
     {
-        $this->assertTrue(FileConverter::isFile(__DIR__ . '/../stubs/config.php'));
+        $this->assertTrue(FileConverter::isFile(__DIR__.'/../stubs/config.php'));
     }
 
     public function testToBase64Encode()

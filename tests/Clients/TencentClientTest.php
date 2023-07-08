@@ -94,21 +94,22 @@ class TencentClientTest extends TestCase
         ];
 
         $this->application->getContainer()->bind(TencentRequest::class, function () use ($methods) {
-            $request = \Mockery::mock('Request, ' . TencentRequest::class);
+            $request = \Mockery::mock('Request, '.TencentRequest::class);
             $request->shouldReceive('send')
                 ->times(count($methods))
                 ->andReturn(new Response(200, [], 'OK'));
+
             return $request;
         });
 
         foreach ($methods as $method) {
-            $response = $this->application->tencent->$method(__DIR__ . '/../stubs/common.png', [
-                'Region' => 'ap-shanghai'
+            $response = $this->application->tencent->$method(__DIR__.'/../stubs/common.png', [
+                'Region' => 'ap-shanghai',
             ]);
 
             $this->assertInstanceOf(ResponseInterface::class, $response);
             $response->getBody()->rewind();
-            $this->assertSame("OK", $response->getBody()->getContents());
+            $this->assertSame('OK', $response->getBody()->getContents());
         }
     }
 }

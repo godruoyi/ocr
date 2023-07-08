@@ -33,7 +33,7 @@ class Encoder
 
             $v = null === $v ? '' : $v;
 
-            $headerStrings[] = strtolower(trim($k)) . ':' . strtolower(trim($v));
+            $headerStrings[] = strtolower(trim($k)).':'.strtolower(trim($v));
         }
 
         sort($headerStrings);
