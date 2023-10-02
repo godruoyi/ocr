@@ -49,7 +49,7 @@ class Response extends GuzzleHttpResponse implements \ArrayAccess
 
         $response = json_decode($body, true);
 
-        if (JSON_ERROR_NONE != json_last_error()) {
+        if (json_last_error() != JSON_ERROR_NONE) {
             return [];
         }
 

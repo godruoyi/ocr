@@ -142,7 +142,7 @@ class Arr
 
         $keys = (array) $keys;
 
-        if (0 === count($keys)) {
+        if (count($keys) === 0) {
             return;
         }
 
@@ -195,7 +195,7 @@ class Arr
             return $array[$key];
         }
 
-        if (false === strpos($key, '.')) {
+        if (strpos($key, '.') === false) {
             return $array[$key] ?? self::vvalue($default);
         }
 
@@ -364,7 +364,7 @@ class Arr
             return $array[array_rand($array)];
         }
 
-        if (0 === (int) $number) {
+        if ((int) $number === 0) {
             return [];
         }
 
@@ -398,7 +398,7 @@ class Arr
         $keys = explode('.', $key);
 
         foreach ($keys as $i => $key) {
-            if (1 === count($keys)) {
+            if (count($keys) === 1) {
                 break;
             }
 

@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "monolog/monolog": "^3.0",
         "psr/log": "^2.0 || ^3.0",
-        "godruoyi/easy-container": "^2.0",
+        "godruoyi/easy-container": "^2.0 || ^3.0",
         "psr/simple-cache": "^2.0 || ^3.0",
         "symfony/cache": "^6.1",
         "ext-json": "*"
