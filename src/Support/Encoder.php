@@ -20,7 +20,7 @@ class Encoder
     public static function getCanonicalHeaders(array $headers)
     {
         // 如果没有 headers，则返回空串
-        if (0 == count($headers)) {
+        if (count($headers) == 0) {
             return '';
         }
 
@@ -31,7 +31,7 @@ class Encoder
                 continue;
             }
 
-            $v = null === $v ? '' : $v;
+            $v = $v === null ? '' : $v;
 
             $headerStrings[] = strtolower(trim($k)).':'.strtolower(trim($v));
         }

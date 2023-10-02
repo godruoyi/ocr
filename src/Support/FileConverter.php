@@ -93,7 +93,7 @@ class FileConverter
      */
     public static function isUrl($file)
     {
-        return false !== filter_var($file, FILTER_VALIDATE_URL);
+        return filter_var($file, FILTER_VALIDATE_URL) !== false;
     }
 
     /**
