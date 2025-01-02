@@ -133,7 +133,7 @@ class Http
     {
         is_array($data) && $data = json_encode($data, $encodeOption);
 
-        $this->setHeaders(['Content-Type' => 'application/json']);
+        $options = array_merge(['headers' => ['Content-Type' => 'application/json']], $options);
 
         return $this->request('POST', $url, array_merge([
             'query' => $queries,
