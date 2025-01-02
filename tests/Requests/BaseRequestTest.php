@@ -21,7 +21,7 @@ use Test\TestCase;
 
 class BaseRequestTest extends TestCase
 {
-    public function testUrlAuto2Base64()
+    public function test_url_auto2_base64()
     {
         $http = $this->mockeryHttp();
 
@@ -62,7 +62,7 @@ class BaseRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testSupportOnlineInamge()
+    public function test_support_online_inamge()
     {
         $http = $this->mockeryHttp();
 

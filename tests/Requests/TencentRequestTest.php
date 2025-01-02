@@ -16,7 +16,7 @@ use Test\TestCase;
 
 class TencentRequestTest extends TestCase
 {
-    public function testSupportOnlineImages()
+    public function test_support_online_images()
     {
         $http = $this->mockeryHttp();
 

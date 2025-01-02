@@ -146,7 +146,7 @@ class Http
      *
      * @return mixed
      */
-    public function middlewares(callable $middleware, string $name = null)
+    public function middlewares(callable $middleware, ?string $name = null)
     {
         $this->middlewares[] = compact('middleware', 'name');
     }
@@ -171,7 +171,7 @@ class Http
     public function getClient()
     {
         if (empty($this->client) || ! ($this->client instanceof HttpClient)) {
-            $this->client = new HttpClient();
+            $this->client = new HttpClient;
         }
 
         return $this->client;

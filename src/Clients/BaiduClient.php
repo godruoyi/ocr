@@ -274,13 +274,13 @@ class BaiduClient extends Client
      * @see https://ai.baidu.com/ai-doc/OCR/Ik3h7y238
      *
      * @param  string|\SplFileInfo  $requestId
-     * @param  array  $requestType 期望获取结果的类型，取值为 “excel” 时返回 xls 文件的地址，
-     *                                         取值为 “json” 时返回 json 格式的字符串,默认为 ”excel”
+     * @param  array  $requestType  期望获取结果的类型，取值为 “excel” 时返回 xls 文件的地址，
+     *                              取值为 “json” 时返回 json 格式的字符串,默认为 ”excel”
      * @return array
      *
      * @throws \RuntimeException
      */
-    public function asynTableInfo(string $requestId, string $requestType = null)
+    public function asynTableInfo(string $requestId, ?string $requestType = null)
     {
         $uri = 'https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result';
 

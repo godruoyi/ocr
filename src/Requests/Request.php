@@ -100,9 +100,7 @@ abstract class Request implements RequestInterface
     /**
      * custon init method.
      */
-    protected function init()
-    {
-    }
+    protected function init() {}
 
     /**
      * Translation $images and $options to guzzle http options.

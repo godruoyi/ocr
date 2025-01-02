@@ -64,7 +64,7 @@ class FileConverter
         }
 
         try {
-            $http = self::$http ?? new Http();
+            $http = self::$http ?? new Http;
 
             $response = $http->get($url);
 

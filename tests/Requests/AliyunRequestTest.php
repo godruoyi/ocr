@@ -23,7 +23,7 @@ class AliyunRequestTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testBasicSend()
+    public function test_basic_send()
     {
         $app = new Application([
             'drivers' => [
@@ -42,7 +42,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testBasicSendEnableLog()
+    public function test_basic_send_enable_log()
     {
         $app = new Application([
             'drivers' => [
@@ -67,7 +67,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testCanNotUseSecretIDAndSecret()
+    public function test_can_not_use_secret_id_and_secret()
     {
         $app = new Application([
             'drivers' => [
@@ -89,7 +89,7 @@ class AliyunRequestTest extends TestCase
         $request->send('url', __DIR__.'/../stubs/common.png');
     }
 
-    public function testUseAppCode()
+    public function test_use_app_code()
     {
         $app = new Application([
             'drivers' => [
@@ -109,7 +109,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testInvalidImagesShouldThrowAError()
+    public function test_invalid_images_should_throw_a_error()
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -117,7 +117,7 @@ class AliyunRequestTest extends TestCase
         $request->send('url', []);
     }
 
-    public function testInvalidFormatType()
+    public function test_invalid_format_type()
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -125,7 +125,7 @@ class AliyunRequestTest extends TestCase
         $request->send('url', [], ['_format' => 'invalid']);
     }
 
-    public function testFormatInputsIsURLImage()
+    public function test_format_inputs_is_url_image()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')
@@ -140,7 +140,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testFormatInputs()
+    public function test_format_inputs()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')
@@ -157,7 +157,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testFormatBasic()
+    public function test_format_basic()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')
@@ -174,7 +174,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testFormatBasicIsURLImage()
+    public function test_format_basic_is_url_image()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')
@@ -189,7 +189,7 @@ class AliyunRequestTest extends TestCase
         $this->assertSame('OK', $response->getBody()->getContents());
     }
 
-    public function testFormatImgOrUrl()
+    public function test_format_img_or_url()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')

@@ -24,7 +24,7 @@ class HttpServiceProvider implements ServiceProviderInterface
     public function register(ContainerInterface $container)
     {
         $container->singleton('http', function ($app) {
-            $http = new Http();
+            $http = new Http;
 
             $http->customHttpHandler($this->processHttpError());
 

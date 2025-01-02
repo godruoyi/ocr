@@ -22,7 +22,7 @@ class TencentSignatureV3Test extends TestCase
 
     protected $secretKey = 'Gu5t9xGARNpq86cd98joQYCN3*******';
 
-    public function testHashedRequestPayload()
+    public function test_hashed_request_payload()
     {
         $signer = new TencentSignatureV3($this->secretId, $this->secretKey);
         $body = '{"Limit": 1, "Filters": [{"Values": ["\u672a\u547d\u540d"], "Name": "instance-name"}]}';
@@ -30,7 +30,7 @@ class TencentSignatureV3Test extends TestCase
         $this->assertSame($signer->hashedRequestPayload($body), '35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064');
     }
 
-    public function testCanonicalRequest()
+    public function test_canonical_request()
     {
         $signer = new TencentSignatureV3($this->secretId, $this->secretKey);
 
@@ -51,7 +51,7 @@ class TencentSignatureV3Test extends TestCase
         $this->assertSame($signer->canonicalRequest($request), "POST\n/\n\ncontent-type:application/json; charset=utf-8\nhost:cvm.tencentcloudapi.com\n\ncontent-type;host\n35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064");
     }
 
-    public function testAuthorizationInvalidArgumentException()
+    public function test_authorization_invalid_argument_exception()
     {
         $this->expectException(InvalidArgumentException::class);
 

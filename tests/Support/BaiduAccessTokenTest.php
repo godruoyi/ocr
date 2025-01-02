@@ -19,7 +19,7 @@ use Test\TestCase;
 
 class BaiduAccessTokenTest extends TestCase
 {
-    public function testGetAccessToken()
+    public function test_get_access_token()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')
@@ -45,7 +45,7 @@ class BaiduAccessTokenTest extends TestCase
         $this->assertSame('access_token2', $token->getAccessToken());
     }
 
-    public function testGetAccessTokenFail()
+    public function test_get_access_token_fail()
     {
         $http = $this->mockeryHttp();
         $http->shouldReceive('json')

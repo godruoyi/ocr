@@ -19,22 +19,22 @@ use Test\TestCase;
 
 class FileConverterTest extends TestCase
 {
-    public function testIsString()
+    public function test_is_string()
     {
         $this->assertFalse(is_string(FileConverter::isString('test')));
     }
 
-    public function testIsResource()
+    public function test_is_resource()
     {
         $this->assertTrue(FileConverter::isResource(fopen('php://temp', 'r')));
     }
 
-    public function testIsUrl()
+    public function test_is_url()
     {
         $this->assertTrue(FileConverter::isUrl('https://www.baidu.com'));
     }
 
-    public function testGetContent()
+    public function test_get_content()
     {
         $http = $this->mockHttpWithResponse(new Response(200, [], 'test'));
         FileConverter::setHttp($http);
@@ -59,7 +59,7 @@ class FileConverterTest extends TestCase
         }
     }
 
-    public function testGetContentImage()
+    public function test_get_content_image()
     {
         $image = imagecreate(100, 100);
 
@@ -67,29 +67,29 @@ class FileConverterTest extends TestCase
         $this->assertNotEmpty(FileConverter::getContent($image));
     }
 
-    public function testGetContentInvalidString()
+    public function test_get_content_invalid_string()
     {
         $this->expectException(RuntimeException::class);
         $this->assertNotEmpty(FileConverter::getContent('invalid'));
     }
 
-    public function testGetContentInvalidType()
+    public function test_get_content_invalid_type()
     {
         $this->expectException(RuntimeException::class);
-        $this->assertNotEmpty(FileConverter::getContent(new stdClass()));
+        $this->assertNotEmpty(FileConverter::getContent(new stdClass));
     }
 
-    public function testIsImage()
+    public function test_is_image()
     {
         $this->assertTrue(FileConverter::isImage(imagecreate(100, 100)));
     }
 
-    public function testIsSplFileInfo()
+    public function test_is_spl_file_info()
     {
         $this->assertTrue(FileConverter::isSplFileInfo(new SplFileInfo(__DIR__.'/../stubs/config.php')));
     }
 
-    public function testGetOnlineImageContent()
+    public function test_get_online_image_content()
     {
         $http = $this->mockHttpWithResponse(new Response(200, [], 'test'));
         FileConverter::setHttp($http);
@@ -98,12 +98,12 @@ class FileConverterTest extends TestCase
         $this->assertSame('test', FileConverter::getOnlineImageContent('https://example.com'));
     }
 
-    public function testIsFile()
+    public function test_is_file()
     {
         $this->assertTrue(FileConverter::isFile(__DIR__.'/../stubs/config.php'));
     }
 
-    public function testToBase64Encode()
+    public function test_to_base64_encode()
     {
         $http = $this->mockHttpWithResponse(new Response(200, [], 'test'));
         FileConverter::setHttp($http);

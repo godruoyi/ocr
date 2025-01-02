@@ -24,7 +24,7 @@ use Symfony\Component\Cache\Psr16Cache;
 
 class ApplicationTest extends TestCase
 {
-    public function testBasic()
+    public function test_basic()
     {
         $application = new Application($this->config);
         $this->assertInstanceOf(Application::class, $application);
@@ -35,7 +35,7 @@ class ApplicationTest extends TestCase
         $this->assertInstanceOf(Config::class, $app['config']);
     }
 
-    public function testAppHasRegisteredCoreComponent()
+    public function test_app_has_registered_core_component()
     {
         $application = new Application(['a' => 1]);
         $app = $application->getContainer();
@@ -45,13 +45,13 @@ class ApplicationTest extends TestCase
         $this->assertTrue($app->bound('log'));
     }
 
-    public function testGetContainer()
+    public function test_get_container()
     {
         $application = new Application(['a' => 1]);
         $this->assertInstanceOf(Container::class, $application->getContainer());
     }
 
-    public function testRegisterServiceProvider()
+    public function test_register_service_provider()
     {
         $this->application->register(CustomServiceProvider::class);
 
@@ -68,7 +68,7 @@ class ApplicationTest extends TestCase
         $this->assertSame('custom', $app->get('custom3'));
     }
 
-    public function testRegisterServiceProviderNotExists()
+    public function test_register_service_provider_not_exists()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported registration types');
@@ -76,7 +76,7 @@ class ApplicationTest extends TestCase
         $this->application->register('not_exists');
     }
 
-    public function testRegisterServiceClosure()
+    public function test_register_service_closure()
     {
         $this->application->register(function ($app) {
             $app->singleton('custom', function () {
@@ -101,14 +101,14 @@ class ApplicationTest extends TestCase
         $this->assertSame('custom', $app->get('custom3'));
     }
 
-    public function testGet()
+    public function test_get()
     {
         $this->assertInstanceOf(AliyunClient::class, $this->application->aliyun);
         $this->assertInstanceOf(BaiduClient::class, $this->application->baidu);
         $this->assertInstanceOf(TencentClient::class, $this->application->tencent);
     }
 
-    public function testGetUndefinedService()
+    public function test_get_undefined_service()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Driver [foo] not supported.');
@@ -116,7 +116,7 @@ class ApplicationTest extends TestCase
         $this->application->foo->x();
     }
 
-    public function testGetDefaultDriver()
+    public function test_get_default_driver()
     {
         $app = new Application([
             'default' => 'aliyun',
@@ -125,28 +125,28 @@ class ApplicationTest extends TestCase
         $this->assertSame('aliyun', $app->getDefaultDriver());
     }
 
-    public function testGetDefaultDriverEmpty()
+    public function test_get_default_driver_empty()
     {
-        $app = new Application();
+        $app = new Application;
 
         $this->assertEmpty($app->getDefaultDriver());
     }
 
-    public function testGetDefaultDriver2()
+    public function test_get_default_driver2()
     {
         $this->assertSame('aliyun', $this->application->getDefaultDriver());
     }
 
-    public function testDriver()
+    public function test_driver()
     {
-        $app = new Application();
+        $app = new Application;
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unable to resolve NULL driver for [Godruoyi\OCR\Application].');
         $app->driver(null);
     }
 
-    public function testCreateDriverNotExists()
+    public function test_create_driver_not_exists()
     {
         $app = new Application([
             'default' => 'foo',
@@ -157,9 +157,9 @@ class ApplicationTest extends TestCase
         $app->driver(null);
     }
 
-    public function testCallDriverManyTimesShouldSameInstance()
+    public function test_call_driver_many_times_should_same_instance()
     {
-        $app = new Application();
+        $app = new Application;
 
         $a = $app->driver('aliyun');
         $b = $app->driver('aliyun');
@@ -167,9 +167,9 @@ class ApplicationTest extends TestCase
         $this->assertSame($a, $b);
     }
 
-    public function testGetDrivers()
+    public function test_get_drivers()
     {
-        $app = new Application();
+        $app = new Application;
 
         $this->assertSame([], array_keys($app->getDrivers()));
 
@@ -183,7 +183,7 @@ class ApplicationTest extends TestCase
         $this->assertSame(['aliyun', 'baidu'], array_keys($app->getDrivers()));
     }
 
-    public function testExtends()
+    public function test_extends()
     {
         $app = new Application([
             'default' => 'foo',
@@ -200,7 +200,7 @@ class ApplicationTest extends TestCase
         $this->assertSame('foo', $app->driver('foo'));
     }
 
-    public function testCallMethod()
+    public function test_call_method()
     {
         $app = $this->application->getContainer();
 
@@ -210,14 +210,14 @@ class ApplicationTest extends TestCase
         $this->assertSame('OK1', $this->application->aliyun->idcard(__DIR__.'/stubs/common.png')->getBody()->getContents());
     }
 
-    public function testCallNotExistsDriver()
+    public function test_call_not_exists_driver()
     {
         $this->expectException(InvalidArgumentException::class);
 
         $this->application->tencentAi->idcard();
     }
 
-    public function testCallMethodWithDefault()
+    public function test_call_method_with_default()
     {
         $app = $this->application->getContainer();
 
@@ -227,9 +227,9 @@ class ApplicationTest extends TestCase
         $this->assertSame('OK1', $this->application->idcard(__DIR__.'/stubs/common.png')->getBody()->getContents());
     }
 
-    public function testRebindCache()
+    public function test_rebind_cache()
     {
-        $this->application->rebindCache(new Psr16Cache(new NullAdapter()));
+        $this->application->rebindCache(new Psr16Cache(new NullAdapter));
 
         $this->assertInstanceOf(CacheInterface::class, $this->application->getContainer()['cache']);
     }

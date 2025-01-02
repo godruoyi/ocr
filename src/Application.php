@@ -22,24 +22,18 @@ class Application extends Manager
 {
     /**
      * The container instance,.
-     *
-     * @var Container
      */
-    protected $container;
+    protected Container $container;
 
     /**
-     * OCR configurage.
-     *
-     * @var array
+     * OCR configure.
      */
-    protected $config;
+    protected array|Config $config;
 
     /**
      * The default service providers.
-     *
-     * @var array
      */
-    protected $defaultProviders = [
+    protected array $defaultProviders = [
         Providers\HttpServiceProvider::class,
         Providers\LogServiceProvider::class,
         Providers\CacheServiceProvider::class,
@@ -52,7 +46,7 @@ class Application extends Manager
      */
     public function __construct(array $config = [])
     {
-        $this->container = new Container();
+        $this->container = new Container;
         $this->config = new Config($config);
 
         $this->boot();
@@ -73,20 +67,19 @@ class Application extends Manager
      *
      * @throws Exception
      */
-    protected function boot()
+    protected function boot(): void
     {
         $this->registerCore();
         $this->registerDefaultProvider();
     }
 
     /**
-     * Registe core alias and service.
+     * Register core alias and service.
      *
-     * @return void
      *
      * @throws Exception
      */
-    protected function registerCore()
+    protected function registerCore(): void
     {
         $this->container->singleton('app', function ($app) {
             return $app;
@@ -104,10 +97,8 @@ class Application extends Manager
 
     /**
      * Register default service provider.
-     *
-     * @return void
      */
-    protected function registerDefaultProvider()
+    protected function registerDefaultProvider(): void
     {
         foreach ($this->defaultProviders as $p) {
             $this->register($p);
@@ -117,9 +108,9 @@ class Application extends Manager
     /**
      * Register a service to container.
      *
-     * @param  mixed  $service
+     * @throws Exception
      */
-    public function register($service)
+    public function register(mixed $service): void
     {
         if (is_string($service) && class_exists($service)) {
             $service = $this->container->make($service);

@@ -15,7 +15,7 @@ use Test\TestCase;
 
 class RealRequestClientTest extends TestCase
 {
-    public function testFireRealAliyunRequest()
+    public function test_fire_real_aliyun_request()
     {
         $d = $this->application->aliyun;
         $response = $d->ugc(__DIR__.'/../stubs/common.png', []);
@@ -38,7 +38,7 @@ class RealRequestClientTest extends TestCase
         $this->assertIsArray($json);
     }
 
-    public function testFireRealBaiduRequest()
+    public function test_fire_real_baidu_request()
     {
         $d = $this->application->baidu;
         $response = $d->businessCard(__DIR__.'/../stubs/common.png', []);
@@ -49,7 +49,7 @@ class RealRequestClientTest extends TestCase
         $this->assertNotEmpty($response->toArray());
     }
 
-    public function testFireRealTencentRequest()
+    public function test_fire_real_tencent_request()
     {
         $d = $this->application->tencent;
         $response = $d->generalBasic(__DIR__.'/../stubs/common.png', [

@@ -18,14 +18,14 @@ use Test\TestCase;
 
 class TencentClientTest extends TestCase
 {
-    public function testBasic()
+    public function test_basic()
     {
         $tencent = $this->application->tencent;
 
         $this->assertInstanceOf(TencentClient::class, $tencent);
     }
 
-    public function testAllMethod()
+    public function test_all_method()
     {
         $methods = [
             'generalBasic',

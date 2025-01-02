@@ -15,7 +15,7 @@ use Test\TestCase;
 
 class ResponseTest extends TestCase
 {
-    public function testToArray()
+    public function test_to_array()
     {
         $response = new Response(200, [], '');
         $this->assertSame([], $response->toArray());
@@ -27,7 +27,7 @@ class ResponseTest extends TestCase
         $this->assertSame(['a' => 1], $response->toArray());
     }
 
-    public function testOfsetGet()
+    public function test_ofset_get()
     {
         $response = new Response(200, [], '{"a":1}');
         $this->assertSame(1, $response['a']);
@@ -35,7 +35,7 @@ class ResponseTest extends TestCase
         $this->assertNull($response->offsetGet('b'));
     }
 
-    public function testOffsetExists()
+    public function test_offset_exists()
     {
         $response = new Response(200, [], '{"a":1}');
 
@@ -43,7 +43,7 @@ class ResponseTest extends TestCase
         $this->assertFalse(isset($response['b']));
     }
 
-    public function testToJson()
+    public function test_to_json()
     {
         $response = new Response(200, [], '{"a":1}');
         $this->assertSame('{"a":1}', $response->toJson());

@@ -15,7 +15,7 @@ use Test\TestCase;
 
 class CustomClientTest extends TestCase
 {
-    public function testCustom()
+    public function test_custom()
     {
         $this->application->extend('huawei', function ($container) {
             return $container->make(HuaweiClient::class);

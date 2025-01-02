@@ -14,14 +14,14 @@ use Godruoyi\OCR\Config;
 
 class ConfigTest extends TestCase
 {
-    public function testBasic()
+    public function test_basic()
     {
-        $c = new Config();
+        $c = new Config;
 
         $this->assertInstanceOf(Config::class, $c);
     }
 
-    public function testGetArray()
+    public function test_get_array()
     {
         $c = new Config([
             'a' => [

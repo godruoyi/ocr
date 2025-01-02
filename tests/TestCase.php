@@ -37,7 +37,7 @@ class TestCase extends BaseTestCase
     /**
      * Clean up after running a test.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Mockery::close();
 
@@ -57,7 +57,7 @@ class TestCase extends BaseTestCase
     protected function mockHttpWithResponse($response, $http = null): Http
     {
         if (! $http) {
-            $http = new Http();
+            $http = new Http;
         }
 
         $http->customHttpHandler(function ($stack) use ($response) {
