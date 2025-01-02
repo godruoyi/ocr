@@ -1,7 +1,6 @@
 name: php
 on:
   pull_request:
-  push:
 jobs:
   phptests:
     runs-on: ${{ matrix.operating-system }}
