@@ -27,7 +27,7 @@ class LoggerTest extends TestCase
         return $this->application->getContainer()['logger'];
     }
 
-    public function testDebug()
+    public function test_debug()
     {
         $log = $this->getLogger();
 
@@ -36,7 +36,7 @@ class LoggerTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testSetDefaultDriver()
+    public function test_set_default_driver()
     {
         $log = new Logger([
             'default' => 'daily',
@@ -56,14 +56,14 @@ class LoggerTest extends TestCase
         $this->assertInstanceOf(ErrorLogHandler::class, $log->driver()->getHandlers()[0]);
     }
 
-    public function testAlert()
+    public function test_alert()
     {
         $this->getLogger()->alert('alert message');
 
         $this->assertTrue(true);
     }
 
-    public function testDriver()
+    public function test_driver()
     {
         $log = $this->getLogger();
 
@@ -91,35 +91,35 @@ class LoggerTest extends TestCase
         $log->driver()->log('debug', 'debug message');
     }
 
-    public function testEmergency()
+    public function test_emergency()
     {
         $this->getLogger()->emergency('emergency message');
 
         $this->assertTrue(true);
     }
 
-    public function testLog()
+    public function test_log()
     {
         $this->getLogger()->log('info', 'info message');
 
         $this->assertTrue(true);
     }
 
-    public function testError()
+    public function test_error()
     {
         $this->getLogger()->error('error message');
 
         $this->assertTrue(true);
     }
 
-    public function testWarning()
+    public function test_warning()
     {
         $this->getLogger()->warning('warning message');
 
         $this->assertTrue(true);
     }
 
-    public function testExtend()
+    public function test_extend()
     {
         $log = new Logger([
             'default' => 'daily',
@@ -146,49 +146,49 @@ class LoggerTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testChannel()
+    public function test_channel()
     {
         $log = $this->getLogger();
 
         $this->assertInstanceOf(StreamHandler::class, $log->channel('daily')->getHandlers()[0]);
     }
 
-    public function testInfo()
+    public function test_info()
     {
         $this->getLogger()->info('info message');
 
         $this->assertTrue(true);
     }
 
-    public function testNotice()
+    public function test_notice()
     {
         $this->getLogger()->notice('notice message');
 
         $this->assertTrue(true);
     }
 
-    public function testStack()
+    public function test_stack()
     {
         $this->getLogger()->stack(['daily', 'errorlog']);
 
         $this->assertTrue(true);
     }
 
-    public function testCritical()
+    public function test_critical()
     {
         $this->getLogger()->critical('critical message');
 
         $this->assertTrue(true);
     }
 
-    public function testCall()
+    public function test_call()
     {
         $this->getLogger()->info('info message');
 
         $this->assertTrue(true);
     }
 
-    public function testCreateSyslogDriver()
+    public function test_create_syslog_driver()
     {
         $log = new Logger([
             'default' => 'daily',
@@ -206,7 +206,7 @@ class LoggerTest extends TestCase
         $this->assertInstanceOf(SyslogHandler::class, $log->driver()->getHandlers()[0]);
     }
 
-    public function testCreateSlackDriver()
+    public function test_create_slack_driver()
     {
         $log = new Logger([
             'default' => 'slack',
@@ -223,7 +223,7 @@ class LoggerTest extends TestCase
         $this->assertInstanceOf(SlackWebhookHandler::class, $log->driver()->getHandlers()[0]);
     }
 
-    public function testCreateSingleDriver()
+    public function test_create_single_driver()
     {
         $log = new Logger([
             'default' => 'single',
@@ -240,7 +240,7 @@ class LoggerTest extends TestCase
         $this->assertInstanceOf(StreamHandler::class, $log->driver()->getHandlers()[0]);
     }
 
-    public function testInvalideType()
+    public function test_invalide_type()
     {
         $log = new Logger([
             'default' => 'daily',
@@ -258,7 +258,7 @@ class LoggerTest extends TestCase
         $this->assertInstanceOf(StreamHandler::class, $log->driver()->getHandlers()[0]);
     }
 
-    public function testInvalidLevel()
+    public function test_invalid_level()
     {
         $log = new Logger([
             'default' => 'daily',

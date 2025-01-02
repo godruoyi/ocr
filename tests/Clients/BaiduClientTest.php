@@ -18,14 +18,14 @@ use Test\TestCase;
 
 class BaiduClientTest extends TestCase
 {
-    public function testBasic()
+    public function test_basic()
     {
         $baidu = $this->application->baidu;
 
         $this->assertInstanceOf(BaiduClient::class, $baidu);
     }
 
-    public function testAllMethods()
+    public function test_all_methods()
     {
         $methods = [
             'generalBasic',
@@ -101,7 +101,7 @@ class BaiduClientTest extends TestCase
         }
     }
 
-    public function testGeneralBasic()
+    public function test_general_basic()
     {
         $http = $this->application->getContainer()['http'];
         $http = $this->mockHttpWithResponse([

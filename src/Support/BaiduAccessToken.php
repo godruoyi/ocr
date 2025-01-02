@@ -29,13 +29,13 @@ class BaiduAccessToken
 
     private $tokenKey;
 
-    public function __construct(Http $http, CacheInterface $cache, string $secretID = null, string $secretKey = null)
+    public function __construct(Http $http, CacheInterface $cache, ?string $secretID = null, ?string $secretKey = null)
     {
         $this->secretID = $secretID;
         $this->secretKey = $secretKey;
         $this->http = $http;
         $this->cache = $cache;
-        $this->tokenKey = self::CACHE_KEY . '.' . $secretID;
+        $this->tokenKey = self::CACHE_KEY.'.'.$secretID;
     }
 
     public function getAccessToken(): string

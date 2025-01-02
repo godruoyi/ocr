@@ -16,7 +16,7 @@ use Test\TestCase;
 
 class BaseClientTest extends TestCase
 {
-    public function testExtend()
+    public function test_extend()
     {
         $this->application->aliyun->extend('hello', function ($request, $a, $b) {
             return new Response(200, [], $a + $b);
@@ -27,7 +27,7 @@ class BaseClientTest extends TestCase
         $this->assertEquals('3', $response->getBody()->getContents());
     }
 
-    public function testCallNotExistsMethod()
+    public function test_call_not_exists_method()
     {
         $this->expectException(BadMethodCallException::class);
 

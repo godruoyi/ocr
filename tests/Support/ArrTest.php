@@ -16,7 +16,7 @@ use Test\TestCase;
 
 class ArrTest extends TestCase
 {
-    public function testSortRecursive()
+    public function test_sort_recursive()
     {
         $array = [
             'foo' => 'bar',
@@ -37,7 +37,7 @@ class ArrTest extends TestCase
         $this->assertEquals($expected, Arr::sortRecursive($array));
     }
 
-    public function testExcept()
+    public function test_except()
     {
         $array = [
             'foo' => 'bar',
@@ -57,7 +57,7 @@ class ArrTest extends TestCase
         $this->assertSame($expected, Arr::except($array, ['bar.foo']));
     }
 
-    public function testFirst()
+    public function test_first()
     {
         $array = [
             'foo' => 'bar',
@@ -79,7 +79,7 @@ class ArrTest extends TestCase
         }, 'default'));
     }
 
-    public function testDot()
+    public function test_dot()
     {
         $array = [
             'foo' => 'bar',
@@ -94,7 +94,7 @@ class ArrTest extends TestCase
         $this->assertSame('default', Arr::get($array, 'bar.baz.foo', 'default'));
     }
 
-    public function testRandom()
+    public function test_random()
     {
         $array = [
             'foo', 'bar', 'baz',
@@ -108,7 +108,7 @@ class ArrTest extends TestCase
         Arr::random($array, 4);
     }
 
-    public function testDivide()
+    public function test_divide()
     {
         $array = [
             'k1' => 'v1',
@@ -123,7 +123,7 @@ class ArrTest extends TestCase
         $this->assertSame($expected, Arr::divide($array));
     }
 
-    public function testOnly()
+    public function test_only()
     {
         $array = [
             'foo' => 'bar',
@@ -140,7 +140,7 @@ class ArrTest extends TestCase
         $this->assertSame($expected, Arr::only($array, 'foo'));
     }
 
-    public function testSet()
+    public function test_set()
     {
         $array = [
             'foo' => 'bar',
@@ -155,7 +155,7 @@ class ArrTest extends TestCase
         $this->assertSame('barbar', Arr::get($array, 'bar.foo'));
     }
 
-    public function testVvalue()
+    public function test_vvalue()
     {
         $this->assertSame('foo', Arr::vvalue('foo'));
         $this->assertSame('foo', Arr::vvalue(function () {
@@ -163,7 +163,7 @@ class ArrTest extends TestCase
         })());
     }
 
-    public function testHasAny()
+    public function test_has_any()
     {
         $array = [
             'foo' => 'bar',
@@ -181,7 +181,7 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::hasAny($array, 'bar.bax'));
     }
 
-    public function testWhere()
+    public function test_where()
     {
         $array = [
             'foo' => 'foo',
@@ -193,7 +193,7 @@ class ArrTest extends TestCase
         }));
     }
 
-    public function testExists()
+    public function test_exists()
     {
         $array = [
             'foo' => 'foo',
@@ -205,7 +205,7 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::exists($array, 'baz'));
     }
 
-    public function testShuffle()
+    public function test_shuffle()
     {
         $array = [
             'foo', 'bar', 'baz',
@@ -215,7 +215,7 @@ class ArrTest extends TestCase
         $this->assertSame(count($array), count(Arr::shuffle($array, time())));
     }
 
-    public function testPrepend()
+    public function test_prepend()
     {
         $array = [
             'foo', 'bar', 'baz',
@@ -226,7 +226,7 @@ class ArrTest extends TestCase
         $this->assertEquals(['foo', 'bar', 'zoo'], Arr::prepend($array, 'zoo', 2));
     }
 
-    public function testQuery()
+    public function test_query()
     {
         $array = [
             'foo' => 'foo',
@@ -236,7 +236,7 @@ class ArrTest extends TestCase
         $this->assertSame('foo=foo&bar=bar', Arr::query($array));
     }
 
-    public function testGet()
+    public function test_get()
     {
         $array = [
             'foo' => 'foo',
@@ -248,7 +248,7 @@ class ArrTest extends TestCase
         $this->assertSame('default', Arr::get($array, 'baz', 'default'));
     }
 
-    public function testPull()
+    public function test_pull()
     {
         $array = [
             'foo' => 'foo',
@@ -261,7 +261,7 @@ class ArrTest extends TestCase
         $this->assertSame('default', Arr::pull($array, 'baz', 'default'));
     }
 
-    public function testAccessible()
+    public function test_accessible()
     {
         $array = [
             'foo' => 'foo',
@@ -271,7 +271,7 @@ class ArrTest extends TestCase
         $this->assertTrue(Arr::accessible($array));
     }
 
-    public function testIsAssoc()
+    public function test_is_assoc()
     {
         $array = [
             'foo' => 'foo',
@@ -281,7 +281,7 @@ class ArrTest extends TestCase
         $this->assertTrue(Arr::isAssoc($array));
     }
 
-    public function testAdd()
+    public function test_add()
     {
         $array = [
             'foo' => 'foo',
@@ -291,7 +291,7 @@ class ArrTest extends TestCase
         $this->assertSame(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], Arr::add($array, 'baz', 'baz'));
     }
 
-    public function testLast()
+    public function test_last()
     {
         $array = [
             'foo' => 'foo',
@@ -301,7 +301,7 @@ class ArrTest extends TestCase
         $this->assertSame('bar', Arr::last($array));
     }
 
-    public function testHas()
+    public function test_has()
     {
         $array = [
             'foo' => 'foo',
@@ -313,14 +313,14 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::has($array, 'baz'));
     }
 
-    public function testWrap()
+    public function test_wrap()
     {
         $this->assertSame([1], Arr::wrap(1));
         $this->assertSame([1, 2], Arr::wrap([1, 2]));
         $this->assertSame([], Arr::wrap(null));
     }
 
-    public function testForget()
+    public function test_forget()
     {
         $array = [
             'foo' => 'foo',
@@ -341,13 +341,13 @@ class ArrTest extends TestCase
         $this->assertArrayHasKey('foo', $array);
     }
 
-    public function testMacro()
+    public function test_macro()
     {
         Arr::macro('test', function () {
             return 'test';
         });
 
-        $arr = new Arr();
+        $arr = new Arr;
 
         $this->assertTrue(Arr::hasMacro('test'));
         $this->assertSame('test', Arr::test());

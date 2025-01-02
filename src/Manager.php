@@ -56,7 +56,7 @@ abstract class Manager
     /**
      * Get a driver instance.
      */
-    public function driver(string $driver = null): Client
+    public function driver(?string $driver = null): Client
     {
         $driver = $driver ?: $this->getDefaultDriver();
 

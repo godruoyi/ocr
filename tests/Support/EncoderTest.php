@@ -15,7 +15,7 @@ use Test\TestCase;
 
 class EncoderTest extends TestCase
 {
-    public function testGetCanonicalHeaders()
+    public function test_get_canonical_headers()
     {
         $headers = [
             'A' => ' a ',

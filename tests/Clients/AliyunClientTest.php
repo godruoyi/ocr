@@ -20,14 +20,14 @@ use Test\TestCase;
 
 class AliyunClientTest extends TestCase
 {
-    public function testClient()
+    public function test_client()
     {
         $c = $this->application->aliyun;
 
         $this->assertInstanceOf(AliyunClient::class, $c);
     }
 
-    public function testBasic()
+    public function test_basic()
     {
         $methods = [
             'idcard',
@@ -71,7 +71,7 @@ class AliyunClientTest extends TestCase
         }
     }
 
-    public function testManyImage()
+    public function test_many_image()
     {
         $app = $this->application->getContainer();
 
