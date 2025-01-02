@@ -10,6 +10,8 @@
 
 namespace Godruoyi\OCR\Support;
 
+use function implode;
+
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\HandlerInterface;
@@ -20,7 +22,6 @@ use Monolog\Handler\SyslogHandler;
 use Monolog\Logger as Monolog;
 use Psr\Log\LoggerInterface;
 
-use function implode;
 use function sprintf;
 
 class Logger implements LoggerInterface
